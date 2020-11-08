@@ -63,11 +63,13 @@ namespace WeaponKeywords
                         Console.WriteLine($"{nameToTest} is {db[idb[edid]].outputDescription}");
                     }
                     if(kyds.Length > 0 && !((exclude??false) || (orex??false))) {
-                        var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                        foreach(var kyd in kyds) {
-                            if(formkeys.ContainsKey(kyd)) {
-                                nw.Keywords?.Add(formkeys[kyd]);
-                                Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}");
+                        if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
+                            var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
+                            foreach(var kyd in kyds) {
+                                if(formkeys.ContainsKey(kyd) && !(nw.Keywords?.Contains(formkeys[kyd])??false)) {
+                                    nw.Keywords?.Add(formkeys[kyd]);
+                                    Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}");
+                                }
                             }
                         }
                     }
