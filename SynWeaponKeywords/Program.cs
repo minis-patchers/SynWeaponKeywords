@@ -51,23 +51,23 @@ namespace WeaponKeywords
                     formkeys["Cestus"] = NA.MakeFormKey(0x19AAB3);
                     formkeys["Claw"] = NA.MakeFormKey(0x19AAB4);
                 }
-                foreach(var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides()) {
+                foreach(var weapon in state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides()) {
                     var edid = weapon.EditorID;
                     var nameToTest = weapon.Name?.String?.ToLower();
-                    var doit = db.Select(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).Any(c => c==true);
-                    var kyds = db.Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).ToArray();
+                    var kyds = db.Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).Select(kd => kd.Key).ToArray();
                     var exclude = edb?.weapons.Contains(edid);
-                    var orex = edb?.phrases.Select(ed => ed.Any(ph => nameToTest?.Contains(ph)??false)).Any(c => c ==true);
+                    var orex = edb?.phrases.Any(ph => nameToTest?.Contains(ph)??false);
                     if(edid!=null && idb!=null && idb.ContainsKey(edid)) {
-                        doit = true;
-                        kyds.Append(new KeyValuePair<string, WeaponDB>(idb[edid], db[idb[edid]]));
+                        var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
+                        nw.Keywords?.Add(formkeys[idb[edid]]);
+                        Console.WriteLine($"{nameToTest} is {db[idb[edid]].outputDescription}");
                     }
-                    if(doit && !((exclude??false) || (orex??false))) {
-                        var nw = weapon.GetOrAddAsOverride();
+                    if(kyds.Length > 0 && !((exclude??false) || (orex??false))) {
+                        var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                         foreach(var kyd in kyds) {
-                            if(formkeys.ContainsKey(kyd.Key)) {
-                                nw.Keywords?.Add(formkeys[kyd.Key]);
-                                Console.WriteLine(nameToTest + " is " + kyd.Value.outputDescription);
+                            if(formkeys.ContainsKey(kyd)) {
+                                nw.Keywords?.Add(formkeys[kyd]);
+                                Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}");
                             }
                         }
                     }
