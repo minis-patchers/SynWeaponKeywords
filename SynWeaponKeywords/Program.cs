@@ -55,14 +55,14 @@ namespace WeaponKeywords
                     var edid = weapon.EditorID;
                     var nameToTest = weapon.Name?.String?.ToLower();
                     var kyds = db.Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).Select(kd => kd.Key).ToArray();
-                    var exclude = edb?.weapons.Contains(edid);
-                    var orex = edb?.phrases.Any(ph => nameToTest?.Contains(ph)??false);
-                    if(edid!=null && idb!=null && idb.ContainsKey(edid)) {
+                    var exclude = edb?.weapons.Contains(edid)??false;
+                    var orex = edb?.phrases.Any(ph => nameToTest?.Contains(ph)??false)??false;
+                    if(idb?.ContainsKey(edid??"")??false) {
                         var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                        nw.Keywords?.Add(formkeys[idb[edid]]);
-                        Console.WriteLine($"{nameToTest} is {db[idb[edid]].outputDescription}");
+                        nw.Keywords?.Add(formkeys[idb[edid??""]]);
+                        Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}");
                     }
-                    if(kyds.Length > 0 && !((exclude??false) || (orex??false))) {
+                    if(kyds.Length > 0 && !((exclude) || (orex))) {
                         if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
                             var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                             foreach(var kyd in kyds) {
