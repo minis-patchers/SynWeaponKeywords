@@ -59,8 +59,12 @@ namespace WeaponKeywords
                     var orex = edb?.phrases.Any(ph => nameToTest?.Contains(ph)??false)??false;
                     if(idb?.ContainsKey(edid??"")??false) {
                         var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                        nw.Keywords?.Add(formkeys[idb[edid??""]]);
-                        Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}");
+                        if(formkeys.ContainsKey(idb[edid??""])) {
+                            nw.Keywords?.Add(formkeys[idb[edid??""]]);
+                            Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}");
+                        } else {
+                            Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}, but not changing (missing NWTA.esp");
+                        }
                     }
                     if(kyds.Length > 0 && !((exclude) || (orex))) {
                         if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
