@@ -63,7 +63,7 @@ namespace WeaponKeywords
                             nw.Keywords?.Add(formkeys[idb[edid??""]]);
                             Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}");
                         } else {
-                            Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}, but not changing (missing NWTA.esp");
+                            Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}, but not changing (missing esp?)");
                         }
                     }
                     if(kyds.Length > 0 && !((exclude) || (orex))) {
