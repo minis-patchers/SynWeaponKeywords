@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mutagen.Bethesda" Version="0.20.1" />
-        <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.10.16" />
+        <PackageReference Include="Mutagen.Bethesda" Version="0.21.0" />
+        <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.10.17" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
