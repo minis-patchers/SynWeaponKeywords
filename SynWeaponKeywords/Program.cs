@@ -12,9 +12,6 @@ namespace WeaponKeywords
 {
     public class Program
     {
-        static ModKey NWTA = ModKey.FromNameAndExtension("NWTA.esp");
-        static ModKey NA = ModKey.FromNameAndExtension("NewArmoury.esp");
-        //static ModKey WOTM = ModKey.FromNameAndExtension("WayOfTheMonk.esp");
         public static int Main(string[] args)
         {
             return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
@@ -38,20 +35,18 @@ namespace WeaponKeywords
             var idb = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "includes.json"))).ToObject<Dictionary<string, string>>();
             if(db!=null) {
                 Dictionary<string, FormKey> formkeys = new Dictionary<string, FormKey>();
-                if(state.LoadOrder.ContainsKey(NWTA)) {
-                    formkeys["Katana"] = NWTA.MakeFormKey(0xD61);
-                    formkeys["Scimitar"] = NWTA.MakeFormKey(0xD71);
+                Dictionary<string, List<FormKey>> alternativekeys = new Dictionary<string, List<FormKey>>();
+                foreach(var item in db) {
+                    var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.FileName == item.Value.mod)&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
+                    if(keyword!=null) {
+                        formkeys[item.Key] = keyword.FormKey;
+                        alternativekeys[item.Key] = new List<FormKey>();
+                        foreach(var keywd in db[item.Key].akeywords??new string[0]) {
+                            alternativekeys[item.Key].Add(state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).DefaultIfEmpty(state.PatchMod.Keywords.AddNew(keywd)).First().FormKey);
+                        }
+                    }
                 }
-                if(state.LoadOrder.ContainsKey(NA)) {
-                    formkeys["Rapier"] = NA.MakeFormKey(0x801);
-                    formkeys["Pike"] = NA.MakeFormKey(0xE457E);
-                    formkeys["Spear"] = NA.MakeFormKey(0xE457F);
-                    formkeys["Halberd"] = NA.MakeFormKey(0xE4580);
-                    formkeys["Quarterstaff"] = NA.MakeFormKey(0xE4581);
-                    formkeys["Cestus"] = NA.MakeFormKey(0x19AAB3);
-                    formkeys["Claw"] = NA.MakeFormKey(0x19AAB4);
-                }
-                foreach(var weapon in state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides()) {
+                foreach(var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides()) {
                     var edid = weapon.EditorID;
                     var nameToTest = weapon.Name?.String?.ToLower();
                     var kyds = db.Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).Select(kd => kd.Key).ToArray();
@@ -66,13 +61,21 @@ namespace WeaponKeywords
                             Console.WriteLine($"{nameToTest} is {db[idb[edid??""]].outputDescription}, but not changing (missing esp?)");
                         }
                     }
+
                     if(kyds.Length > 0 && !((exclude) || (orex))) {
-                        if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
+                        if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false) && !kyds.All(kyd => db[kyd].akeywords?.Length > 0)) {
                             var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                             foreach(var kyd in kyds) {
                                 if(formkeys.ContainsKey(kyd) && !(nw.Keywords?.Contains(formkeys[kyd])??false)) {
                                     nw.Keywords?.Add(formkeys[kyd]);
                                     Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}");
+                                }
+                                // handle alternative keys
+                                if(alternativekeys.ContainsKey(kyd) && alternativekeys[kyd].Count > 0) {
+                                    foreach(var alt in alternativekeys[kyd]) {
+                                        nw.Keywords?.Add(alt);
+                                        Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}, adding extra keyword(s)");
+                                    }
                                 }
                             }
                         }

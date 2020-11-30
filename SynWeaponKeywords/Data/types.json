@@ -2,6 +2,7 @@
     "Rapier": {
         "mod": "NewArmoury.esp",
         "keyword": "WeapTypeRapier",
+        "akeywords": [],
         "commonNames": [
             "rapier",
             "shortspear",
@@ -14,6 +15,7 @@
     "Pike": {
         "mod": "NewArmoury.esp",
         "keyword": "WeapTypePike",
+        "akeywords": [],
         "commonNames": [
             "spear",
             "pike",
@@ -29,6 +31,7 @@
     "Halberd": {
         "mod": "NewArmoury.esp",
         "keyword": "WeapTypeHalberd",
+        "akeywords":[],
         "commonNames": [
             "halberd"
         ],
@@ -39,6 +42,9 @@
     "Quarterstaff": {
         "mod": "NewArmoury.esp",
         "keyword": "WeapTypeQtrStaff",
+        "akeywords": [
+            "WeapTypeQuarterstaff"
+        ],
         "commonNames": [
             "quarterstaff",
             "battle staff",
@@ -53,6 +59,7 @@
     "Katana": {
         "mod": "NWTA.esp",
         "keyword": "WeapTypeKatana",
+        "akeywords":[],
         "commonNames": [
             "katana",
             "daikatana",
@@ -67,7 +74,8 @@
     },
     "Scimitar": {
         "mod": "NWTA.esp",
-        "keyword": "WeapTypeCurvedSword",
+        "keyword":"WeapTypeCurvedSword",
+        "akeywords":[],
         "commonNames": [
             "scimitar",
             "changdao",
@@ -81,6 +89,7 @@
     "Unarmed": {
         "mod": "WayOfTheMonk.esp",
         "keyword": "WeapTypeUnarmed",
+        "akeywords":[],
         "commonNames": [
             "quarterstaff",
             "battle staff",
