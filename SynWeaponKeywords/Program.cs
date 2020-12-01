@@ -33,14 +33,18 @@ namespace WeaponKeywords
             var db = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "types.json"))).ToObject<Dictionary<string, WeaponDB>>();
             var edb = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "excludes.json"))).ToObject<ExcludesDB>();
             var idb = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "includes.json"))).ToObject<Dictionary<string, string>>();
+            var sources = JArray.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "sources.json"))).ToObject<List<ModKey>>();
             if(db!=null) {
                 Dictionary<string, FormKey> formkeys = new Dictionary<string, FormKey>();
                 Dictionary<string, List<FormKey>> alternativekeys = new Dictionary<string, List<FormKey>>();
                 foreach(var item in db) {
-                    if(item.Value.keyword!=null) {
-                        var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.FileName == item.Value.mod)&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
-                        if(keyword!=null) {
-                            formkeys[item.Key] = keyword.FormKey;
+                    foreach(var src in sources??new List<ModKey>()) {
+                        if(item.Value.keyword!=null) {
+                            var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.Equals(src))&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
+                            if(keyword!=null) {
+                                formkeys[item.Key] = keyword.FormKey;
+                                break;
+                            }
                         }
                     }
                 }

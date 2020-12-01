@@ -1,7 +1,5 @@
 namespace WeaponKeywords.Types {
     public class WeaponDB {
-        //Mod which contains keyword
-        public string? mod;
         //Mod / main keyword
         public string? keyword;
         //akeywords don't require specific mods
