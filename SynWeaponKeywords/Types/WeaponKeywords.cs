@@ -1,18 +1,26 @@
+using System.Collections.Generic;
+using Mutagen.Bethesda;
 namespace WeaponKeywords.Types {
-    public class WeaponDB {
+    public struct WeaponDB {
         //Mod / main keyword
-        public string? keyword;
+        public string keyword;
         //akeywords don't require specific mods
-        public string[]? akeywords;
+        public string[] akeywords;
         //Common names of item (partial match)
-        public string[]? commonNames;
+        public string[] commonNames;
         //descriptor when patched
-        public string? outputDescription;
+        public string outputDescription;
         //unused
-        public string? animation;
+        public string animation;
     }
-    public class ExcludesDB {
-        public string[]? phrases;
-        public string[]? weapons;
+    public struct ExcludesDB {
+        public string[] phrases;
+        public string[] weapons;
+    }
+    public struct Database {
+        public Dictionary<string, WeaponDB> DB;
+        public Dictionary<string, string> includes;
+        public ExcludesDB excludes;
+        public List<ModKey> sources;
     }
 }
