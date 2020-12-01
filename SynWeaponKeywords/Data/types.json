@@ -1,6 +1,5 @@
 {
     "Rapier": {
-        "mod": "NewArmoury.esp",
         "keyword": "WeapTypeRapier",
         "akeywords": [],
         "commonNames": [
@@ -13,7 +12,6 @@
         "animation": "OneHandSword"
     },
     "Pike": {
-        "mod": "NewArmoury.esp",
         "keyword": "WeapTypePike",
         "akeywords": [],
         "commonNames": [
@@ -29,7 +27,6 @@
         "animation": "TwoHandSword"
     },
     "Halberd": {
-        "mod": "NewArmoury.esp",
         "keyword": "WeapTypeHalberd",
         "akeywords":[],
         "commonNames": [
@@ -40,7 +37,6 @@
         "animation": "TwoHandAxe"
     },
     "Quarterstaff": {
-        "mod": "NewArmoury.esp",
         "keyword": "WeapTypeQtrStaff",
         "akeywords": [
             "WeapTypeQuarterstaff"
@@ -57,7 +53,6 @@
         "animation": "TwoHandAxe"
     },
     "Katana": {
-        "mod": "NWTA.esp",
         "keyword": "WeapTypeKatana",
         "akeywords":[],
         "commonNames": [
@@ -73,7 +68,6 @@
         "animation": null
     },
     "Scimitar": {
-        "mod": "NWTA.esp",
         "keyword":"WeapTypeCurvedSword",
         "akeywords":[],
         "commonNames": [
@@ -87,7 +81,6 @@
         "animation": null
     },
     "Unarmed": {
-        "mod": "WayOfTheMonk.esp",
         "keyword": "WeapTypeUnarmed",
         "akeywords":[],
         "commonNames": [
