@@ -41,7 +41,7 @@ namespace WeaponKeywords
                     foreach(var src in sources??new List<ModKey>()) {
                         if(item.Value.keyword!=null) {
                             var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.Equals(src))&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
-                            if(keyword!=null) {
+                            if(keyword != null && !formkeys.ContainsKey(item.Key)) {
                                 formkeys[item.Key] = keyword.FormKey;
                                 break;
                             }
