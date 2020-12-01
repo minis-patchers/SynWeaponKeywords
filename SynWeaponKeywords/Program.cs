@@ -54,7 +54,7 @@ namespace WeaponKeywords
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if(formkeys.ContainsKey(database.includes[edid??""])) {
                         nw.Keywords?.Add(formkeys[database.includes[edid??""]]);
-                        Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}");
+                        Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, adding {database.includes[edid??""]} from {formkeys[database.includes[edid??""]].ModKey}");
                     } else {
                         Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, but not changing (missing esp?)");
                     }
@@ -65,7 +65,7 @@ namespace WeaponKeywords
                         foreach(var kyd in kyds) {
                             if(formkeys.ContainsKey(kyd) && !(nw.Keywords?.Contains(formkeys[kyd])??false)) {
                                 nw.Keywords?.Add(formkeys[kyd]);
-                                Console.WriteLine($"{nameToTest} is {database.DB[kyd].outputDescription}");
+                                Console.WriteLine($"{nameToTest} is {database.DB[kyd].outputDescription}, adding {kyd} from {formkeys[kyd].ModKey}");
                             }
                         }
                     }
@@ -76,8 +76,10 @@ namespace WeaponKeywords
                                 foreach(var keywd in database.DB[kyd].akeywords??new string[0]) {
                                     var test = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).FirstOrDefault();
                                     if(test != null) {
+                                        Console.WriteLine($"Alternative Keyword found using {test.FormKey.ModKey} for {kyd}");
                                         alternativekeys[kyd].Add(test.FormKey);
                                     } else {
+                                        Console.WriteLine($"Alternative Keyword not found generating {keywd} for {kyd}");
                                         alternativekeys[kyd].Add(state.PatchMod.Keywords.AddNew(keywd).FormKey);
                                     }
                                 }
