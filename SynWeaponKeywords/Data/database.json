@@ -1,0 +1,147 @@
+{
+    "excludes": {
+        "phrases": [
+            "riekling",
+            "ice spike",
+            "icy spear",
+            "spiked",
+            "spike"
+        ],
+        "weapons": [
+            "StaffIceSpike",
+            "DLC1StaffFalmerIceSpike",
+            "PIKeeperLongMace",
+            "PIKeeperLongMaceNoEnch",
+            "N78DezicrahWeaponBow"
+        ]
+    },
+    "includes": {
+        "IWBlackStingSword": "Rapier",
+        "IWCSpearbladeDagger": "Rapier",
+        "lilithslacerator": "Rapier",
+        "lilithslaceratorglow": "Rapier",
+        "lilithslaceratoralt": "Rapier",
+        "lilithslaceratoraltglow": "Rapier",
+        "lilithsobliteratorhal": "Halberd",
+        "lilithsthorn": "Rapier",
+        "lilithsthornglow": "Rapier",
+        "lilithsthornalt": "Rapier",
+        "lilithsthornaltglow": "Rapier",
+        "MurkyLongStaff": "Quarterstaff",
+        "LothricWarBanner": "Pike",
+        "DragonslayerSwordSpear": "Halberd",
+        "StorytellersStaff": "Quarterstaff",
+        "FourProngedPlow": "Pike",
+        "FollowerJavelin": "Pike",
+        "CrucifixOfTheMadKing": "Halberd",
+        "ImmolationTinder": "Halberd",
+        "PIKematuSword": "Scimitar",
+        "PIKematuSwordNoEnch": "Scimitar"
+    },
+    "DB": {
+        "Rapier": {
+            "keyword": "WeapTypeRapier",
+            "akeywords": [],
+            "commonNames": [
+                "rapier",
+                "shortspear",
+                "saber"
+            ],
+            "exclude": [],
+            "outputDescription": "a rapier",
+            "animation": "OneHandSword"
+        },
+        "Pike": {
+            "keyword": "WeapTypePike",
+            "akeywords": [],
+            "commonNames": [
+                "spear",
+                "pike",
+                "glaive",
+                "trident"
+            ],
+            "exclude": [
+                "shortspear"
+            ],
+            "outputDescription": "a spear/pike",
+            "animation": "TwoHandSword"
+        },
+        "Halberd": {
+            "keyword": "WeapTypeHalberd",
+            "akeywords":[],
+            "commonNames": [
+                "halberd"
+            ],
+            "exclude": [],
+            "outputDescription": "a halberd",
+            "animation": "TwoHandAxe"
+        },
+        "Quarterstaff": {
+            "keyword": "WeapTypeQtrStaff",
+            "akeywords": [
+                "WeapTypeQuarterstaff"
+            ],
+            "commonNames": [
+                "quarterstaff",
+                "battle staff",
+                "battlestaff",
+                "shortstaff",
+                "short staff"
+            ],
+            "exclude": [],
+            "outputDescription": "a quarterstaff",
+            "animation": "TwoHandAxe"
+        },
+        "Katana": {
+            "keyword": "WeapTypeKatana",
+            "akeywords":[],
+            "commonNames": [
+                "katana",
+                "daikatana",
+                "dai-katana",
+                "daito",
+                "ninjato",
+                "nodachi"
+            ],
+            "exclude": [],
+            "outputDescription": "a katana",
+            "animation": null
+        },
+        "Scimitar": {
+            "keyword":"WeapTypeCurvedSword",
+            "akeywords":[],
+            "commonNames": [
+                "scimitar",
+                "changdao",
+                "dadao",
+                "cutlass"
+            ],
+            "exclude": [],
+            "outputDescription": "a curved sword",
+            "animation": null
+        },
+        "Unarmed": {
+            "keyword": "WeapTypeUnarmed",
+            "akeywords":[],
+            "commonNames": [
+                "quarterstaff",
+                "battle staff",
+                "battlestaff",
+                "shortstaff",
+                "short staff",
+                "claw",
+                "cetsus",
+                "whip"
+            ],
+            "exclude": [],
+            "outputDescription": "a monk weapon",
+            "animation": null
+        }
+    },
+    "sources": [
+        "NewArmoury.esp",
+        "NWTA.esp",
+        "WayOfTheMonk.esp",
+        "SkyUIWeaponIcons.esp"
+    ]
+}
