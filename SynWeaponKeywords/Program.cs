@@ -88,7 +88,7 @@ namespace WeaponKeywords
                                 var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                                 foreach(var alt in alternativekeys[kyd]) {
                                     nw.Keywords?.Add(alt);
-                                    Console.WriteLine($"{nameToTest} is {database.DB[kyd].outputDescription}, adding extra keyword(s)");
+                                    Console.WriteLine($"{nameToTest} is {database.DB[kyd].outputDescription}, adding extra keyword from {alt.ModKey}");
                                 }
                             }
                         }
