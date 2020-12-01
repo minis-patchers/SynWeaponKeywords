@@ -37,12 +37,10 @@ namespace WeaponKeywords
                 Dictionary<string, FormKey> formkeys = new Dictionary<string, FormKey>();
                 Dictionary<string, List<FormKey>> alternativekeys = new Dictionary<string, List<FormKey>>();
                 foreach(var item in db) {
-                    var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.FileName == item.Value.mod)&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
-                    if(keyword!=null) {
-                        formkeys[item.Key] = keyword.FormKey;
-                        alternativekeys[item.Key] = new List<FormKey>();
-                        foreach(var keywd in db[item.Key].akeywords??new string[0]) {
-                            alternativekeys[item.Key].Add(state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).DefaultIfEmpty(state.PatchMod.Keywords.AddNew(keywd)).First().FormKey);
+                    if(item.Value.keyword!=null) {
+                        var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.FileName == item.Value.mod)&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
+                        if(keyword!=null) {
+                            formkeys[item.Key] = keyword.FormKey;
                         }
                     }
                 }
@@ -63,15 +61,30 @@ namespace WeaponKeywords
                     }
 
                     if(kyds.Length > 0 && !((exclude) || (orex))) {
-                        if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false) && !kyds.All(kyd => db[kyd].akeywords?.Length > 0)) {
+                        if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
                             var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                             foreach(var kyd in kyds) {
                                 if(formkeys.ContainsKey(kyd) && !(nw.Keywords?.Contains(formkeys[kyd])??false)) {
                                     nw.Keywords?.Add(formkeys[kyd]);
                                     Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}");
                                 }
-                                // handle alternative keys
-                                if(alternativekeys.ContainsKey(kyd) && alternativekeys[kyd].Count > 0) {
+                            }
+                        }
+                        foreach(var kyd in kyds) {
+                            if(!kyds.All(kyd => db[kyd].akeywords?.Length > 0)) {
+                                if(!alternativekeys.ContainsKey(kyd)){
+                                    alternativekeys[kyd] = new List<FormKey>();
+                                    foreach(var keywd in db[kyd].akeywords??new string[0]) {
+                                        var test = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).First();
+                                        if(test != null) {
+                                            alternativekeys[kyd].Add(test.FormKey);
+                                        } else {
+                                            alternativekeys[kyd].Add(state.PatchMod.Keywords.AddNew(keywd).FormKey);
+                                        }
+                                    }
+                                }
+                                if(alternativekeys[kyd].Count > 0) {
+                                    var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                                     foreach(var alt in alternativekeys[kyd]) {
                                         nw.Keywords?.Add(alt);
                                         Console.WriteLine($"{nameToTest} is {db[kyd].outputDescription}, adding extra keyword(s)");
