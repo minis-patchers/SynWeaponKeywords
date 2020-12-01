@@ -75,7 +75,7 @@ namespace WeaponKeywords
                                 if(!alternativekeys.ContainsKey(kyd)){
                                     alternativekeys[kyd] = new List<FormKey>();
                                     foreach(var keywd in db[kyd].akeywords??new string[0]) {
-                                        var test = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).First();
+                                        var test = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.EditorID??"") == keywd)).FirstOrDefault();
                                         if(test != null) {
                                             alternativekeys[kyd].Add(test.FormKey);
                                         } else {
