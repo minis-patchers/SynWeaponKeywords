@@ -34,7 +34,7 @@ namespace WeaponKeywords
             Dictionary<string, FormKey> formkeys = new Dictionary<string, FormKey>();
             Dictionary<string, List<FormKey>> alternativekeys = new Dictionary<string, List<FormKey>>();
             foreach(var item in database.DB) {
-                foreach(var src in database.sources??new List<ModKey>()) {
+                foreach(var src in database.sources) {
                     if(item.Value.keyword!=null) {
                         var keyword  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides().Where(kywd => ((kywd.FormKey.ModKey.Equals(src))&&((kywd.EditorID?.ToString()??"")==item.Value.keyword))).FirstOrDefault();
                         if(keyword != null && !formkeys.ContainsKey(item.Key)) {
@@ -48,8 +48,9 @@ namespace WeaponKeywords
                 var edid = weapon.EditorID;
                 var nameToTest = weapon.Name?.String?.ToLower();
                 var kyds = database.DB.Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn)??false)).Select(kd => kd.Key).ToArray();
-                var exclude = database.excludes.weapons.Contains(edid);
-                var orex = database.excludes.phrases.Any(ph => nameToTest?.Contains(ph)??false);
+                var exclude = database.excludes.phrases.Any(ph => nameToTest?.Contains(ph)??false) || 
+                    database.excludes.weapons.Contains(edid) ||
+                    database.DB.Where(kv => kv.Value.exclude.Any(cn => nameToTest?.Contains(cn)??false)).Any();
                 if(database.includes.ContainsKey(edid??"")) {
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if(formkeys.ContainsKey(database.includes[edid??""])) {
@@ -59,7 +60,7 @@ namespace WeaponKeywords
                         Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, but not changing (missing esp?)");
                     }
                 }
-                if(kyds.Length > 0 && !((exclude) || (orex))) {
+                if(kyds.Length > 0 && !exclude) {
                     if(!kyds.All(kd => weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd))??false)) {
                         var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                         foreach(var kyd in kyds) {

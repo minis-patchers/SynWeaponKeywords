@@ -8,6 +8,8 @@ namespace WeaponKeywords.Types {
         public string[] akeywords;
         //Common names of item (partial match)
         public string[] commonNames;
+        //Exclude specifics
+        public string[] exclude;
         //descriptor when patched
         public string outputDescription;
         //unused
