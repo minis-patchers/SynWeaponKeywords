@@ -5,19 +5,19 @@ namespace WeaponKeywords.Types {
         //Mod / main keyword
         public string keyword;
         //akeywords don't require specific mods
-        public string[] akeywords;
+        public List<string> akeywords;
         //Common names of item (partial match)
-        public string[] commonNames;
+        public List<string> commonNames;
         //Exclude specifics
-        public string[] exclude;
+        public List<string> exclude;
         //descriptor when patched
         public string outputDescription;
         //unused
         public string animation;
     }
     public struct ExcludesDB {
-        public string[] phrases;
-        public string[] weapons;
+        public List<string> phrases;
+        public List<string> weapons;
     }
     public struct Database {
         public Dictionary<string, WeaponDB> DB;
