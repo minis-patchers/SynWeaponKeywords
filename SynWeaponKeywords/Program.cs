@@ -40,7 +40,7 @@ namespace WeaponKeywords
                     if(value.keyword==null) continue;
                     var keyword  = state.LoadOrder.PriorityOrder.Keyword()
                         .WinningOverrides().FirstOrDefault(kywd =>
-                            ((kywd.FormKey.ModKey.Equals(src)) && 
+                            ((kywd.FormKey.ModKey.Equals(src)) &&
                             ((kywd.EditorID?.ToString() ?? "") == value.keyword)));
                     if(keyword == null || formkeys.ContainsKey(key)) continue;
                     formkeys[key] = keyword.FormKey;
@@ -50,14 +50,14 @@ namespace WeaponKeywords
             {
                 var edid = weapon.EditorID;
                 var nameToTest = weapon.Name?.String?.ToLower();
-                var mathcingKeywords = database.DB.Where(kv => 
+                var matchingKeywords = database.DB.Where(kv =>
                         kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn) ?? false))
                     .Select(kd => kd.Key)
                     .ToArray();
-                var globalExclude = database.excludes.phrases.Any(ph => nameToTest?.Contains(ph) ?? false) || 
-                    database.excludes.weapons.Contains(edid);
+                var globalExclude = database.excludes.phrases.Any(ph => nameToTest?.Contains(ph) ?? false) ||
+                    database.excludes.weapons.Contains(edid??"");
 
-                if(database.includes.ContainsKey(edid ?? "")) 
+                if(database.includes.ContainsKey(edid ?? ""))
                 {
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if(formkeys.ContainsKey(database.includes[edid ?? ""]))
@@ -70,12 +70,12 @@ namespace WeaponKeywords
                             $"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, but not changing (missing esp?)");
                     }
                 }
-                if(mathcingKeywords.Length <= 0 || globalExclude) continue;
-                if(!mathcingKeywords.All(kd =>
-                    weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd)) ?? false)) 
+                if(matchingKeywords.Length <= 0 || globalExclude) continue;
+                if(!matchingKeywords.All(kd =>
+                    weapon.Keywords?.Contains(formkeys.GetValueOrDefault(kd)) ?? false))
                 {
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                    foreach(var kyd in mathcingKeywords) 
+                    foreach(var kyd in matchingKeywords)
                     {
                         if(formkeys.ContainsKey(kyd) && !(nw.Keywords?.Contains(formkeys[kyd]) ?? false) &&
                             !database.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))
@@ -86,10 +86,12 @@ namespace WeaponKeywords
                         }
                     }
                 }
-                foreach(var kyd in mathcingKeywords)
+                foreach(var kyd in matchingKeywords)
                 {
-                    if(!mathcingKeywords.All(kyd => database.DB[kyd].akeywords.Length > 0)) {
-                        if(!alternativekeys.ContainsKey(kyd)){
+                    if(!matchingKeywords.All(kyd => database.DB[kyd].akeywords.Count > 0))
+                    {
+                        if(!alternativekeys.ContainsKey(kyd))
+                        {
                             alternativekeys[kyd] = new List<FormKey>();
                             foreach(var keywd in database.DB[kyd].akeywords) {
                                 var test = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides()
