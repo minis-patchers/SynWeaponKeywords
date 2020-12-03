@@ -88,7 +88,7 @@ namespace WeaponKeywords
                 }
                 foreach(var kyd in matchingKeywords)
                 {
-                    if(!matchingKeywords.All(kyd => database.DB[kyd].akeywords.Count > 0))
+                    if(!matchingKeywords.Any(kyd => database.DB[kyd].akeywords.Count > 0))
                     {
                         if(!alternativekeys.ContainsKey(kyd))
                         {
