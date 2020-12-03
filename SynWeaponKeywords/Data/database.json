@@ -44,7 +44,6 @@
             "akeywords": [],
             "commonNames": [
                 "rapier",
-                "shortspear",
                 "saber"
             ],
             "exclude": [],
@@ -55,15 +54,24 @@
             "keyword": "WeapTypePike",
             "akeywords": [],
             "commonNames": [
+                "pike"
+            ],
+            "exclude": [
+            ],
+            "outputDescription": "a pike",
+            "animation": "TwoHandSword"
+        },
+        "Spear": {
+            "keyword": "WeapTypeSpear",
+            "akeywords": [],
+            "commonNames": [
                 "spear",
-                "pike",
                 "glaive",
                 "trident"
             ],
             "exclude": [
-                "shortspear"
             ],
-            "outputDescription": "a spear/pike",
+            "outputDescription": "a spear",
             "animation": "TwoHandSword"
         },
         "Halberd": {
@@ -120,6 +128,57 @@
             "outputDescription": "a curved sword",
             "animation": null
         },
+        "Claw": {
+            "keyword": "WeapTypeClaw",
+            "akeywords":[],
+            "commonNames": [
+                "claw"
+            ],
+            "exclude": [],
+            "outputDescription": "a claw",
+            "animation": null
+        },
+        "Gun": {
+            "keyword":"WeapTypeGun",
+            "akeywords":[],
+            "commonNames": [
+                "gun"
+            ],
+            "exclude": [],
+            "outputDescription": "a gun",
+            "animation": null
+        },
+        "Scythe": {
+            "keyword": "WeapTypeScythe",
+            "akeywords":[],
+            "commonNames": [
+                "scythe"
+            ],
+            "exclude": [],
+            "outputDescription": "a scythe",
+            "animation": null
+        },
+        "Whip": {
+            "keyword": "WeapTypeWhip",
+            "akeywords":[],
+            "commonNames": [
+                "whip"
+            ],
+            "exclude": [],
+            "outputDescription": "a whip",
+            "animation": null
+        },
+        "Javelin": {
+            "keyword": "WeapTypeJavelin",
+            "akeywords": [],
+            "commonNames": [
+                "javelin"
+            ],
+            "exclude": [
+            ],
+            "outputDescription": "a javelin",
+            "animation": null
+        },
         "Unarmed": {
             "keyword": "WeapTypeUnarmed",
             "akeywords":[],
@@ -129,9 +188,7 @@
                 "battlestaff",
                 "shortstaff",
                 "short staff",
-                "claw",
-                "cetsus",
-                "whip"
+                "cetsus"
             ],
             "exclude": [],
             "outputDescription": "a monk weapon",
