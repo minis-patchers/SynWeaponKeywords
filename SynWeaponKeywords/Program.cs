@@ -33,7 +33,7 @@ namespace WeaponKeywords
             var database = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"))).ToObject<Database>();
             if(database.SchemeVer < DBVersioning.SchemeVer) {
                 Directory.Delete(state.ExtraSettingsDataPath, true);
-                Console.WriteLine("Deleting old Database due to outdated Database version, please rerun the patcher for new Database");
+                Console.WriteLine("Deleting old database due to an outdated DB Scheme, please rerun the patcher to get the new Database");
                 throw new Exception("Database version error, rerun");
             }
             Dictionary<string, List<IKeywordGetter>> formkeys = new Dictionary<string, List<IKeywordGetter>>();
@@ -86,12 +86,13 @@ namespace WeaponKeywords
                     {
                         if(formkeys.ContainsKey(kyd) && !(database.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))) 
                         {
+                            Console.WriteLine($"{nw.Name}: {nw.EditorID} is a {database.DB[kyd].outputDescription} adding: ");
                             foreach(var keyform in formkeys[kyd]) 
                             {
                                 if(database.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey.FileName)) continue;
                                 if(!(nw.Keywords?.Contains(keyform.FormKey)??false)) {
                                     nw.Keywords?.Add(keyform.FormKey);
-                                    Console.WriteLine($"\tis {database.DB[kyd].outputDescription}, adding {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                    Console.WriteLine($"\t\tKeyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                                 }
                             }
                         }
