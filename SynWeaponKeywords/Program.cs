@@ -30,74 +30,78 @@ namespace WeaponKeywords
 
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
-            var database = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"))).ToObject<Database>();
-            if(database.SchemeVer < DBVersioning.SchemeVer) {
-                Directory.Delete(state.ExtraSettingsDataPath, true);
-                Console.WriteLine("Deleting old database due to an outdated DB Scheme, please rerun the patcher to get the new Database");
-                throw new Exception("Database version error, rerun");
-            }
-            Dictionary<string, List<IKeywordGetter>> formkeys = new Dictionary<string, List<IKeywordGetter>>();
-            foreach(var (key, value) in database.DB)
-            {
-                foreach(var src in database.sources)
-                {
-                    if(value.keyword==null) continue;
-                    var keywords  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides()
-                        .Where(x=>x.FormKey.ModKey == src)
-                        .Where(x=>value.keyword.Contains(x.EditorID??""));
-                    foreach(var keyword in keywords) {
-                        if(keyword == null) continue;
-                        if(!formkeys.ContainsKey(key)) formkeys[key] = new List<IKeywordGetter>();
-                        formkeys[key].Add(keyword);
-                    }
+            try {
+                var database = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"))).ToObject<Database>();
+                if(database.SchemeVer < DBVersioning.SchemeVer) {
+                    Directory.Delete(state.ExtraSettingsDataPath, true);
+                    Console.WriteLine("Deleting old database due to an outdated DB Scheme, please rerun the patcher to get the new Database");
+                    throw new Exception("Database version error, rerun");
                 }
-            }
-            foreach(var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
-            {
-                var edid = weapon.EditorID;
-                var nameToTest = weapon.Name?.String?.ToLower();
-                var matchingKeywords = database.DB
-                    .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn) ?? false))
-                    .Select(kv => kv.Key)
-                    .ToArray();
-                var globalExclude = database.excludes.phrases
-                    .Any(ph => nameToTest?.Contains(ph) ?? false) ||
-                    database.excludes.weapons.Contains(edid??"");
-                if(database.includes.ContainsKey(edid ?? ""))
+                Dictionary<string, List<IKeywordGetter>> formkeys = new Dictionary<string, List<IKeywordGetter>>();
+                foreach(var (key, value) in database.DB)
                 {
-                    var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                    if(formkeys.ContainsKey(database.includes[edid ?? ""]))
+                    foreach(var src in database.sources)
                     {
-                        foreach(var keyform in formkeys[database.includes[edid ?? ""]]) {
-                            if(!(nw.Keywords?.Contains(keyform)??false)) {
-                                nw.Keywords?.Add(keyform.FormKey);
-                                Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid ?? ""]].outputDescription}, adding {keyform.EditorID} from {keyform.FormKey.ModKey}");
-                            }
+                        if(value.keyword==null) continue;
+                        var keywords  = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides()
+                            .Where(x=>x.FormKey.ModKey == src)
+                            .Where(x=>value.keyword.Contains(x.EditorID??""));
+                        foreach(var keyword in keywords) {
+                            if(keyword == null) continue;
+                            if(!formkeys.ContainsKey(key)) formkeys[key] = new List<IKeywordGetter>();
+                            formkeys[key].Add(keyword);
                         }
-                    } else {
-                        Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, but not changing (missing esp?)");
                     }
                 }
-                if(matchingKeywords.Length > 0 && !globalExclude)
+                foreach(var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
                 {
-                    Console.WriteLine($"{nameToTest}: \n\tMatching Keywords: {String.Join(",", matchingKeywords)}");
-                    var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
-                    foreach(var kyd in matchingKeywords)
+                    var edid = weapon.EditorID;
+                    var nameToTest = weapon.Name?.String?.ToLower();
+                    var matchingKeywords = database.DB
+                        .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn) ?? false))
+                        .Select(kv => kv.Key)
+                        .ToArray();
+                    var globalExclude = database.excludes.phrases
+                        .Any(ph => nameToTest?.Contains(ph) ?? false) ||
+                        database.excludes.weapons.Contains(edid??"");
+                    if(database.includes.ContainsKey(edid ?? ""))
                     {
-                        if(formkeys.ContainsKey(kyd) && !(database.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))) 
+                        var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
+                        if(formkeys.ContainsKey(database.includes[edid ?? ""]))
                         {
-                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {database.DB[kyd].outputDescription} adding: ");
-                            foreach(var keyform in formkeys[kyd]) 
-                            {
-                                if(database.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey.FileName)) continue;
-                                if(!(nw.Keywords?.Contains(keyform.FormKey)??false)) {
+                            foreach(var keyform in formkeys[database.includes[edid ?? ""]]) {
+                                if(!(nw.Keywords?.Contains(keyform)??false)) {
                                     nw.Keywords?.Add(keyform.FormKey);
-                                    Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                    Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid ?? ""]].outputDescription}, adding {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                }
+                            }
+                        } else {
+                            Console.WriteLine($"{nameToTest} is {database.DB[database.includes[edid??""]].outputDescription}, but not changing (missing esp?)");
+                        }
+                    }
+                    if(matchingKeywords.Length > 0 && !globalExclude)
+                    {
+                        Console.WriteLine($"{nameToTest}: \n\tMatching Keywords: {String.Join(",", matchingKeywords)}");
+                        var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
+                        foreach(var kyd in matchingKeywords)
+                        {
+                            if(formkeys.ContainsKey(kyd) && !(database.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))) 
+                            {
+                                Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {database.DB[kyd].outputDescription} adding: ");
+                                foreach(var keyform in formkeys[kyd]) 
+                                {
+                                    if(database.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey.FileName)) continue;
+                                    if(!(nw.Keywords?.Contains(keyform.FormKey)??false)) {
+                                        nw.Keywords?.Add(keyform.FormKey);
+                                        Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            } catch (Exception ex) {
+                throw new Exception($"Database Error, try deleting {state.ExtraSettingsDataPath}");
             }
         }
     }
