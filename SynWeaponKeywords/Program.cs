@@ -32,11 +32,6 @@ namespace WeaponKeywords
         {
             try {
                 var database = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"))).ToObject<Database>();
-                if(database.SchemeVer < DBVersioning.SchemeVer) {
-                    Directory.Delete(state.ExtraSettingsDataPath, true);
-                    Console.WriteLine("Deleting old database due to an outdated DB Scheme, please rerun the patcher to get the new Database");
-                    throw new Exception("Database version error, rerun");
-                }
                 Dictionary<string, List<IKeywordGetter>> formkeys = new Dictionary<string, List<IKeywordGetter>>();
                 foreach(var (key, value) in database.DB)
                 {

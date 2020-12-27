@@ -20,13 +20,9 @@ namespace WeaponKeywords.Types {
         public List<string> weapons;
     }
     public struct Database {
-        public int SchemeVer;
         public Dictionary<string, WeaponDB> DB;
         public Dictionary<string, string> includes;
         public ExcludesDB excludes;
         public List<ModKey> sources;
-    }
-    public static class DBVersioning {
-        public const int SchemeVer = 1;
     }
 }
