@@ -86,13 +86,13 @@ namespace WeaponKeywords
                     {
                         if(formkeys.ContainsKey(kyd) && !(database.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))) 
                         {
-                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} is a {database.DB[kyd].outputDescription} adding: ");
+                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is a {database.DB[kyd].outputDescription} adding: ");
                             foreach(var keyform in formkeys[kyd]) 
                             {
                                 if(database.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey.FileName)) continue;
                                 if(!(nw.Keywords?.Contains(keyform.FormKey)??false)) {
                                     nw.Keywords?.Add(keyform.FormKey);
-                                    Console.WriteLine($"\t\tKeyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                    Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                                 }
                             }
                         }
