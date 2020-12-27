@@ -100,7 +100,7 @@ namespace WeaponKeywords
                         }
                     }
                 }
-            } catch (Exception ex) {
+            } catch {
                 throw new Exception($"Database Error, try deleting {state.ExtraSettingsDataPath}");
             }
         }
