@@ -3,13 +3,13 @@ using Mutagen.Bethesda;
 namespace WeaponKeywords.Types {
     public struct WeaponDB {
         //Mod / main keyword
-        public string keyword;
-        //akeywords don't require specific mods
-        public List<string> akeywords;
+        public List<string> keyword;
         //Common names of item (partial match)
         public List<string> commonNames;
-        //Exclude specifics
+        //Exclude specific phrases
         public List<string> exclude;
+        //Exlcude specific sources
+        public List<string> excludeSource;
         //descriptor when patched
         public string outputDescription;
         //unused
@@ -20,9 +20,13 @@ namespace WeaponKeywords.Types {
         public List<string> weapons;
     }
     public struct Database {
+        public int SchemeVer;
         public Dictionary<string, WeaponDB> DB;
         public Dictionary<string, string> includes;
         public ExcludesDB excludes;
         public List<ModKey> sources;
+    }
+    public static class DBVersioning {
+        public const int SchemeVer = 1;
     }
 }
