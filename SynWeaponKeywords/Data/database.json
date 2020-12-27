@@ -1,4 +1,5 @@
 {
+    "SchemeVer": 1,
     "excludes": {
         "phrases": [
             "riekling",
@@ -40,55 +41,74 @@
     },
     "DB": {
         "Rapier": {
-            "keyword": "WeapTypeRapier",
-            "akeywords": [],
+            "keyword": ["WeapTypeRapier"],
             "commonNames": [
                 "rapier",
                 "saber"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a rapier",
             "animation": "OneHandSword"
         },
         "Pike": {
-            "keyword": "WeapTypePike",
-            "akeywords": [],
+            "keyword": ["WeapTypePike"],
             "commonNames": [
                 "pike"
             ],
-            "exclude": [
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
             ],
             "outputDescription": "a pike",
             "animation": "TwoHandSword"
         },
         "Spear": {
-            "keyword": "WeapTypeSpear",
-            "akeywords": [],
+            "keyword": ["WeapTypeSpear"],
             "commonNames": [
                 "spear",
                 "glaive",
                 "trident"
             ],
             "exclude": [
+                "shortspear"
+            ],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
             ],
             "outputDescription": "a spear",
             "animation": "TwoHandSword"
         },
+        "ShortSpear": {
+            "keyword": ["WeapTypeSpear"],
+            "commonNames": [
+                "shortspear",
+                "short spear",
+                "short-spear"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "NewArmoury.esp"
+            ],
+            "outputDescription": "a shortspear",
+            "animation": "TwoHandSword"
+        },
         "Halberd": {
-            "keyword": "WeapTypeHalberd",
-            "akeywords":[],
+            "keyword": ["WeapTypeHalberd"],
             "commonNames": [
                 "halberd"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a halberd",
             "animation": "TwoHandAxe"
         },
         "Quarterstaff": {
-            "keyword": "WeapTypeQtrStaff",
-            "akeywords": [
-                "WeapTypeQuarterstaff"
-            ],
+            "keyword": ["WeapTypeQtrStaff", "WeapTypeQuarterstaff"],
             "commonNames": [
                 "quarterstaff",
                 "battle staff",
@@ -97,12 +117,14 @@
                 "short staff"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a quarterstaff",
             "animation": "TwoHandAxe"
         },
         "Katana": {
-            "keyword": "WeapTypeKatana",
-            "akeywords":[],
+            "keyword": ["WeapTypeKatana"],
             "commonNames": [
                 "katana",
                 "daikatana",
@@ -112,12 +134,14 @@
                 "nodachi"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a katana",
             "animation": null
         },
         "Scimitar": {
-            "keyword":"WeapTypeCurvedSword",
-            "akeywords":[],
+            "keyword": ["WeapTypeCurvedSword"],
             "commonNames": [
                 "scimitar",
                 "changdao",
@@ -125,63 +149,76 @@
                 "cutlass"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a curved sword",
             "animation": null
         },
         "Claw": {
-            "keyword": "WeapTypeClaw",
-            "akeywords":[],
+            "keyword": ["WeapTypeClaw"],
             "commonNames": [
                 "claw"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a claw",
             "animation": null
         },
         "Gun": {
-            "keyword":"WeapTypeGun",
-            "akeywords":[],
+            "keyword": ["WeapTypeGun"],
             "commonNames": [
                 "gun"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a gun",
             "animation": null
         },
         "Scythe": {
-            "keyword": "WeapTypeScythe",
-            "akeywords":[],
+            "keyword": ["WeapTypeScythe"],
             "commonNames": [
                 "scythe"
             ],
-            "exclude": [],
+            "exclude": [
+                "bloodscythe"
+            ],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a scythe",
             "animation": null
         },
         "Whip": {
-            "keyword": "WeapTypeWhip",
+            "keyword": ["WeapTypeWhip"],
             "akeywords":[],
             "commonNames": [
                 "whip"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a whip",
             "animation": null
         },
         "Javelin": {
-            "keyword": "WeapTypeJavelin",
+            "keyword": ["WeapTypeJavelin"],
             "akeywords": [],
             "commonNames": [
                 "javelin"
             ],
-            "exclude": [
-            ],
+            "exclude": [],
+            "excludeSource": [],
             "outputDescription": "a javelin",
             "animation": null
         },
         "Unarmed": {
-            "keyword": "WeapTypeUnarmed",
-            "akeywords":[],
+            "keyword": ["WeapTypeUnarmed"],
             "commonNames": [
                 "quarterstaff",
                 "battle staff",
@@ -191,6 +228,9 @@
                 "cetsus"
             ],
             "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
             "outputDescription": "a monk weapon",
             "animation": null
         }
@@ -200,6 +240,7 @@
         "NWTA.esp",
         "Spears.esp",
         "WayOfTheMonk.esp",
+        "SkyrimSpearMechanic.esp",
         "SkyUIWeaponIcons.esp"
     ]
 }
