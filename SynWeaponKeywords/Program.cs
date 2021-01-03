@@ -1,34 +1,30 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-using WeaponKeywords.Types;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using Newtonsoft.Json.Linq;
+using WeaponKeywords.Types;
 
 namespace WeaponKeywords
 {
     public class Program
     {
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
-                args: args,
-                patcher: RunPatch,
-                userPreferences: new UserPreferences()
-                {
+            return await SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences() {
                     ActionsForEmptyArgs = new RunDefaultPatcher()
                     {
                         IdentifyingModKey = "WeapTypeKeywords.esp",
                         TargetRelease = GameRelease.SkyrimSE,
-                        BlockAutomaticExit = false,
                     }
-                });
+            });
         }
 
-        public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             try {
                 var database = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"))).ToObject<Database>();
