@@ -22,11 +22,11 @@ namespace WeaponKeywords.Types
         public List<string> phrases;
         public List<string> weapons;
     }
-    public struct Database
+    public class Database
     {
-        public Dictionary<string, WeaponDB> DB;
-        public Dictionary<string, string> includes;
-        public ExcludesDB excludes;
-        public List<ModKey> sources;
+        public Dictionary<string, WeaponDB> DB = new();
+        public Dictionary<string, string> includes = new();
+        public ExcludesDB excludes = new();
+        public List<ModKey> sources = new();
     }
 }
