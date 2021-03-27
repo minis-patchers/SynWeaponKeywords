@@ -2,6 +2,7 @@
   "Nickname": "SynWeaponKeywords",
   "Visibility": "Visible",
   "OneLineDescription": "Weapon type keyword patcher (similar to zEdit patcher)",
-  "LongDescription": "Supports both NWTA and animated armoury",
-  "PreferredAutoVersioning": "Default"
+  "LongDescription": "Supports a wide variety of mods",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": []
 }
