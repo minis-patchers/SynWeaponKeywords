@@ -6,6 +6,7 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using WeaponKeywords.Types;
+using Noggog;
 
 namespace WeaponKeywords
 {
@@ -53,7 +54,7 @@ namespace WeaponKeywords
                     }
                 }
             }
-            foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
+            state.LoadOrder.PriorityOrder.Weapon().WinningOverrides().ForEach(weapon =>
             {
                 var edid = weapon.EditorID;
                 var nameToTest = weapon.Name?.String?.ToLower();
@@ -108,7 +109,7 @@ namespace WeaponKeywords
                         }
                     }
                 }
-            }
+            });
         }
     }
 }
