@@ -40,7 +40,9 @@
     },
     "DB": {
         "Rapier": {
-            "keyword": ["WeapTypeRapier"],
+            "keyword": [
+                "WeapTypeRapier"
+            ],
             "commonNames": [
                 "rapier",
                 "saber"
@@ -53,7 +55,9 @@
             "animation": "OneHandSword"
         },
         "Pike": {
-            "keyword": ["WeapTypePike"],
+            "keyword": [
+                "WeapTypePike"
+            ],
             "commonNames": [
                 "pike"
             ],
@@ -65,14 +69,18 @@
             "animation": "TwoHandSword"
         },
         "Spear": {
-            "keyword": ["WeapTypeSpear"],
+            "keyword": [
+                "WeapTypeSpear"
+            ],
             "commonNames": [
                 "spear",
                 "glaive",
                 "trident"
             ],
             "exclude": [
-                "shortspear"
+                "shortspear",
+                "short spear",
+                "short-spear"
             ],
             "excludeSource": [
                 "SkyrimSpearMechanic.esp"
@@ -81,7 +89,9 @@
             "animation": "TwoHandSword"
         },
         "ShortSpear": {
-            "keyword": ["WeapTypeSpear"],
+            "keyword": [
+                "WeapTypeSpear"
+            ],
             "commonNames": [
                 "shortspear",
                 "short spear",
@@ -95,7 +105,9 @@
             "animation": "TwoHandSword"
         },
         "Halberd": {
-            "keyword": ["WeapTypeHalberd"],
+            "keyword": [
+                "WeapTypeHalberd"
+            ],
             "commonNames": [
                 "halberd"
             ],
@@ -107,7 +119,10 @@
             "animation": "TwoHandAxe"
         },
         "Quarterstaff": {
-            "keyword": ["WeapTypeQtrStaff", "WeapTypeQuarterstaff"],
+            "keyword": [
+                "WeapTypeQtrStaff",
+                "WeapTypeQuarterstaff"
+            ],
             "commonNames": [
                 "quarterstaff",
                 "battle staff",
@@ -123,7 +138,9 @@
             "animation": "TwoHandAxe"
         },
         "Katana": {
-            "keyword": ["WeapTypeKatana"],
+            "keyword": [
+                "WeapTypeKatana"
+            ],
             "commonNames": [
                 "katana",
                 "daikatana",
@@ -140,7 +157,9 @@
             "animation": null
         },
         "Scimitar": {
-            "keyword": ["WeapTypeCurvedSword"],
+            "keyword": [
+                "WeapTypeCurvedSword"
+            ],
             "commonNames": [
                 "scimitar",
                 "changdao",
@@ -155,7 +174,9 @@
             "animation": null
         },
         "Claw": {
-            "keyword": ["WeapTypeClaw"],
+            "keyword": [
+                "WeapTypeClaw"
+            ],
             "commonNames": [
                 "claw"
             ],
@@ -167,7 +188,9 @@
             "animation": null
         },
         "Gun": {
-            "keyword": ["WeapTypeGun"],
+            "keyword": [
+                "WeapTypeGun"
+            ],
             "commonNames": [
                 "gun"
             ],
@@ -179,7 +202,9 @@
             "animation": null
         },
         "Scythe": {
-            "keyword": ["WeapTypeScythe"],
+            "keyword": [
+                "WeapTypeScythe"
+            ],
             "commonNames": [
                 "scythe"
             ],
@@ -193,8 +218,10 @@
             "animation": null
         },
         "Whip": {
-            "keyword": ["WeapTypeWhip"],
-            "akeywords":[],
+            "keyword": [
+                "WeapTypeWhip"
+            ],
+            "akeywords": [],
             "commonNames": [
                 "whip"
             ],
@@ -206,7 +233,9 @@
             "animation": null
         },
         "Javelin": {
-            "keyword": ["WeapTypeJavelin"],
+            "keyword": [
+                "WeapTypeJavelin"
+            ],
             "akeywords": [],
             "commonNames": [
                 "javelin"
@@ -217,7 +246,9 @@
             "animation": null
         },
         "Unarmed": {
-            "keyword": ["WeapTypeUnarmed"],
+            "keyword": [
+                "WeapTypeUnarmed"
+            ],
             "commonNames": [
                 "quarterstaff",
                 "battle staff",

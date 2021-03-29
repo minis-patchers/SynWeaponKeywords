@@ -11,7 +11,7 @@ namespace WeaponKeywords.Types
         //Exclude specific phrases
         public List<string> exclude;
         //Exlcude specific sources
-        public List<string> excludeSource;
+        public List<ModKey> excludeSource;
         //descriptor when patched
         public string outputDescription;
         //unused

@@ -30,20 +30,15 @@ namespace WeaponKeywords
             {
                 foreach (var src in DB.sources)
                 {
-                    if (value.keyword == null)
-                    {
-                        continue;
-                    }
+                    if (value.keyword == null) continue;
 
                     var keywords = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides()
-                        .Where(x => x.FormKey.ModKey == src)
+                        .Where(x => x.FormKey.ModKey.Equals(src))
                         .Where(x => value.keyword.Contains(x.EditorID ?? ""));
+
                     foreach (var keyword in keywords)
                     {
-                        if (keyword == null)
-                        {
-                            continue;
-                        }
+                        if (keyword == null) continue;
 
                         if (!formkeys.ContainsKey(key))
                         {
@@ -86,7 +81,7 @@ namespace WeaponKeywords
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{nameToTest}: \n\tMatching Keywords: {String.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{nameToTest}: \n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     foreach (var kyd in matchingKeywords)
                     {
@@ -95,10 +90,7 @@ namespace WeaponKeywords
                             Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {DB.DB[kyd].outputDescription} adding: ");
                             foreach (var keyform in formkeys[kyd])
                             {
-                                if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey.FileName))
-                                {
-                                    continue;
-                                }
+                                if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
 
                                 if (!(nw.Keywords?.Contains(keyform.FormKey) ?? false))
                                 {
