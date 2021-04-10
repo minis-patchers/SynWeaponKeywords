@@ -65,7 +65,7 @@ namespace WeaponKeywords
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
-                        Console.WriteLine($"{nw.Name}:\n\tIs {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
+                        Console.WriteLine($"{nameToTest}:\n\t{nw.Name}: {nw.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
                             if (!(nw.Keywords?.Contains(keyform) ?? false))
