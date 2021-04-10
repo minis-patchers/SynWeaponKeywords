@@ -65,12 +65,13 @@ namespace WeaponKeywords
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
+                        Console.WriteLine($"{nw.Name}:\n\tIs {DB.DB[DB.includes[edid ?? ""]].outputDescription}, adding:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
                             if (!(nw.Keywords?.Contains(keyform) ?? false))
                             {
                                 nw.Keywords?.Add(keyform.FormKey);
-                                Console.WriteLine($"{nameToTest} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}, adding {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                             }
                         }
                     }
@@ -81,13 +82,13 @@ namespace WeaponKeywords
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{nameToTest}: \n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{nameToTest}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     foreach (var kyd in matchingKeywords)
                     {
                         if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))
                         {
-                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {DB.DB[kyd].outputDescription} adding: ");
+                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {DB.DB[kyd].outputDescription} adding:");
                             foreach (var keyform in formkeys[kyd])
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
