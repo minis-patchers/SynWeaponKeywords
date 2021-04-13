@@ -68,7 +68,7 @@ namespace WeaponKeywords
                         Console.WriteLine($"{nameToTest}:\n\t{nw.Name}: {nw.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
-                            if (!(nw.Keywords?.Contains(keyform) ?? false))
+                            if (!nw.HasKeyword(keyform))
                             {
                                 nw.Keywords?.Add(keyform.FormKey);
                                 Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
@@ -93,7 +93,7 @@ namespace WeaponKeywords
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
 
-                                if (!(nw.Keywords?.Contains(keyform.FormKey) ?? false))
+                                if (!nw.HasKeyword(keyform.FormKey))
                                 {
                                     nw.Keywords?.Add(keyform.FormKey);
                                     Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
