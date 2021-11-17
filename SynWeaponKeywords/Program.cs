@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using WeaponKeywords.Types;
 using Noggog;
 
@@ -60,6 +61,7 @@ namespace WeaponKeywords
                 var globalExclude = DB.excludes.phrases
                     .Any(ph => nameToTest?.Contains(ph) ?? false) ||
                     DB.excludes.weapons.Contains(edid ?? "");
+                var isOneHanded = !(weapon.EquipmentType.FormKey.Equals(Skyrim.EquipType.BothHands.FormKey));
                 if (DB.includes.ContainsKey(edid ?? ""))
                 {
                     var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
@@ -72,6 +74,19 @@ namespace WeaponKeywords
                             {
                                 nw.Keywords?.Add(keyform.FormKey);
                                 Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                            }
+                        }
+                        if (nw.Data != null)
+                        {
+                            if (isOneHanded)
+                            {
+                                nw.Data.AnimationType = DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation;
+                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                            }
+                            else
+                            {
+                                nw.Data.AnimationType = DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation;
+                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
                             }
                         }
                     }
@@ -99,6 +114,20 @@ namespace WeaponKeywords
                                     Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                                 }
                             }
+                        }
+                    }
+                    if (nw.Data != null)
+                    {
+                        var fKeyword = matchingKeywords.First();
+                        if (isOneHanded)
+                        {
+                            nw.Data.AnimationType = DB.DB[fKeyword].OneHandedAnimation;
+                            Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                        }
+                        else
+                        {
+                            nw.Data.AnimationType = DB.DB[fKeyword].TwoHandedAnimation;
+                            Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
                         }
                     }
                 }

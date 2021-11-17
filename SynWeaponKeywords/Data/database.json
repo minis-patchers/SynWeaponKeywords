@@ -13,7 +13,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a rapier",
-      "animation": "OneHandSword"
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Pike": {
       "keyword": [
@@ -27,7 +28,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a pike",
-      "animation": "TwoHandSword"
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Spear": {
       "keyword": [
@@ -47,7 +49,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a spear",
-      "animation": "TwoHandSword"
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "ShortSpear": {
       "keyword": [
@@ -63,7 +66,8 @@
         "NewArmoury.esp"
       ],
       "outputDescription": "a shortspear",
-      "animation": "TwoHandSword"
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Halberd": {
       "keyword": [
@@ -77,7 +81,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a halberd",
-      "animation": "TwoHandAxe"
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe"
     },
     "Quarterstaff": {
       "keyword": [
@@ -96,7 +101,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a quarterstaff",
-      "animation": "TwoHandAxe"
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe"
     },
     "Katana": {
       "keyword": [
@@ -115,7 +121,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a katana",
-      "animation": ""
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Scimitar": {
       "keyword": [
@@ -132,7 +139,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a curved sword",
-      "animation": ""
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Claw": {
       "keyword": [
@@ -146,7 +154,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a claw",
-      "animation": ""
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Gun": {
       "keyword": [
@@ -160,7 +169,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a gun",
-      "animation": ""
+      "OneHandedAnimation": "HandToHand",
+      "TwoHandedAnimation": "HandToHand"
     },
     "Scythe": {
       "keyword": [
@@ -176,7 +186,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a scythe",
-      "animation": ""
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe"
     },
     "Whip": {
       "keyword": [
@@ -190,7 +201,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a whip",
-      "animation": ""
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Javelin": {
       "keyword": [
@@ -202,7 +214,8 @@
       "exclude": [],
       "excludeSource": [],
       "outputDescription": "a javelin",
-      "animation": ""
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword"
     },
     "Unarmed": {
       "keyword": [
@@ -221,7 +234,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a monk weapon",
-      "animation": ""
+      "OneHandedAnimation": "HandToHand",
+      "TwoHandedAnimation": "HandToHand"
     }
   },
   "includes": {
