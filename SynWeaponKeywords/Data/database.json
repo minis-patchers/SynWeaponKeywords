@@ -2,7 +2,8 @@
   "DB": {
     "Rapier": {
       "keyword": [
-        "WeapTypeRapier"
+        "WeapTypeRapier",
+        "NAR_Sig"
       ],
       "commonNames": [
         "rapier",
@@ -18,7 +19,8 @@
     },
     "Pike": {
       "keyword": [
-        "WeapTypePike"
+        "WeapTypePike",
+        "NAR_Sig"
       ],
       "commonNames": [
         "pike"
@@ -54,7 +56,8 @@
     },
     "ShortSpear": {
       "keyword": [
-        "WeapTypeSpear"
+        "WeapTypeSpear",
+        "NAR_Sig"
       ],
       "commonNames": [
         "shortspear",
@@ -71,7 +74,8 @@
     },
     "Halberd": {
       "keyword": [
-        "WeapTypeHalberd"
+        "WeapTypeHalberd",
+        "NAR_Sig"
       ],
       "commonNames": [
         "halberd"
@@ -87,7 +91,8 @@
     "Quarterstaff": {
       "keyword": [
         "WeapTypeQtrStaff",
-        "WeapTypeQuarterstaff"
+        "WeapTypeQuarterstaff",
+        "NAR_Sig"
       ],
       "commonNames": [
         "quarterstaff",
@@ -106,7 +111,8 @@
     },
     "Katana": {
       "keyword": [
-        "WeapTypeKatana"
+        "WeapTypeKatana",
+        "NAR_Sig"
       ],
       "commonNames": [
         "katana",
@@ -144,7 +150,10 @@
     },
     "Claw": {
       "keyword": [
-        "WeapTypeClaw"
+        "WeapTypeClaw",
+        "NA_InflictBleed",
+        "NA_CantParry",
+        "NAR_Sig"
       ],
       "commonNames": [
         "claw"
@@ -191,7 +200,8 @@
     },
     "Whip": {
       "keyword": [
-        "WeapTypeWhip"
+        "WeapTypeWhip",
+        "NAR_Sig"
       ],
       "commonNames": [
         "whip"
