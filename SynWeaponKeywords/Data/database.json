@@ -163,7 +163,7 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a claw",
-      "OneHandedAnimation": "OneHandSword",
+      "OneHandedAnimation": "OneHandDagger",
       "TwoHandedAnimation": "TwoHandSword"
     },
     "Gun": {
@@ -211,8 +211,8 @@
         "SkyrimSpearMechanic.esp"
       ],
       "outputDescription": "a whip",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "OneHandedAnimation": "OneHandMace",
+      "TwoHandedAnimation": "OneHandMace"
     },
     "Javelin": {
       "keyword": [
