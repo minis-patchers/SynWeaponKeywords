@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Mutagen.Bethesda;
+using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Skyrim;
 namespace WeaponKeywords.Types
 {
     public struct WeaponDB
@@ -14,8 +15,9 @@ namespace WeaponKeywords.Types
         public List<ModKey> excludeSource;
         //descriptor when patched
         public string outputDescription;
-        //unused
-        public string animation;
+        //Weapon's Animation Type(s)
+        public WeaponAnimationType OneHandedAnimation;
+        public WeaponAnimationType TwoHandedAnimation;
     }
     public struct ExcludesDB
     {
