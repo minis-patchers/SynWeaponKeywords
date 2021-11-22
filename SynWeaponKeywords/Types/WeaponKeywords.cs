@@ -16,8 +16,8 @@ namespace WeaponKeywords.Types
         //descriptor when patched
         public string outputDescription;
         //Weapon's Animation Type(s)
-        public WeaponAnimationType OneHandedAnimation;
-        public WeaponAnimationType TwoHandedAnimation;
+        public string OneHandedAnimation;
+        public string TwoHandedAnimation;
     }
     public struct ExcludesDB
     {

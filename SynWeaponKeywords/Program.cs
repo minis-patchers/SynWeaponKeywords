@@ -80,12 +80,21 @@ namespace WeaponKeywords
                         {
                             if (isOneHanded)
                             {
-                                nw.Data.AnimationType = DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation;
-                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                                if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                                {
+                                    WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
+                                    nw.Data.AnimationType = wept;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                                }
                             }
                             else
                             {
-                                nw.Data.AnimationType = DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation;
+                                if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                                {
+                                    WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
+                                    nw.Data.AnimationType = wept;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
+                                }
                                 Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
                             }
                         }
@@ -121,12 +130,21 @@ namespace WeaponKeywords
                         var fKeyword = matchingKeywords.First();
                         if (isOneHanded)
                         {
-                            nw.Data.AnimationType = DB.DB[fKeyword].OneHandedAnimation;
-                            Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[fKeyword].OneHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            {
+                                WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
+                                nw.Data.AnimationType = wept;
+                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                            }
                         }
                         else
                         {
-                            nw.Data.AnimationType = DB.DB[fKeyword].TwoHandedAnimation;
+                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            {
+                                WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
+                                nw.Data.AnimationType = wept;
+                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
+                            }
                             Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
                         }
                     }
