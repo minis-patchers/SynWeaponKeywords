@@ -95,7 +95,6 @@ namespace WeaponKeywords
                                     nw.Data.AnimationType = wept;
                                     Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
                                 }
-                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
                             }
                         }
                     }
@@ -145,7 +144,6 @@ namespace WeaponKeywords
                                 nw.Data.AnimationType = wept;
                                 Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
                             }
-                            Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
                         }
                     }
                 }
