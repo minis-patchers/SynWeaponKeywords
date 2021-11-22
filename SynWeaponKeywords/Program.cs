@@ -139,7 +139,7 @@ namespace WeaponKeywords
                         }
                         else
                         {
-                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[fKeyword].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
                             {
                                 WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
                                 nw.Data.AnimationType = wept;
