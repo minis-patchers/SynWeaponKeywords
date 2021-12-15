@@ -23,7 +23,9 @@
         "NAR_Sig"
       ],
       "commonNames": [
-        "pike"
+        "pike",
+        "trident",
+        "
       ],
       "exclude": [],
       "excludeSource": [
@@ -39,8 +41,7 @@
       ],
       "commonNames": [
         "spear",
-        "glaive",
-        "trident"
+        "glaive"
       ],
       "exclude": [
         "shortspear",
@@ -111,7 +112,7 @@
     },
     "Katana": {
       "keyword": [
-        "WeapTypeKatana",
+        "WeapTypeESKatana",
         "NAR_Sig"
       ],
       "commonNames": [
@@ -120,9 +121,12 @@
         "dai-katana",
         "daito",
         "ninjato",
-        "nodachi"
+        "nodachi",
+        "zatoichi",
+        "Akaviri",
+        "Ka Po' Tun"
       ],
-      "exclude": [],
+      "exclude": ["short","tanto","wakizashi"],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
@@ -132,13 +136,17 @@
     },
     "Scimitar": {
       "keyword": [
-        "WeapTypeCurvedSword"
+        "WeapTypeESScimitar"
       ],
       "commonNames": [
         "scimitar",
         "changdao",
         "dadao",
-        "cutlass"
+        "cutlass",
+        "Parmerion",
+        "Alik'r",
+        "Sarai",
+        "Saif"
       ],
       "exclude": [],
       "excludeSource": [
@@ -280,7 +288,11 @@
     "MQ203AkaviriKatana2": "Katana",
     "MQ203AkaviriKatana3": "Katana",
     "MQ203AkaviriKatana4": "Katana",
-    "MQ203AkaviriKatana5": "Katana"
+    "MQ203AkaviriKatana5": "Katana",
+    "A0Kusanagi": "Katana",
+    "A0Kusanagi2H": "Katana",
+    "aaaSusasnoSasukeWeapon": "Katana"
+   
   },
   "excludes": {
     "phrases": [
@@ -300,7 +312,8 @@
   },
   "sources": [
     "NewArmoury.esp",
-    "NWTA.esp",
+    "Elder Souls - Katana.esp",
+    "Elder Souls - Scimitar.esp",
     "Spears.esp",
     "WayOfTheMonk.esp",
     "SkyrimSpearMechanic.esp",
