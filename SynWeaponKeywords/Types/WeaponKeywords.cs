@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Mutagen.Bethesda.Plugins;
-using Mutagen.Bethesda.Skyrim;
 namespace WeaponKeywords.Types
 {
     public struct WeaponDB
     {
-        //Mod / main keyword
+        //Keywords to assgin
         public List<string> keyword;
         //Common names of item (partial match)
         public List<string> commonNames;
@@ -21,7 +20,9 @@ namespace WeaponKeywords.Types
     }
     public struct ExcludesDB
     {
+        //These are phrases to globally exclude
         public List<string> phrases;
+        //These are editor ids to globally exclude
         public List<string> weapons;
     }
     public class Database

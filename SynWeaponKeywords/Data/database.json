@@ -1,309 +1,325 @@
 {
-  "DB": {
-    "Rapier": {
-      "keyword": [
-        "WeapTypeRapier",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "rapier",
-        "saber"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a rapier",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+    "DB": {
+        "Rapier": {
+            "keyword": [
+                "WeapTypeRapier",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "rapier",
+                "saber"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a rapier",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Pike": {
+            "keyword": [
+                "WeapTypePike",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "pike",
+                "trident"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a pike",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Spear": {
+            "keyword": [
+                "WeapTypeSpear"
+            ],
+            "commonNames": [
+                "spear",
+                "glaive"
+            ],
+            "exclude": [
+                "shortspear",
+                "short spear",
+                "short-spear"
+            ],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a spear",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "ShortSpear": {
+            "keyword": [
+                "WeapTypeSpear",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "shortspear",
+                "short spear",
+                "short-spear"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "NewArmoury.esp"
+            ],
+            "outputDescription": "a shortspear",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Halberd": {
+            "keyword": [
+                "WeapTypeHalberd",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "halberd"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a halberd",
+            "OneHandedAnimation": "OneHandAxe",
+            "TwoHandedAnimation": "TwoHandAxe"
+        },
+        "Quarterstaff": {
+            "keyword": [
+                "WeapTypeQtrStaff",
+                "WeapTypeQuarterstaff",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "quarterstaff",
+                "battle staff",
+                "battlestaff",
+                "shortstaff",
+                "short staff"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a quarterstaff",
+            "OneHandedAnimation": "OneHandAxe",
+            "TwoHandedAnimation": "TwoHandAxe"
+        },
+        "Katana": {
+            "keyword": [
+                "WeapTypeKatana",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "katana",
+                "daikatana",
+                "dai-katana",
+                "daito",
+                "ninjato",
+                "nodachi",
+                "zatoichi",
+                "Akaviri",
+                "Ka Po' Tun"
+            ],
+            "exclude": [
+                "short",
+                "tanto",
+                "wakizashi"
+            ],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a katana",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Scimitar": {
+            "keyword": [
+                "WeapTypeCurvedSword"
+            ],
+            "commonNames": [
+                "scimitar",
+                "changdao",
+                "dadao",
+                "cutlass",
+                "Parmerion",
+                "Alik'r",
+                "Sarai",
+                "Saif"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a curved sword",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Claw": {
+            "keyword": [
+                "WeapTypeClaw",
+                "NA_InflictBleed",
+                "NA_CantParry",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "claw"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a claw",
+            "OneHandedAnimation": "OneHandDagger",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Gun": {
+            "keyword": [
+                "WeapTypeGun"
+            ],
+            "commonNames": [
+                "gun"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a gun",
+            "OneHandedAnimation": "HandToHand",
+            "TwoHandedAnimation": "HandToHand"
+        },
+        "Scythe": {
+            "keyword": [
+                "WeapTypeScythe"
+            ],
+            "commonNames": [
+                "scythe"
+            ],
+            "exclude": [
+                "bloodscythe"
+            ],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a scythe",
+            "OneHandedAnimation": "OneHandAxe",
+            "TwoHandedAnimation": "TwoHandAxe"
+        },
+        "Whip": {
+            "keyword": [
+                "WeapTypeWhip",
+                "NAR_Sig"
+            ],
+            "commonNames": [
+                "whip"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a whip",
+            "OneHandedAnimation": "OneHandMace",
+            "TwoHandedAnimation": "OneHandMace"
+        },
+        "Javelin": {
+            "keyword": [
+                "WeapTypeJavelin"
+            ],
+            "commonNames": [
+                "javelin"
+            ],
+            "exclude": [],
+            "excludeSource": [],
+            "outputDescription": "a javelin",
+            "OneHandedAnimation": "OneHandSword",
+            "TwoHandedAnimation": "TwoHandSword"
+        },
+        "Unarmed": {
+            "keyword": [
+                "WeapTypeUnarmed"
+            ],
+            "commonNames": [
+                "quarterstaff",
+                "battle staff",
+                "battlestaff",
+                "shortstaff",
+                "short staff",
+                "cetsus"
+            ],
+            "exclude": [],
+            "excludeSource": [
+                "SkyrimSpearMechanic.esp"
+            ],
+            "outputDescription": "a monk weapon",
+            "OneHandedAnimation": "HandToHand",
+            "TwoHandedAnimation": "HandToHand"
+        }
     },
-    "Pike": {
-      "keyword": [
-        "WeapTypePike",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "pike"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a pike",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+    "includes": {
+        "IWBlackStingSword": "Rapier",
+        "IWCSpearbladeDagger": "Rapier",
+        "lilithslacerator": "Rapier",
+        "lilithslaceratorglow": "Rapier",
+        "lilithslaceratoralt": "Rapier",
+        "lilithslaceratoraltglow": "Rapier",
+        "lilithsthorn": "Rapier",
+        "lilithsthornglow": "Rapier",
+        "lilithsthornalt": "Rapier",
+        "lilithsthornaltglow": "Rapier",
+        "lilithsobliteratorhal": "Halberd",
+        "DragonslayerSwordSpear": "Halberd",
+        "CrucifixOfTheMadKing": "Halberd",
+        "ImmolationTinder": "Halberd",
+        "MurkyLongStaff": "Quarterstaff",
+        "StorytellersStaff": "Quarterstaff",
+        "LothricWarBanner": "Pike",
+        "FourProngedPlow": "Pike",
+        "FollowerJavelin": "Pike",
+        "PIKematuSword": "Scimitar",
+        "PIKematuSwordNoEnch": "Scimitar",
+        "DLC1HarkonsSword": "Katana",
+        "DLC1AkaviriSword": "Katana",
+        "AkaviriKatana": "Katana",
+        "DA08EbonyBlade": "Katana",
+        "DA08RealEbonyBlade": "Katana",
+        "dunBloatedMansKatana": "Katana",
+        "MQ203AkaviriKatana1": "Katana",
+        "MQ203AkaviriKatana2": "Katana",
+        "MQ203AkaviriKatana3": "Katana",
+        "MQ203AkaviriKatana4": "Katana",
+        "MQ203AkaviriKatana5": "Katana",
+        "A0Kusanagi": "Katana",
+        "A0Kusanagi2H": "Katana",
+        "aaaSusasnoSasukeWeapon": "Katana",
+        "ZEB_EbonyBladeOneHanded": "Katana"
     },
-    "Spear": {
-      "keyword": [
-        "WeapTypeSpear"
-      ],
-      "commonNames": [
-        "spear",
-        "glaive",
-        "trident"
-      ],
-      "exclude": [
-        "shortspear",
-        "short spear",
-        "short-spear"
-      ],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a spear",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+    "excludes": {
+        "phrases": [
+            "riekling",
+            "ice spike",
+            "icy spear",
+            "spiked",
+            "spike"
+        ],
+        "weapons": [
+            "StaffIceSpike",
+            "DLC1StaffFalmerIceSpike",
+            "PIKeeperLongMace",
+            "PIKeeperLongMaceNoEnch",
+            "N78DezicrahWeaponBow"
+        ]
     },
-    "ShortSpear": {
-      "keyword": [
-        "WeapTypeSpear",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "shortspear",
-        "short spear",
-        "short-spear"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "NewArmoury.esp"
-      ],
-      "outputDescription": "a shortspear",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
-    },
-    "Halberd": {
-      "keyword": [
-        "WeapTypeHalberd",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "halberd"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a halberd",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
-    },
-    "Quarterstaff": {
-      "keyword": [
-        "WeapTypeQtrStaff",
-        "WeapTypeQuarterstaff",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "quarterstaff",
-        "battle staff",
-        "battlestaff",
-        "shortstaff",
-        "short staff"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a quarterstaff",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
-    },
-    "Katana": {
-      "keyword": [
-        "WeapTypeKatana",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "katana",
-        "daikatana",
-        "dai-katana",
-        "daito",
-        "ninjato",
-        "nodachi"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a katana",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
-    },
-    "Scimitar": {
-      "keyword": [
-        "WeapTypeCurvedSword"
-      ],
-      "commonNames": [
-        "scimitar",
-        "changdao",
-        "dadao",
-        "cutlass"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a curved sword",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
-    },
-    "Claw": {
-      "keyword": [
-        "WeapTypeClaw",
-        "NA_InflictBleed",
-        "NA_CantParry",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "claw"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a claw",
-      "OneHandedAnimation": "OneHandDagger",
-      "TwoHandedAnimation": "TwoHandSword"
-    },
-    "Gun": {
-      "keyword": [
-        "WeapTypeGun"
-      ],
-      "commonNames": [
-        "gun"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a gun",
-      "OneHandedAnimation": "HandToHand",
-      "TwoHandedAnimation": "HandToHand"
-    },
-    "Scythe": {
-      "keyword": [
-        "WeapTypeScythe"
-      ],
-      "commonNames": [
-        "scythe"
-      ],
-      "exclude": [
-        "bloodscythe"
-      ],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a scythe",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
-    },
-    "Whip": {
-      "keyword": [
-        "WeapTypeWhip",
-        "NAR_Sig"
-      ],
-      "commonNames": [
-        "whip"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a whip",
-      "OneHandedAnimation": "OneHandMace",
-      "TwoHandedAnimation": "OneHandMace"
-    },
-    "Javelin": {
-      "keyword": [
-        "WeapTypeJavelin"
-      ],
-      "commonNames": [
-        "javelin"
-      ],
-      "exclude": [],
-      "excludeSource": [],
-      "outputDescription": "a javelin",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
-    },
-    "Unarmed": {
-      "keyword": [
-        "WeapTypeUnarmed"
-      ],
-      "commonNames": [
-        "quarterstaff",
-        "battle staff",
-        "battlestaff",
-        "shortstaff",
-        "short staff",
-        "cetsus"
-      ],
-      "exclude": [],
-      "excludeSource": [
-        "SkyrimSpearMechanic.esp"
-      ],
-      "outputDescription": "a monk weapon",
-      "OneHandedAnimation": "HandToHand",
-      "TwoHandedAnimation": "HandToHand"
-    }
-  },
-  "includes": {
-    "IWBlackStingSword": "Rapier",
-    "IWCSpearbladeDagger": "Rapier",
-    "lilithslacerator": "Rapier",
-    "lilithslaceratorglow": "Rapier",
-    "lilithslaceratoralt": "Rapier",
-    "lilithslaceratoraltglow": "Rapier",
-    "lilithsthorn": "Rapier",
-    "lilithsthornglow": "Rapier",
-    "lilithsthornalt": "Rapier",
-    "lilithsthornaltglow": "Rapier",
-    "lilithsobliteratorhal": "Halberd",
-    "DragonslayerSwordSpear": "Halberd",
-    "CrucifixOfTheMadKing": "Halberd",
-    "ImmolationTinder": "Halberd",
-    "MurkyLongStaff": "Quarterstaff",
-    "StorytellersStaff": "Quarterstaff",
-    "LothricWarBanner": "Pike",
-    "FourProngedPlow": "Pike",
-    "FollowerJavelin": "Pike",
-    "PIKematuSword": "Scimitar",
-    "PIKematuSwordNoEnch": "Scimitar",
-    "DLC1HarkonsSword": "Katana",
-    "DLC1AkaviriSword": "Katana",
-    "AkaviriKatana": "Katana",
-    "DA08EbonyBlade": "Katana",
-    "DA08RealEbonyBlade": "Katana",
-    "dunBloatedMansKatana": "Katana",
-    "MQ203AkaviriKatana1": "Katana",
-    "MQ203AkaviriKatana2": "Katana",
-    "MQ203AkaviriKatana3": "Katana",
-    "MQ203AkaviriKatana4": "Katana",
-    "MQ203AkaviriKatana5": "Katana"
-  },
-  "excludes": {
-    "phrases": [
-      "riekling",
-      "ice spike",
-      "icy spear",
-      "spiked",
-      "spike"
-    ],
-    "weapons": [
-      "StaffIceSpike",
-      "DLC1StaffFalmerIceSpike",
-      "PIKeeperLongMace",
-      "PIKeeperLongMaceNoEnch",
-      "N78DezicrahWeaponBow"
+    "sources": [
+        "NewArmoury.esp",
+        "NWTA.esp",
+        "Spears.esp",
+        "WayOfTheMonk.esp",
+        "SkyrimSpearMechanic.esp",
+        "SkyUIWeaponIcons.esp",
+        "SkyUI Weapons Pack Keywords.esl"
     ]
-  },
-  "sources": [
-    "NewArmoury.esp",
-    "NWTA.esp",
-    "Spears.esp",
-    "WayOfTheMonk.esp",
-    "SkyrimSpearMechanic.esp",
-    "SkyUIWeaponIcons.esp"
-  ]
 }
