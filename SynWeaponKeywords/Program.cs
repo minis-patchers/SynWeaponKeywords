@@ -1,13 +1,16 @@
 using System;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
-using WeaponKeywords.Types;
+
 using Noggog;
+
+using WeaponKeywords.Types;
 
 namespace WeaponKeywords
 {
