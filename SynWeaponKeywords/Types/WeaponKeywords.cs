@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using Mutagen.Bethesda.Plugins;
+
 namespace WeaponKeywords.Types
 {
     public struct WeaponDB
