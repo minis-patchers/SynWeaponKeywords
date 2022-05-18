@@ -76,7 +76,7 @@ namespace WeaponKeywords
                             if (!weapon.Keywords?.Contains(keyform) ?? false)
                             {
                                 nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                nw.Keywords?.Add(keyform.FormKey);
+                                nw.Keywords?.Add(keyform);
                                 Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                             }
                         }
@@ -148,7 +148,7 @@ namespace WeaponKeywords
                             {
                                 if (DB.DB[fKeyword].TwoHandedAnimation != weapon.Data.AnimationType)
                                 {
-                                    nw = nw == null ? nw! : state.PatchMod.Weapons.GetOrAddAsOverride(weapon)!;
+                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                     nw.Data!.AnimationType = DB.DB[fKeyword].TwoHandedAnimation;
                                     Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
                                 }
