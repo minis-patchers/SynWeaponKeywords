@@ -4,13 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Mutagen.Bethesda;
-using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 
 using Noggog;
 
 using WeaponKeywords.Types;
+using System.IO.Pipes;
+using Mutagen.Bethesda.Plugins.Binary.Headers;
+using Mutagen.Bethesda.Plugins.Order;
+using System.Xml;
 
 namespace WeaponKeywords
 {
@@ -30,26 +33,30 @@ namespace WeaponKeywords
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Dictionary<string, List<IKeywordGetter>> formkeys = new();
-            foreach (var (key, value) in DB.DB)
+            var Keywords = DB.DB.SelectMany(x => x.Value.keyword).Distinct();
+            foreach (var src in DB.sources)
             {
-                foreach (var src in DB.sources)
+                if (!state.LoadOrder.PriorityOrder.Select(x => x.ModKey).Contains(src)) continue;
+                state.LoadOrder.TryGetValue(src, out var mod);
+                if (mod != null && mod.Mod != null && mod.Mod.Keywords != null)
                 {
-                    if (value.keyword == null) continue;
-
-                    var keywords = state.LoadOrder.PriorityOrder.Keyword().WinningOverrides()
-                        .Where(x => x.FormKey.ModKey.Equals(src))
-                        .Where(x => value.keyword.Contains(x.EditorID ?? ""));
+                    var keywords = mod.Mod.Keywords
+                        .Where(x => Keywords.Contains(x.EditorID ?? ""))
+                        .ToList() ?? new List<IKeywordGetter>();
 
                     foreach (var keyword in keywords)
                     {
                         if (keyword == null) continue;
-
-                        if (!formkeys.ContainsKey(key))
+                        var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword.EditorID ?? "")).Select(x => x.Key);
+                        Console.WriteLine($"Keyword : {keyword.FormKey.ModKey} : {keyword.EditorID}");
+                        foreach (var tp in type)
                         {
-                            formkeys[key] = new List<IKeywordGetter>();
+                            if (!formkeys.ContainsKey(tp))
+                            {
+                                formkeys[tp] = new List<IKeywordGetter>();
+                            }
+                            formkeys[tp].Add(keyword);
                         }
-
-                        formkeys[key].Add(keyword);
                     }
                 }
             }
@@ -59,6 +66,7 @@ namespace WeaponKeywords
                 var nameToTest = weapon.Name?.String?.ToLower();
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
+                    .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
                     .Select(kv => kv.Key)
                     .ToArray();
                 var globalExclude = DB.excludes.phrases
@@ -73,7 +81,7 @@ namespace WeaponKeywords
                         Console.WriteLine($"{edid} - {nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
-                            if (!weapon.Keywords?.Contains(keyform) ?? false)
+                            if (!weapon.Keywords?.Select(x => x.FormKey.ModKey).Contains(keyform.FormKey.ModKey) ?? false)
                             {
                                 nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                 nw.Keywords?.Add(keyform);
@@ -82,7 +90,8 @@ namespace WeaponKeywords
                         }
                         if (weapon.Data != null)
                         {
-                            if (!DB.DB[DB.includes[edid ?? ""]].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey)) {
+                            if (!DB.DB[DB.includes[edid ?? ""]].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
+                            {
                                 if (isOneHanded)
                                 {
                                     if (DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation != weapon.Data.AnimationType)
@@ -104,10 +113,6 @@ namespace WeaponKeywords
                             }
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine($"{nameToTest} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}, but not changing (missing keywords?)");
-                    }
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
@@ -120,8 +125,7 @@ namespace WeaponKeywords
                             foreach (var keyform in formkeys[kyd])
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
-                                if (DB.DB[kyd].excludeEditID.Contains(edid ?? "")) continue;
-                                if (!weapon.Keywords?.Contains(keyform) ?? false)
+                                if (!weapon.Keywords?.Select(x => x.FormKey.ModKey).Contains(keyform.FormKey.ModKey) ?? false)
                                 {
                                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                     nw.Keywords?.Add(keyform);

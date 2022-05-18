@@ -127,8 +127,7 @@
     },
     "Katana": {
       "keyword": [
-        "WeapTypeKatana",
-        "NAR_Sig"
+        "WeapTypeKatana"
       ],
       "commonNames": [
         "katana",
@@ -170,7 +169,10 @@
         "saif"
       ],
       "exclude": [],
-      "excludeEditID": [],
+      "excludeEditID": [
+        "ccBGSSSE001_FishingRodAlikriWeap",
+        "ccBGSSSE001_FishingRodAlikriWeapUnplayable"
+      ],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
