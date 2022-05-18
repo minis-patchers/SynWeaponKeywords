@@ -11,7 +11,6 @@ using Mutagen.Bethesda.Skyrim;
 using Noggog;
 
 using WeaponKeywords.Types;
-using Mutagen.Bethesda.Oblivion.Internals;
 
 namespace WeaponKeywords
 {
@@ -56,7 +55,7 @@ namespace WeaponKeywords
             }
             state.LoadOrder.PriorityOrder.Weapon().WinningOverrides().ForEach(weapon =>
             {
-                var edid = weapon.EditorID ?? "";
+                var edid = weapon.EditorID;
                 var nameToTest = weapon.Name?.String?.ToLower();
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
@@ -65,13 +64,13 @@ namespace WeaponKeywords
                 var globalExclude = DB.excludes.phrases
                     .Any(ph => nameToTest?.ContainsInsensitive(ph) ?? false) ||
                     DB.excludes.weapons.Contains(edid ?? "");
-                var isOneHanded = !(weapon.EquipmentType.FormKey.Equals(Skyrim.EquipType.BothHands.FormKey));
+                var isOneHanded = weapon.Data.AnimationType is WeaponAnimationType.OneHandSword or WeaponAnimationType.HandToHand or WeaponAnimationType.OneHandDagger or WeaponAnimationType.OneHandAxe or WeaponAnimationType.OneHandAxe or WeaponAnimationType.OneHandMace or WeaponAnimationType.Staff;
                 IWeapon? nw = null;
                 if (DB.includes.ContainsKey(edid ?? ""))
                 {
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
-                        Console.WriteLine($"{nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
+                        Console.WriteLine($"{edid} - {nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
                             if (!weapon.Keywords?.Contains(keyform) ?? false)
@@ -112,7 +111,7 @@ namespace WeaponKeywords
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{nameToTest} - {weapon.FormKey.ModKey}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{edid} - {nameToTest} - {weapon.FormKey.ModKey}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
                     foreach (var kyd in matchingKeywords)
                     {
                         if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
