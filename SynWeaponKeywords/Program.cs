@@ -10,11 +10,6 @@ using Mutagen.Bethesda.Skyrim;
 using Noggog;
 
 using WeaponKeywords.Types;
-using System.IO.Pipes;
-using Mutagen.Bethesda.Plugins.Binary.Headers;
-using Mutagen.Bethesda.Plugins.Order;
-using System.Xml;
-
 namespace WeaponKeywords
 {
     public class Program
