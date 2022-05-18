@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Skyrim;
 
 namespace WeaponKeywords.Types
 {
@@ -12,13 +13,17 @@ namespace WeaponKeywords.Types
         public List<string> commonNames;
         //Exclude specific phrases
         public List<string> exclude;
+        //Exclude editor id's
+        public List<string> excludeEditID;
         //Exlcude specific sources
         public List<ModKey> excludeSource;
         //descriptor when patched
         public string outputDescription;
+        //Ignore Weapon Animation Type Overrides
+        public List<ModKey> IgnoreWATOverrides;
         //Weapon's Animation Type(s)
-        public string OneHandedAnimation;
-        public string TwoHandedAnimation;
+        public WeaponAnimationType OneHandedAnimation;
+        public WeaponAnimationType TwoHandedAnimation;
     }
     public struct ExcludesDB
     {

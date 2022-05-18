@@ -11,6 +11,7 @@ using Mutagen.Bethesda.Skyrim;
 using Noggog;
 
 using WeaponKeywords.Types;
+using Mutagen.Bethesda.Oblivion.Internals;
 
 namespace WeaponKeywords
 {
@@ -55,48 +56,51 @@ namespace WeaponKeywords
             }
             state.LoadOrder.PriorityOrder.Weapon().WinningOverrides().ForEach(weapon =>
             {
-                var edid = weapon.EditorID;
+                var edid = weapon.EditorID ?? "";
                 var nameToTest = weapon.Name?.String?.ToLower();
                 var matchingKeywords = DB.DB
-                    .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.Contains(cn) ?? false))
+                    .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
                     .Select(kv => kv.Key)
                     .ToArray();
                 var globalExclude = DB.excludes.phrases
-                    .Any(ph => nameToTest?.Contains(ph) ?? false) ||
+                    .Any(ph => nameToTest?.ContainsInsensitive(ph) ?? false) ||
                     DB.excludes.weapons.Contains(edid ?? "");
                 var isOneHanded = !(weapon.EquipmentType.FormKey.Equals(Skyrim.EquipType.BothHands.FormKey));
+                IWeapon? nw = null;
                 if (DB.includes.ContainsKey(edid ?? ""))
                 {
-                    var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
-                        Console.WriteLine($"{nameToTest}:\n\t{nw.Name}: {nw.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
+                        Console.WriteLine($"{nameToTest}:\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
-                            if (!nw.HasKeyword(keyform))
+                            if (!weapon.Keywords?.Select(x => x.FormKey).Contains(keyform.FormKey) ?? false)
                             {
+                                nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                 nw.Keywords?.Add(keyform.FormKey);
                                 Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                             }
                         }
-                        if (nw.Data != null)
+                        if (weapon.Data != null)
                         {
-                            if (isOneHanded)
-                            {
-                                if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            if (!DB.DB[DB.includes[edid ?? ""]].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey)) {
+                                if (isOneHanded)
                                 {
-                                    WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
-                                    nw.Data.AnimationType = wept;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                                    if (DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation != weapon.Data.AnimationType)
+                                    {
+                                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                                        nw.Data!.AnimationType = DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation;
+                                        Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                                else
                                 {
-                                    WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
-                                    nw.Data.AnimationType = wept;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
+                                    if (DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation != weapon.Data.AnimationType)
+                                    {
+                                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                                        nw.Data!.AnimationType = DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation;
+                                        Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
+                                    }
                                 }
                             }
                         }
@@ -109,43 +113,46 @@ namespace WeaponKeywords
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
                     Console.WriteLine($"{nameToTest}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
-                    var nw = state.PatchMod.Weapons.GetOrAddAsOverride(weapon);
                     foreach (var kyd in matchingKeywords)
                     {
-                        if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.Contains(cn) ?? false))
+                        if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
                         {
-                            Console.WriteLine($"\t{nw.Name}: {nw.EditorID} from {nw.FormKey.ModKey} is {DB.DB[kyd].outputDescription}:");
+                            Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {DB.DB[kyd].outputDescription}:");
                             foreach (var keyform in formkeys[kyd])
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
-
-                                if (!nw.HasKeyword(keyform.FormKey))
+                                if (DB.DB[kyd].excludeEditID.Contains(edid ?? "")) continue;
+                                if (!weapon.Keywords?.Select(x => x.FormKey).Contains(keyform.FormKey) ?? false)
                                 {
+                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                     nw.Keywords?.Add(keyform.FormKey);
                                     Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                                 }
                             }
                         }
                     }
-                    if (nw.Data != null)
+                    if (weapon.Data != null)
                     {
                         var fKeyword = matchingKeywords.First();
-                        if (isOneHanded)
+                        if (!DB.DB[fKeyword].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
                         {
-                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[fKeyword].OneHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            if (isOneHanded)
                             {
-                                WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
-                                nw.Data.AnimationType = wept;
-                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                                if (DB.DB[fKeyword].OneHandedAnimation != weapon.Data.AnimationType)
+                                {
+                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                                    nw.Data!.AnimationType = DB.DB[fKeyword].OneHandedAnimation;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (Enum.TryParse(typeof(WeaponAnimationType), DB.DB[fKeyword].TwoHandedAnimation, true, out object? wept_obj) && wept_obj != null)
+                            else
                             {
-                                WeaponAnimationType wept = (WeaponAnimationType)wept_obj;
-                                nw.Data.AnimationType = wept;
-                                Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
+                                if (DB.DB[fKeyword].TwoHandedAnimation != weapon.Data.AnimationType)
+                                {
+                                    nw = nw == null ? nw! : state.PatchMod.Weapons.GetOrAddAsOverride(weapon)!;
+                                    nw.Data!.AnimationType = DB.DB[fKeyword].TwoHandedAnimation;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
+                                }
                             }
                         }
                     }
