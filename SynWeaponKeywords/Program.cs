@@ -74,7 +74,7 @@ namespace WeaponKeywords
                         Console.WriteLine($"{nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
-                            if (!weapon.Keywords?.Select(x => x.FormKey).Contains(keyform.FormKey) ?? false)
+                            if (!weapon.Keywords?.Contains(keyform) ?? false)
                             {
                                 nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                 nw.Keywords?.Add(keyform.FormKey);
@@ -122,10 +122,10 @@ namespace WeaponKeywords
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
                                 if (DB.DB[kyd].excludeEditID.Contains(edid ?? "")) continue;
-                                if (!weapon.Keywords?.Select(x => x.FormKey).Contains(keyform.FormKey) ?? false)
+                                if (!weapon.Keywords?.Contains(keyform) ?? false)
                                 {
                                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    nw.Keywords?.Add(keyform.FormKey);
+                                    nw.Keywords?.Add(keyform);
                                     Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                                 }
                             }
