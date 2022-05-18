@@ -71,7 +71,7 @@ namespace WeaponKeywords
                 {
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
-                        Console.WriteLine($"{nameToTest}:\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
+                        Console.WriteLine($"{nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
                             if (!weapon.Keywords?.Select(x => x.FormKey).Contains(keyform.FormKey) ?? false)
@@ -112,7 +112,7 @@ namespace WeaponKeywords
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{nameToTest}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{nameToTest} - {weapon.FormKey.ModKey}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
                     foreach (var kyd in matchingKeywords)
                     {
                         if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
