@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
+using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 
 using Noggog;
 
 using WeaponKeywords.Types;
+
 namespace WeaponKeywords
 {
     public class Program
     {
         static Lazy<Database> LazyDB = new();
         static Database DB => LazyDB.Value;
+        static List<FormKey> OneHanded = new() {Skyrim.EquipType.EitherHand.FormKey, Skyrim.EquipType.LeftHand.FormKey, Skyrim.EquipType.RightHand.FormKey};
         public static async Task<int> Main(string[] args)
         {
             return await SynthesisPipeline.Instance
@@ -55,54 +59,64 @@ namespace WeaponKeywords
                     }
                 }
             }
-            state.LoadOrder.PriorityOrder.Weapon().WinningOverrides().ForEach(weapon =>
+            foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
                 var edid = weapon.EditorID;
                 var nameToTest = weapon.Name?.String?.ToLower();
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
                     .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
+                    .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
+                    .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Select(kv => kv.Key)
                     .ToArray();
                 var globalExclude = DB.excludes.phrases
                     .Any(ph => nameToTest?.ContainsInsensitive(ph) ?? false) ||
                     DB.excludes.weapons.Contains(edid ?? "");
-                var isOneHanded = weapon.Data.AnimationType is WeaponAnimationType.OneHandSword or WeaponAnimationType.HandToHand or WeaponAnimationType.OneHandDagger or WeaponAnimationType.OneHandAxe or WeaponAnimationType.OneHandAxe or WeaponAnimationType.OneHandMace or WeaponAnimationType.Staff;
+                var isOneHanded = OneHanded.Any(x => x.Equals(weapon.EquipmentType.FormKey));
                 IWeapon? nw = null;
                 if (DB.includes.ContainsKey(edid ?? ""))
                 {
                     if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
                     {
-                        Console.WriteLine($"{edid} - {nameToTest} - {weapon.FormKey.ModKey}\n\t{weapon.Name}: {weapon.EditorID} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
+                        Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
                         foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
                         {
                             if (!weapon.Keywords?.Select(x => x.FormKey.ModKey).Contains(keyform.FormKey.ModKey) ?? false)
                             {
                                 nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                                 nw.Keywords?.Add(keyform);
-                                Console.WriteLine($"\t\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
+                                Console.WriteLine($"\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
                             }
                         }
                         if (weapon.Data != null)
                         {
-                            if (!DB.DB[DB.includes[edid ?? ""]].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
+                            var fKeyword = DB.includes[edid ?? ""];
+                            if (!DB.DB[fKeyword].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
                             {
+                                WeaponAnimationType OneHanded = DB.DB[fKeyword].OneHandedAnimation;
+                                WeaponAnimationType TwoHanded = DB.DB[fKeyword].TwoHandedAnimation;
+                                if (DB.DB[fKeyword].WATModOverride.Any(x => x.Mod.Equals(weapon.FormKey.ModKey)))
+                                {
+                                    OneHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().OneHandedAnimation;
+                                    TwoHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().TwoHandedAnimation;
+                                }
                                 if (isOneHanded)
                                 {
-                                    if (DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation != weapon.Data.AnimationType)
+                                    if (OneHanded != weapon.Data.AnimationType)
                                     {
                                         nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                        nw.Data!.AnimationType = DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation;
-                                        Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].OneHandedAnimation}");
+                                        nw.Data!.AnimationType = OneHanded;
+                                        Console.WriteLine($"\tChanged Animation Type to {OneHanded}");
                                     }
                                 }
                                 else
                                 {
-                                    if (DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation != weapon.Data.AnimationType)
+                                    if (TwoHanded != weapon.Data.AnimationType)
                                     {
                                         nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                        nw.Data!.AnimationType = DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation;
-                                        Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[DB.includes[edid ?? ""]].TwoHandedAnimation}");
+                                        nw.Data!.AnimationType = TwoHanded;
+                                        Console.WriteLine($"\tChanged Animation Type to {TwoHanded}");
                                     }
                                 }
                             }
@@ -111,12 +125,12 @@ namespace WeaponKeywords
                 }
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{edid} - {nameToTest} - {weapon.FormKey.ModKey}:\n\tMatching Keywords: {string.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}:");
                     foreach (var kyd in matchingKeywords)
                     {
                         if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
                         {
-                            Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {DB.DB[kyd].outputDescription}:");
+                            Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {DB.DB[kyd].outputDescription}");
                             foreach (var keyform in formkeys[kyd])
                             {
                                 if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
@@ -134,28 +148,35 @@ namespace WeaponKeywords
                         var fKeyword = matchingKeywords.First();
                         if (!DB.DB[fKeyword].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
                         {
+                            WeaponAnimationType OneHanded = DB.DB[fKeyword].OneHandedAnimation;
+                            WeaponAnimationType TwoHanded = DB.DB[fKeyword].TwoHandedAnimation;
+                            if (DB.DB[fKeyword].WATModOverride.Any(x => x.Mod.Equals(weapon.FormKey.ModKey)))
+                            {
+                                OneHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().OneHandedAnimation;
+                                TwoHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().TwoHandedAnimation;
+                            }
                             if (isOneHanded)
                             {
-                                if (DB.DB[fKeyword].OneHandedAnimation != weapon.Data.AnimationType)
+                                if (OneHanded != weapon.Data.AnimationType)
                                 {
                                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    nw.Data!.AnimationType = DB.DB[fKeyword].OneHandedAnimation;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].OneHandedAnimation}");
+                                    nw.Data!.AnimationType = OneHanded;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {OneHanded}");
                                 }
                             }
                             else
                             {
-                                if (DB.DB[fKeyword].TwoHandedAnimation != weapon.Data.AnimationType)
+                                if (TwoHanded != weapon.Data.AnimationType)
                                 {
                                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    nw.Data!.AnimationType = DB.DB[fKeyword].TwoHandedAnimation;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {DB.DB[fKeyword].TwoHandedAnimation}");
+                                    nw.Data!.AnimationType = TwoHanded;
+                                    Console.WriteLine($"\t\tChanged Animation Type to {TwoHanded}");
                                 }
                             }
                         }
                     }
                 }
-            });
+            };
         }
     }
 }

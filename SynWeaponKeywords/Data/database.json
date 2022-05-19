@@ -9,15 +9,19 @@
         "rapier",
         "saber"
       ],
+      "outputDescription": "a rapier",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [],
       "exclude": [],
-      "excludeEditID": [],
+      "excludeEditID": [
+        "IWCSpearbladeDagger"
+      ],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a rapier",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Pike": {
       "keyword": [
@@ -28,39 +32,48 @@
         "pike",
         "trident"
       ],
+      "outputDescription": "a pike",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a pike",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Spear": {
       "keyword": [
         "WeapTypeSpear"
       ],
       "commonNames": [
-        "spear",
-        "glaive"
+        "spear"
+      ],
+      "outputDescription": "a spear",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [
+        {
+          "Mod": "Immersive Weapons.esp",
+          "OneHandedAnimation": "TwoHandAxe",
+          "TwoHandedAnimation": "TwoHandAxe"
+        }
       ],
       "exclude": [
         "shortspear",
         "short spear",
         "short-spear"
       ],
-      "excludeEditID": [],
+      "excludeEditID": [
+        "IWCSpearbladeDagger"
+      ],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a spear",
-      "IgnoreWATOverrides": [
-        "Immersive Weapons.esp"
-      ],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Shortspear": {
       "keyword": [
@@ -72,17 +85,17 @@
         "short spear",
         "short-spear"
       ],
+      "outputDescription": "a shortspear",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "OneHandSword",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "NewArmoury.esp"
       ],
-      "outputDescription": "a shortspear",
-      "IgnoreWATOverrides": [
-        "Immersive Weapons.esp"
-      ],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Halberd": {
       "keyword": [
@@ -90,17 +103,20 @@
         "NAR_Sig"
       ],
       "commonNames": [
-        "halberd"
+        "halberd",
+        "glaive"
       ],
+      "outputDescription": "a halberd",
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a halberd",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Quarterstaff": {
       "keyword": [
@@ -115,15 +131,17 @@
         "shortstaff",
         "short staff"
       ],
+      "outputDescription": "a quarterstaff",
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a quarterstaff",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Katana": {
       "keyword": [
@@ -140,19 +158,26 @@
         "akaviri",
         "ka po' tun"
       ],
+      "outputDescription": "a katana",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [],
       "exclude": [
         "short",
         "tanto",
-        "wakizashi"
+        "wakizashi",
+        "bow"
       ],
-      "excludeEditID": [],
+      "excludeEditID": [
+        "DBM_RH_DrakensangUID",
+        "AkaviriClaws",
+        "AkaviriClawsLeft"
+      ],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a katana",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Scimitar": {
       "keyword": [
@@ -168,6 +193,10 @@
         "sarai",
         "saif"
       ],
+      "outputDescription": "a curved sword",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [
         "ccBGSSSE001_FishingRodAlikriWeap",
@@ -176,10 +205,8 @@
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a curved sword",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Claw": {
       "keyword": [
@@ -191,15 +218,17 @@
       "commonNames": [
         "claw"
       ],
+      "outputDescription": "a claw",
+      "OneHandedAnimation": "OneHandDagger",
+      "TwoHandedAnimation": "OneHandDagger",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a claw",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Gun": {
       "keyword": [
@@ -208,15 +237,17 @@
       "commonNames": [
         "gun"
       ],
+      "outputDescription": "a gun",
+      "OneHandedAnimation": "Bow",
+      "TwoHandedAnimation": "Bow",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a gun",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "HandToHand",
-      "TwoHandedAnimation": "HandToHand"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Scythe": {
       "keyword": [
@@ -225,6 +256,10 @@
       "commonNames": [
         "scythe"
       ],
+      "outputDescription": "a scythe",
+      "OneHandedAnimation": "OneHandAxe",
+      "TwoHandedAnimation": "TwoHandAxe",
+      "WATModOverride": [],
       "exclude": [
         "bloodscythe"
       ],
@@ -232,10 +267,8 @@
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a scythe",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Whip": {
       "keyword": [
@@ -245,15 +278,17 @@
       "commonNames": [
         "whip"
       ],
+      "outputDescription": "a whip",
+      "OneHandedAnimation": "OneHandMace",
+      "TwoHandedAnimation": "OneHandMace",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a whip",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandMace",
-      "TwoHandedAnimation": "OneHandMace"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Javelin": {
       "keyword": [
@@ -262,13 +297,15 @@
       "commonNames": [
         "javelin"
       ],
+      "outputDescription": "a javelin",
+      "OneHandedAnimation": "OneHandSword",
+      "TwoHandedAnimation": "TwoHandSword",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [],
-      "outputDescription": "a javelin",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     },
     "Unarmed": {
       "keyword": [
@@ -282,15 +319,17 @@
         "short staff",
         "cetsus"
       ],
+      "outputDescription": "a monk weapon",
+      "OneHandedAnimation": "HandToHand",
+      "TwoHandedAnimation": "HandToHand",
+      "WATModOverride": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
         "SkyrimSpearMechanic.esp"
       ],
-      "outputDescription": "a monk weapon",
-      "IgnoreWATOverrides": [],
-      "OneHandedAnimation": "HandToHand",
-      "TwoHandedAnimation": "HandToHand"
+      "excludeMod": [],
+      "IgnoreWATOverrides": []
     }
   },
   "includes": {
@@ -345,14 +384,15 @@
       "PIKeeperLongMace",
       "PIKeeperLongMaceNoEnch",
       "N78DezicrahWeaponBow"
-    ]
+    ],
+    "excludeMod": []
   },
   "sources": [
     "NewArmoury.esp",
     "NWTA.esp",
+    "SkyrimSpearMechanic.esp",
     "Spears.esp",
     "WayOfTheMonk.esp",
-    "SkyrimSpearMechanic.esp",
     "SkyUIWeaponIcons.esp",
     "SkyUI Weapons Pack Keywords.esl"
   ]
