@@ -7,7 +7,12 @@
       ],
       "commonNames": [
         "rapier",
-        "saber"
+        "saber",
+        "ropera",
+        "epee",
+        "pappenheimer",
+        "crosshilt",
+        "foil"
       ],
       "outputDescription": "a rapier",
       "OneHandedAnimation": "OneHandSword",
@@ -104,7 +109,9 @@
       ],
       "commonNames": [
         "halberd",
-        "glaive"
+        "glaive",
+        "polearm",
+        "poleaxe"
       ],
       "outputDescription": "a halberd",
       "OneHandedAnimation": "OneHandAxe",
@@ -166,7 +173,8 @@
         "short",
         "tanto",
         "wakizashi",
-        "bow"
+        "bow",
+        "changdao"
       ],
       "excludeEditID": [
         "DBM_RH_DrakensangUID",
@@ -185,7 +193,6 @@
       ],
       "commonNames": [
         "scimitar",
-        "changdao",
         "dadao",
         "cutlass",
         "parmerion",
@@ -235,7 +242,15 @@
         "WeapTypeGun"
       ],
       "commonNames": [
-        "gun"
+        "gun",
+        "musket",
+        "rifle",
+        "pistol",
+        "handgun",
+        "shotgun",
+        "flintlock",
+        "blunderbuss",
+        "matchlock"
       ],
       "outputDescription": "a gun",
       "OneHandedAnimation": "Bow",
