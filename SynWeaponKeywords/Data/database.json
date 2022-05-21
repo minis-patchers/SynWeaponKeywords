@@ -163,7 +163,9 @@
         "nodachi",
         "zatoichi",
         "akaviri",
-        "ka po' tun"
+        "ka po' tun",
+        "wakizashi",
+        "changdao"
       ],
       "outputDescription": "a katana",
       "OneHandedAnimation": "OneHandSword",
@@ -172,9 +174,7 @@
       "exclude": [
         "short",
         "tanto",
-        "wakizashi",
-        "bow",
-        "changdao"
+        "bow"
       ],
       "excludeEditID": [
         "DBM_RH_DrakensangUID",
