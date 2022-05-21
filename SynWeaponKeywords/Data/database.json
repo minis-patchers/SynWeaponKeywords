@@ -7,7 +7,6 @@
       ],
       "commonNames": [
         "rapier",
-        "saber",
         "ropera",
         "epee",
         "pappenheimer",
@@ -199,7 +198,8 @@
         "parmerion",
         "alik'r",
         "sarai",
-        "saif"
+        "saif",
+        "saber"
       ],
       "outputDescription": "a curved sword",
       "OneHandedAnimation": "OneHandSword",
