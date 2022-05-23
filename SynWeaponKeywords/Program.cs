@@ -62,16 +62,16 @@ namespace WeaponKeywords
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
                 var edid = weapon.EditorID;
-                var nameToTest = weapon.Name?.String?.ToLower();
                 var matchingKeywords = DB.DB
-                    .Where(kv => kv.Value.commonNames.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
+                    .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .Where(kv => !kv.Value.exclude.Any(v=>weapon.Name?.String?.Contains(v, StringComparison.OrdinalIgnoreCase) ?? false))
                     .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
                     .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Select(kv => kv.Key)
                     .ToArray();
                 var globalExclude = DB.excludes.phrases
-                    .Any(ph => nameToTest?.ContainsInsensitive(ph) ?? false) ||
+                    .Any(ph => weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     DB.excludes.weapons.Contains(edid ?? "");
                 var isOneHanded = OneHanded.Any(x => x.Equals(weapon.EquipmentType.FormKey));
                 IWeapon? nw = null;
@@ -128,7 +128,7 @@ namespace WeaponKeywords
                     Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}:");
                     foreach (var kyd in matchingKeywords)
                     {
-                        if (formkeys.ContainsKey(kyd) && !DB.DB[kyd].exclude.Any(cn => nameToTest?.ContainsInsensitive(cn) ?? false))
+                        if (formkeys.ContainsKey(kyd))
                         {
                             Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {DB.DB[kyd].outputDescription}");
                             foreach (var keyform in formkeys[kyd])
