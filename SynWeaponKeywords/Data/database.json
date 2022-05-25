@@ -199,7 +199,12 @@
         "alik'r",
         "sarai",
         "saif",
-        "saber"
+        "saber",
+        "falchion",
+        "shotel",
+        "shamshir",
+        "khopesh",
+        "kilij"
       ],
       "outputDescription": "a curved sword",
       "OneHandedAnimation": "OneHandSword",
