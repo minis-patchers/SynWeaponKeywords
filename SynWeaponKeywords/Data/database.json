@@ -18,7 +18,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "IWBlackStingSword",
         "IWCSpearbladeDagger",
         "lilithslacerator",
@@ -54,7 +54,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "LothricWarBanner",
         "FourProngedPlow",
         "FollowerJavelin"
@@ -84,7 +84,7 @@
           "TwoHandedAnimation": "TwoHandAxe"
         }
       ],
-      "Include": [],
+      "include": [],
       "exclude": [
         "shortspear",
         "short spear",
@@ -113,7 +113,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "OneHandSword",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -137,7 +137,7 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "lilithsobliteratorhal",
         "DragonslayerSwordSpear",
         "CrucifixOfTheMadKing",
@@ -168,7 +168,7 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "MurkyLongStaff",
         "StorytellersStaff"
       ],
@@ -201,7 +201,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "ccBGSSSE005_Goldbrand",
         "DLC1HarkonsSword",
         "DLC1AkaviriSword",
@@ -258,7 +258,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
-      "Include": [
+      "include": [
         "PIKematuSword",
         "PIKematuSwordNoEnch"
       ],
@@ -287,7 +287,7 @@
       "OneHandedAnimation": "OneHandDagger",
       "TwoHandedAnimation": "OneHandDagger",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -315,7 +315,7 @@
       "OneHandedAnimation": "Bow",
       "TwoHandedAnimation": "Bow",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -335,7 +335,7 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [
         "bloodscythe"
       ],
@@ -358,7 +358,7 @@
       "OneHandedAnimation": "OneHandMace",
       "TwoHandedAnimation": "OneHandMace",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -378,7 +378,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [],
@@ -401,7 +401,7 @@
       "OneHandedAnimation": "HandToHand",
       "TwoHandedAnimation": "HandToHand",
       "WATModOverride": [],
-      "Include": [],
+      "include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [

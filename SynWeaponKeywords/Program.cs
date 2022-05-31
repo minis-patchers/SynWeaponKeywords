@@ -44,11 +44,11 @@ namespace WeaponKeywords
                 if (DB.ContainsKey("includes"))
                 {
                     foreach(var vr in DB!["DB"]!.ToObject<Dictionary<string, object>>()!) {
-                        DB["DB"]![vr.Key]!["Include"] = new JArray(new List<string>());
+                        DB["DB"]![vr.Key]!["include"] = new JArray(new List<string>());
                     }
                     foreach(var inc in DB!["includes"]!.ToObject<Dictionary<string, string>>()!)
                     {
-                        ((JArray)DB["DB"]![inc.Value]!["Include"]!).Add(inc.Key);
+                        ((JArray)DB["DB"]![inc.Value]!["include"]!).Add(inc.Key);
                     }
                     DB["CurrentSchemeVersion"] = 1;
                     DB.Remove("includes");
@@ -89,7 +89,6 @@ namespace WeaponKeywords
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
                 var edid = weapon.EditorID;
-                var includes = DB.DB.Where(x => x.Value.Include.Contains(edid ?? "")).Select(x => x.Key).ToArray();
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
                     .Where(kv => !kv.Value.exclude.Any(v => weapon.Name?.String?.Contains(v, StringComparison.OrdinalIgnoreCase) ?? false))
@@ -97,7 +96,7 @@ namespace WeaponKeywords
                     .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Select(kv => kv.Key)
-                    .Concat(DB.DB.Where(x => x.Value.Include.Contains(edid ?? "")).Select(x => x.Key))
+                    .Concat(DB.DB.Where(x => x.Value.include.Contains(edid ?? "")).Select(x => x.Key))
                     .ToArray();
                 var globalExclude = DB.excludes.phrases
                     .Any(ph => weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false) ||

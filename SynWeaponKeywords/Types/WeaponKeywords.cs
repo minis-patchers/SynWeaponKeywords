@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-
+using Newtonsoft.Json.Serialization;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
+using System.Text.Json.Serialization;
 
 namespace WeaponKeywords.Types
 {
@@ -24,7 +25,7 @@ namespace WeaponKeywords.Types
         //Specific WAT-Type Overrides
         public List<WATModOverrides> WATModOverride;
         //New includes
-        public List<string> Include;
+        public List<string> include;
         //Exclude specific phrases
         public List<string> exclude;
         //Exclude editor id's
