@@ -23,6 +23,8 @@ namespace WeaponKeywords.Types
         public WeaponAnimationType TwoHandedAnimation;
         //Specific WAT-Type Overrides
         public List<WATModOverrides> WATModOverride;
+        //New includes
+        public List<string> Include;
         //Exclude specific phrases
         public List<string> exclude;
         //Exclude editor id's
@@ -45,8 +47,9 @@ namespace WeaponKeywords.Types
     }
     public class Database
     {
+        public int CurrentSchemeVersion;
         public Dictionary<string, WeaponDB> DB = new();
-        public Dictionary<string, string> includes = new();
+        //public Dictionary<string, string> includes = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
     }

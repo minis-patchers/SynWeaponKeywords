@@ -1,4 +1,5 @@
 {
+  "CurrentSchemeVersion": 1,
   "DB": {
     "Rapier": {
       "keyword": [
@@ -17,6 +18,18 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
+      "Include": [
+        "IWBlackStingSword",
+        "IWCSpearbladeDagger",
+        "lilithslacerator",
+        "lilithslaceratorglow",
+        "lilithslaceratoralt",
+        "lilithslaceratoraltglow",
+        "lilithsthorn",
+        "lilithsthornglow",
+        "lilithsthornalt",
+        "lilithsthornaltglow"
+      ],
       "exclude": [],
       "excludeEditID": [
         "IWCSpearbladeDagger"
@@ -41,6 +54,11 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
+      "Include": [
+        "LothricWarBanner",
+        "FourProngedPlow",
+        "FollowerJavelin"
+      ],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -66,6 +84,7 @@
           "TwoHandedAnimation": "TwoHandAxe"
         }
       ],
+      "Include": [],
       "exclude": [
         "shortspear",
         "short spear",
@@ -94,6 +113,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "OneHandSword",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -117,6 +137,12 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
+      "Include": [
+        "lilithsobliteratorhal",
+        "DragonslayerSwordSpear",
+        "CrucifixOfTheMadKing",
+        "ImmolationTinder"
+      ],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -142,6 +168,10 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
+      "Include": [
+        "MurkyLongStaff",
+        "StorytellersStaff"
+      ],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -171,6 +201,24 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
+      "Include": [
+        "ccBGSSSE005_Goldbrand",
+        "DLC1HarkonsSword",
+        "DLC1AkaviriSword",
+        "AkaviriKatana",
+        "DA08EbonyBlade",
+        "DA08RealEbonyBlade",
+        "dunBloatedMansKatana",
+        "MQ203AkaviriKatana1",
+        "MQ203AkaviriKatana2",
+        "MQ203AkaviriKatana3",
+        "MQ203AkaviriKatana4",
+        "MQ203AkaviriKatana5",
+        "A0Kusanagi",
+        "A0Kusanagi2H",
+        "aaaSusasnoSasukeWeapon",
+        "ZEB_EbonyBladeOneHanded"
+      ],
       "exclude": [
         "short",
         "tanto",
@@ -210,6 +258,10 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
+      "Include": [
+        "PIKematuSword",
+        "PIKematuSwordNoEnch"
+      ],
       "exclude": [],
       "excludeEditID": [
         "ccBGSSSE001_FishingRodAlikriWeap",
@@ -235,6 +287,7 @@
       "OneHandedAnimation": "OneHandDagger",
       "TwoHandedAnimation": "OneHandDagger",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -262,6 +315,7 @@
       "OneHandedAnimation": "Bow",
       "TwoHandedAnimation": "Bow",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -281,6 +335,7 @@
       "OneHandedAnimation": "OneHandAxe",
       "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [
         "bloodscythe"
       ],
@@ -303,6 +358,7 @@
       "OneHandedAnimation": "OneHandMace",
       "TwoHandedAnimation": "OneHandMace",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -322,6 +378,7 @@
       "OneHandedAnimation": "OneHandSword",
       "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [],
@@ -344,6 +401,7 @@
       "OneHandedAnimation": "HandToHand",
       "TwoHandedAnimation": "HandToHand",
       "WATModOverride": [],
+      "Include": [],
       "exclude": [],
       "excludeEditID": [],
       "excludeSource": [
@@ -352,45 +410,6 @@
       "excludeMod": [],
       "IgnoreWATOverrides": []
     }
-  },
-  "includes": {
-    "IWBlackStingSword": "Rapier",
-    "IWCSpearbladeDagger": "Rapier",
-    "lilithslacerator": "Rapier",
-    "lilithslaceratorglow": "Rapier",
-    "lilithslaceratoralt": "Rapier",
-    "lilithslaceratoraltglow": "Rapier",
-    "lilithsthorn": "Rapier",
-    "lilithsthornglow": "Rapier",
-    "lilithsthornalt": "Rapier",
-    "lilithsthornaltglow": "Rapier",
-    "lilithsobliteratorhal": "Halberd",
-    "DragonslayerSwordSpear": "Halberd",
-    "CrucifixOfTheMadKing": "Halberd",
-    "ImmolationTinder": "Halberd",
-    "MurkyLongStaff": "Quarterstaff",
-    "StorytellersStaff": "Quarterstaff",
-    "LothricWarBanner": "Pike",
-    "FourProngedPlow": "Pike",
-    "FollowerJavelin": "Pike",
-    "PIKematuSword": "Scimitar",
-    "PIKematuSwordNoEnch": "Scimitar",
-    "ccBGSSSE005_Goldbrand": "Katana",
-    "DLC1HarkonsSword": "Katana",
-    "DLC1AkaviriSword": "Katana",
-    "AkaviriKatana": "Katana",
-    "DA08EbonyBlade": "Katana",
-    "DA08RealEbonyBlade": "Katana",
-    "dunBloatedMansKatana": "Katana",
-    "MQ203AkaviriKatana1": "Katana",
-    "MQ203AkaviriKatana2": "Katana",
-    "MQ203AkaviriKatana3": "Katana",
-    "MQ203AkaviriKatana4": "Katana",
-    "MQ203AkaviriKatana5": "Katana",
-    "A0Kusanagi": "Katana",
-    "A0Kusanagi2H": "Katana",
-    "aaaSusasnoSasukeWeapon": "Katana",
-    "ZEB_EbonyBladeOneHanded": "Katana"
   },
   "excludes": {
     "phrases": [
