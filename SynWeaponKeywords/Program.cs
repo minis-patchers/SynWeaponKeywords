@@ -19,7 +19,7 @@ namespace WeaponKeywords
     {
         static Lazy<Database> LazyDB = new();
         static Database DB => LazyDB.Value;
-        static List<FormKey> OneHanded = new() {Skyrim.EquipType.EitherHand.FormKey, Skyrim.EquipType.LeftHand.FormKey, Skyrim.EquipType.RightHand.FormKey};
+        static List<FormKey> OneHanded = new() { Skyrim.EquipType.EitherHand.FormKey, Skyrim.EquipType.LeftHand.FormKey, Skyrim.EquipType.RightHand.FormKey };
         public static async Task<int> Main(string[] args)
         {
             return await SynthesisPipeline.Instance
@@ -64,7 +64,7 @@ namespace WeaponKeywords
                 var edid = weapon.EditorID;
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
-                    .Where(kv => !kv.Value.exclude.Any(v=>weapon.Name?.String?.Contains(v, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .Where(kv => !kv.Value.exclude.Any(v => weapon.Name?.String?.Contains(v, StringComparison.OrdinalIgnoreCase) ?? false))
                     .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
                     .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
