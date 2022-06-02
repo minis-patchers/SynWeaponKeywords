@@ -14,7 +14,6 @@ using Noggog;
 
 using WeaponKeywords.Types;
 using System.Data;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
@@ -40,7 +39,7 @@ namespace WeaponKeywords
             var DB = JObject.Parse(File.ReadAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json")));
             if (DB.GetOrDefault("CurrentSchemeVersion")!.Value<int>() < 1)
             {
-                Console.Out.WriteLine("Transitioning schema 0 to schema 1");
+                Console.WriteLine("Transitioning schema 0 to schema 1");
                 if (DB.ContainsKey("includes"))
                 {
                     foreach(var vr in DB!["DB"]!.ToObject<Dictionary<string, object>>()!) {
@@ -104,55 +103,6 @@ namespace WeaponKeywords
                 var isOneHanded = OneHanded.Any(x => x.Equals(weapon.EquipmentType.FormKey));
                 IWeapon? nw = null;
                 //Legacy code
-                /*
-                if (DB.includes.ContainsKey(edid ?? ""))
-                {
-                    if (formkeys.ContainsKey(DB.includes[edid ?? ""]))
-                    {
-                        Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} is {DB.DB[DB.includes[edid ?? ""]].outputDescription}:");
-                        foreach (var keyform in formkeys[DB.includes[edid ?? ""]])
-                        {
-                            if (!weapon.Keywords?.Select(x => x.FormKey.ModKey).Contains(keyform.FormKey.ModKey) ?? false)
-                            {
-                                nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                nw.Keywords?.Add(keyform);
-                                Console.WriteLine($"\tAdded Keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
-                            }
-                        }
-                        if (weapon.Data != null)
-                        {
-                            var fKeyword = DB.includes[edid ?? ""];
-                            if (!DB.DB[fKeyword].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
-                            {
-                                WeaponAnimationType OneHanded = DB.DB[fKeyword].OneHandedAnimation;
-                                WeaponAnimationType TwoHanded = DB.DB[fKeyword].TwoHandedAnimation;
-                                if (DB.DB[fKeyword].WATModOverride.Any(x => x.Mod.Equals(weapon.FormKey.ModKey)))
-                                {
-                                    OneHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().OneHandedAnimation;
-                                    TwoHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().TwoHandedAnimation;
-                                }
-                                if (isOneHanded)
-                                {
-                                    if (OneHanded != weapon.Data.AnimationType)
-                                    {
-                                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                        nw.Data!.AnimationType = OneHanded;
-                                        Console.WriteLine($"\tChanged Animation Type to {OneHanded}");
-                                    }
-                                }
-                                else
-                                {
-                                    if (TwoHanded != weapon.Data.AnimationType)
-                                    {
-                                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                        nw.Data!.AnimationType = TwoHanded;
-                                        Console.WriteLine($"\tChanged Animation Type to {TwoHanded}");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }*/
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
                     Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}:");

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Newtonsoft.Json.Serialization;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
-using System.Text.Json.Serialization;
 
 namespace WeaponKeywords.Types
 {
@@ -24,7 +22,7 @@ namespace WeaponKeywords.Types
         public WeaponAnimationType TwoHandedAnimation;
         //Specific WAT-Type Overrides
         public List<WATModOverrides> WATModOverride;
-        //New includes
+        //Include editorID
         public List<string> include;
         //Exclude specific phrases
         public List<string> exclude;
@@ -50,7 +48,6 @@ namespace WeaponKeywords.Types
     {
         public int CurrentSchemeVersion;
         public Dictionary<string, WeaponDB> DB = new();
-        //public Dictionary<string, string> includes = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
     }
