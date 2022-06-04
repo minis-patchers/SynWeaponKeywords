@@ -42,10 +42,11 @@ namespace WeaponKeywords
                 Console.WriteLine("Transitioning schema 0 to schema 1");
                 if (DB.ContainsKey("includes"))
                 {
-                    foreach(var vr in DB!["DB"]!.ToObject<Dictionary<string, object>>()!) {
+                    foreach (var vr in DB!["DB"]!.ToObject<Dictionary<string, object>>()!)
+                    {
                         DB["DB"]![vr.Key]!["include"] = new JArray(new List<string>());
                     }
-                    foreach(var inc in DB!["includes"]!.ToObject<Dictionary<string, string>>()!)
+                    foreach (var inc in DB!["includes"]!.ToObject<Dictionary<string, string>>()!)
                     {
                         ((JArray)DB["DB"]![inc.Value]!["include"]!).Add(inc.Key);
                     }

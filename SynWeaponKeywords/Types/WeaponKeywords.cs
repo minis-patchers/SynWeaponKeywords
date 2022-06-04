@@ -5,7 +5,8 @@ using Mutagen.Bethesda.Synthesis.Settings;
 
 namespace WeaponKeywords.Types
 {
-    public struct WATModOverrides {
+    public struct WATModOverrides
+    {
         public ModKey Mod;
         public WeaponAnimationType OneHandedAnimation;
         public WeaponAnimationType TwoHandedAnimation;
@@ -47,10 +48,11 @@ namespace WeaponKeywords.Types
     }
     public class Database
     {
-        [SynthesisIgnoreSetting]
-        public int CurrentSchemeVersion;
         public Dictionary<string, WeaponDB> DB = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
+        [SynthesisDescription("DO NOT TOUCH!")]
+        [SynthesisTooltip("Internal use only, do not touch")]
+        public int CurrentSchemeVersion;
     }
 }
