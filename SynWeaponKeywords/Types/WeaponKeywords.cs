@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
+using Mutagen.Bethesda.Synthesis.Settings;
 
 namespace WeaponKeywords.Types
 {
@@ -46,6 +47,7 @@ namespace WeaponKeywords.Types
     }
     public class Database
     {
+        [SynthesisIgnoreSetting]
         public int CurrentSchemeVersion;
         public Dictionary<string, WeaponDB> DB = new();
         public ExcludesDB excludes = new();
