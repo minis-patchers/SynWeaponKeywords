@@ -51,7 +51,7 @@ namespace WeaponKeywords.Types
         public Dictionary<string, WeaponDB> DB = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
-        [SynthesisDescription("DO NOT TOUCH!")]
+        [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
         public int CurrentSchemeVersion;
     }

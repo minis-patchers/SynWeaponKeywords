@@ -37,7 +37,7 @@ namespace WeaponKeywords
         public static void ConvertJson()
         {
             var DB = JObject.Parse(File.ReadAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json")));
-            if (DB.GetOrDefault("CurrentSchemeVersion")!.Value<int>() < 1)
+            if (!DB.ContainsKey("CurrentSchemeVersion") || (DB["CurrentSchemeVersion"]?.Value<int>() ?? 0) < 1)
             {
                 Console.WriteLine("Transitioning schema 0 to schema 1");
                 if (DB.ContainsKey("includes"))
