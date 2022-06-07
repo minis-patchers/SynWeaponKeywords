@@ -50,9 +50,9 @@ namespace WeaponKeywords
                     {
                         ((JArray)DB["DB"]![inc.Value]!["include"]!).Add(inc.Key);
                     }
-                    DB["CurrentSchemeVersion"] = 1;
                     DB.Remove("includes");
                 }
+                DB["CurrentSchemeVersion"] = 1;
                 File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DB, Formatting.Indented));
             }
         }
