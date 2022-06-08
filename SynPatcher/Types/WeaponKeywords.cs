@@ -53,6 +53,6 @@ namespace WeaponKeywords.Types
         public List<ModKey> sources = new();
         [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
-        public int DBPatchVer = 0;
+        public int DBPatchVer = -1;
     }
 }
