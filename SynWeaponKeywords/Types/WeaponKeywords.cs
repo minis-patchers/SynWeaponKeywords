@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis.Settings;
@@ -53,8 +51,9 @@ namespace WeaponKeywords.Types
         public Dictionary<string, WeaponDB> DB = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
+        public int DBPatchVer = 0;
         [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
-        public int CurrentSchemeVersion;
+        public int CurrentSchemeVersion = 0;
     }
 }
