@@ -44,7 +44,7 @@ namespace WeaponKeywords
             using (var HttpClient = new HttpClient())
             {
                 HttpClient.Timeout = TimeSpan.FromSeconds(30);
-                var resp = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynWeaponKeywords/Main/DeltaPatches/patchindex.json");
+                var resp = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynWeaponKeywords/Exp/DeltaPatches/patchindex.json");
                 resp.Wait();
                 var pi = JArray.Parse(resp.Result).ToObject<List<string>>()!;
                 for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
