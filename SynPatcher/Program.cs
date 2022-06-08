@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ using Noggog;
 
 using WeaponKeywords.Types;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using System.Net.Http;
+
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace WeaponKeywords
 {
@@ -36,7 +40,7 @@ namespace WeaponKeywords
         public static async void ConvertJson(IRunnabilityState state)
         {
             var DBConv = JObject.Parse(File.ReadAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json")));
-            if ((DBConv["DBPatchVer"]?.Value<int>() ?? 0) == 0)
+            if ((DBConv["DBPatchVer"]?.Value<int>() ?? 0) < 0)
             {
                 DBConv = new JObject();
             }
@@ -51,10 +55,10 @@ namespace WeaponKeywords
                 {
                     resp = HttpClient.GetStringAsync(pi[i]);
                     resp.Wait();
-                    var pch = JObject.Parse(resp.Result).ToObject<Marvin.JsonPatch.JsonPatchDocument>()!;
+                    var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp.Result), new DefaultContractResolver());
                     pch.ApplyTo(DBConv);
+                    DBConv["DBPatchVer"] = i + 1;
                 }
-                DBConv["DBPatchVer"] = pi.Count;
             }
             File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
         }
