@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
+using Microsoft.AspNetCore.JsonPatch.Exceptions;
 
 namespace WeaponKeywords
 {
@@ -63,15 +64,27 @@ namespace WeaponKeywords
                 {
                     try
                     {
+                        Console.WriteLine($"Downloading patch {pi[i]}");
                         resp = await HttpClient.GetStringAsync(pi[i]);
                     }
                     catch (Exception)
                     {
-                        Console.WriteLine($"Failed to download patch {i} - {pi[i]}");
+                        Console.WriteLine($"Failed to download patch {pi[i]}");
                         return;
                     }
                     var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp), new DefaultContractResolver());
-                    pch.ApplyTo(DBConv);
+                    try
+                    {
+                        pch.ApplyTo(DBConv);
+                    }
+                    catch (JsonPatchException ex)
+                    {
+                        Console.WriteLine($"Failed to apply patch {pi[i]} {ex.Message}");
+                        Console.WriteLine($"Failed Object {ex.AffectedObject}");
+                        Console.WriteLine($"Operation {ex.FailedOperation}");
+                        Console.WriteLine("Database patching terminated");
+                        return;
+                    }
                     DBConv["DBPatchVer"] = i + 1;
                     File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
                 }
