@@ -47,20 +47,35 @@ namespace WeaponKeywords
             //New Age JSON Patcher // Shiny
             using (var HttpClient = new HttpClient())
             {
-                HttpClient.Timeout = TimeSpan.FromSeconds(30);
-                var resp = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
-                resp.Wait();
-                var pi = JArray.Parse(resp.Result).ToObject<List<string>>()!;
+                HttpClient.Timeout = TimeSpan.FromSeconds(5);
+                string resp = string.Empty;
+                try
+                {
+                    resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to download patch index");
+                    return;
+                }
+                var pi = JArray.Parse(resp).ToObject<List<string>>()!;
                 for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
                 {
-                    resp = HttpClient.GetStringAsync(pi[i]);
-                    resp.Wait();
-                    var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp.Result), new DefaultContractResolver());
+                    try
+                    {
+                        resp = await HttpClient.GetStringAsync(pi[i]);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine($"Failed to download patch {i} - {pi[i]}");
+                        return;
+                    }
+                    var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp), new DefaultContractResolver());
                     pch.ApplyTo(DBConv);
                     DBConv["DBPatchVer"] = i + 1;
+                    File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
                 }
             }
-            File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
         }
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
