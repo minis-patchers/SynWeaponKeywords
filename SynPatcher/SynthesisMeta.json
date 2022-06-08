@@ -1,0 +1,8 @@
+{
+  "Nickname": "SynWeaponKeywords",
+  "Visibility": "Visible",
+  "OneLineDescription": "Weapon type keyword patcher (similar to zEdit patcher)",
+  "LongDescription": "Supports a wide variety of mods",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": []
+}

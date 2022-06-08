@@ -15,7 +15,7 @@ using Noggog;
 using WeaponKeywords.Types;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-
+using System.Net.Http;
 
 namespace WeaponKeywords
 {
@@ -33,55 +33,30 @@ namespace WeaponKeywords
                 .SetTypicalOpen(GameRelease.SkyrimSE, "SynWeaponKeywords.esp")
                 .Run(args);
         }
-        public static void ConvertJson(IRunnabilityState state)
+        public static async void ConvertJson(IRunnabilityState state)
         {
             var DBConv = JObject.Parse(File.ReadAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json")));
-            int DBVer = DBConv["CurrentSchemeVersion"]?.Value<int>() ?? 0;
-            if (DBVer < 2)
+            if ((DBConv["DBPatchVer"]?.Value<int>() ?? 0) == 0)
             {
-                Console.WriteLine($"Version transition {DBVer}->2");
-                foreach (var vr in DBConv["DB"]!.ToObject<Dictionary<string, object>>()!)
-                {
-                    //ver 1
-                    if (!((JObject)DBConv["DB"]![vr.Key]!).ContainsKey("include"))
-                    {
-                        DBConv["DB"]![vr.Key]!["include"] = new JArray(new List<string>());
-                    }
-                    //ver 2
-                    if (!((JObject)DBConv["DB"]![vr.Key]!).ContainsKey("ExcludeEditID"))
-                    {
-                        DBConv["DB"]![vr.Key]!["ExcludeEditID"] = new JArray(new List<string>());
-                    }
-                    if (!((JObject)DBConv["DB"]![vr.Key]!).ContainsKey("ExcludeMod"))
-                    {
-                        DBConv["DB"]![vr.Key]!["ExcludeMod"] = new JArray(new List<ModKey>());
-                    }
-                    if (!((JObject)DBConv["DB"]![vr.Key]!).ContainsKey("IgnoreWATOverrides"))
-                    {
-                        DBConv["DB"]![vr.Key]!["IgnoreWATOverrides"] = new JArray(new List<ModKey>());
-                    }
-                    if (!((JObject)DBConv["DB"]![vr.Key]!).ContainsKey("WATModOverride"))
-                    {
-                        DBConv["DB"]![vr.Key]!["WATModOverride"] = new JArray(new List<WATModOverrides>());
-                    }
-                }
-                //ver 1
-                if (DBConv.ContainsKey("includes"))
-                {
-                    foreach (var inc in DBConv["includes"]!.ToObject<Dictionary<string, string>>()!)
-                    {
-                        ((JArray)DBConv["DB"]![inc.Value]!["include"]!).Add(inc.Key);
-                    }
-                    DBConv.Remove("includes");
-                }
-                //ver 2
-                if (!((JObject)DBConv["excludes"]!).ContainsKey("ExcludeMod"))
-                {
-                    DBConv["excludes"]!["ExcludeMod"] = new JArray(new List<ModKey>());
-                }
-                DBConv["CurrentSchemeVersion"] = 2;
-                File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
+                DBConv = new JObject();
             }
+            //New Age JSON Patcher // Shiny
+            using (var HttpClient = new HttpClient())
+            {
+                HttpClient.Timeout = TimeSpan.FromSeconds(30);
+                var resp = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynWeaponKeywords/Main/DeltaPatches/patchindex.json");
+                resp.Wait();
+                var pi = JArray.Parse(resp.Result).ToObject<List<string>>()!;
+                for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
+                {
+                    resp = HttpClient.GetStringAsync(pi[i]);
+                    resp.Wait();
+                    var pch = JObject.Parse(resp.Result).ToObject<Marvin.JsonPatch.JsonPatchDocument>()!;
+                    pch.ApplyTo(DBConv);
+                }
+                DBConv["DBPatchVer"] = pi.Count;
+            }
+            File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
         }
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {

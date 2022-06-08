@@ -2,6 +2,5 @@
 .vs/*
 */bin/*
 */obj/*
-MakeJSONPatch*
 *.exe
 *_old*
