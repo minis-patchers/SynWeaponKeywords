@@ -40,7 +40,7 @@ namespace WeaponKeywords
         }
         public static async void ConvertJson(IRunnabilityState state)
         {
-            var DBConv = JObject.Parse(File.ReadAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json")));
+            var DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
             if ((DBConv["DBPatchVer"]?.Value<int>() ?? 0) < 0)
             {
                 DBConv = new JObject();
@@ -86,7 +86,7 @@ namespace WeaponKeywords
                         return;
                     }
                     DBConv["DBPatchVer"] = i + 1;
-                    File.WriteAllText(Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords", "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
+                    File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
                 }
             }
         }
