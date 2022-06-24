@@ -41,68 +41,70 @@ namespace WeaponKeywords
         public static async void ConvertJson(IRunnabilityState state)
         {
             JObject? DBConv = null;
-            if (state.ExtraSettingsDataPath != null)
+            string path;
+            if (state.ExtraSettingsDataPath == null)
             {
-                if (!Directory.Exists(state.ExtraSettingsDataPath))
-                {
-                    Directory.CreateDirectory(state.ExtraSettingsDataPath);
-                }
-                if (File.Exists(Path.Combine(state.ExtraSettingsDataPath, "database.json")))
-                {
-                    DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
-                }
-                if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) == 0)
-                {
-                    DBConv = new JObject();
-                }
-                //New Age JSON Patcher // Shiny
-                using (var HttpClient = new HttpClient())
-                {
-                    HttpClient.Timeout = TimeSpan.FromSeconds(5);
-                    string resp = string.Empty;
-                    try
-                    {
-                        resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Failed to download patch index");
-                        return;
-                    }
-                    var pi = JArray.Parse(resp).ToObject<List<string>>()!;
-                    for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
-                    {
-                        try
-                        {
-                            Console.WriteLine($"Downloading patch {pi[i]}");
-                            resp = await HttpClient.GetStringAsync(pi[i]);
-                        }
-                        catch (Exception)
-                        {
-                            Console.WriteLine($"Failed to download patch {pi[i]}");
-                            return;
-                        }
-                        var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp), new DefaultContractResolver());
-                        try
-                        {
-                            pch.ApplyTo(DBConv);
-                        }
-                        catch (JsonPatchException ex)
-                        {
-                            Console.WriteLine($"Failed to apply patch {pi[i]} {ex.Message}");
-                            Console.WriteLine($"Failed Object {ex.AffectedObject}");
-                            Console.WriteLine($"Operation {ex.FailedOperation}");
-                            Console.WriteLine("Database patching terminated");
-                            return;
-                        }
-                        DBConv["DBPatchVer"] = i + 1;
-                        File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
-                    }
-                }
+                path = Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords");
             }
             else
             {
-                Console.WriteLine("Extra Settings data path is null");
+                path = state.ExtraSettingsDataPath!;
+            }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            if (File.Exists(Path.Combine(path, "database.json")))
+            {
+                DBConv = JObject.Parse(File.ReadAllText(Path.Combine(path, "database.json")));
+            }
+            if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) == 0)
+            {
+                DBConv = new JObject();
+            }
+            //New Age JSON Patcher // Shiny
+            using (var HttpClient = new HttpClient())
+            {
+                HttpClient.Timeout = TimeSpan.FromSeconds(5);
+                string resp = string.Empty;
+                try
+                {
+                    resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to download patch index");
+                    return;
+                }
+                var pi = JArray.Parse(resp).ToObject<List<string>>()!;
+                for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
+                {
+                    try
+                    {
+                        Console.WriteLine($"Downloading patch {pi[i]}");
+                        resp = await HttpClient.GetStringAsync(pi[i]);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine($"Failed to download patch {pi[i]}");
+                        return;
+                    }
+                    var pch = new JsonPatchDocument(JsonConvert.DeserializeObject<List<Operation>>(resp), new DefaultContractResolver());
+                    try
+                    {
+                        pch.ApplyTo(DBConv);
+                    }
+                    catch (JsonPatchException ex)
+                    {
+                        Console.WriteLine($"Failed to apply patch {pi[i]} {ex.Message}");
+                        Console.WriteLine($"Failed Object {ex.AffectedObject}");
+                        Console.WriteLine($"Operation {ex.FailedOperation}");
+                        Console.WriteLine("Database patching terminated");
+                        return;
+                    }
+                    DBConv["DBPatchVer"] = i + 1;
+                    File.WriteAllText(Path.Combine(path, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
+                }
             }
         }
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
