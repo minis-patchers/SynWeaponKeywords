@@ -40,7 +40,15 @@ namespace WeaponKeywords
         }
         public static async void ConvertJson(IRunnabilityState state)
         {
-            var DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
+            JObject DBConv;
+            if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
+            {
+                DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
+            }
+            else
+            {
+                DBConv = new JObject();
+            }
             if ((DBConv["DBPatchVer"]?.Value<int>() ?? 0) < 0)
             {
                 DBConv = new JObject();
