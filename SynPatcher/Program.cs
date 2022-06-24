@@ -141,7 +141,6 @@ namespace WeaponKeywords
                     DB.excludes.weapons.Contains(edid ?? "");
                 var isOneHanded = OneHanded.Any(x => x.Equals(weapon.EquipmentType.FormKey));
                 IWeapon? nw = null;
-                //Legacy code
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
                     Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}:");
