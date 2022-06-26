@@ -65,7 +65,8 @@
     },
     "Spear": {
       "keyword": [
-        "WeapTypeSpear"
+        "WeapTypeSpear",
+        "NAR_Sig"
       ],
       "commonNames": [
         "spear"
@@ -81,7 +82,9 @@
         "short-spear"
       ],
       "excludeEditID": [
-        "IWCSpearbladeDagger"
+        "IWCSpearbladeDagger",
+        "DBM_SpearofthSnowPrinceREPLICA",
+        "DragonslayerSwordSpear"
       ],
       "excludeSource": [],
       "excludeMod": [],
@@ -89,7 +92,8 @@
     },
     "Shortspear": {
       "keyword": [
-        "WeapTypeSpear"
+        "WeapTypeSpear",
+        "NAR_Sig"
       ],
       "commonNames": [
         "shortspear",
