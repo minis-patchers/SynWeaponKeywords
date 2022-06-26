@@ -108,6 +108,7 @@ namespace WeaponKeywords
         }
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
+            Console.WriteLine($"Running with Database Patch: {DB.DBPatchVer}");
             Dictionary<string, List<IKeywordGetter>> formkeys = new();
             var Keywords = DB.DB.SelectMany(x => x.Value.keyword).Distinct();
             foreach (var src in DB.sources)
