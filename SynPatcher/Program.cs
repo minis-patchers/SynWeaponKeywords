@@ -102,7 +102,6 @@ namespace WeaponKeywords
                         Console.WriteLine("Database patching terminated");
                         return;
                     }
-                    DBConv["DBPatchVer"] = i + 1;
                     File.WriteAllText(Path.Combine(path, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
                 }
             }
