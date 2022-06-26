@@ -156,7 +156,7 @@ namespace WeaponKeywords
                 IWeapon? nw = null;
                 if (matchingKeywords.Length > 0 && !globalExclude)
                 {
-                    Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}:");
+                    Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}");
                     foreach (var kyd in matchingKeywords)
                     {
                         if (formkeys.ContainsKey(kyd))
