@@ -162,15 +162,15 @@ namespace WeaponKeywords
                         if (formkeys.ContainsKey(kyd))
                         {
                             Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {DB.DB[kyd].outputDescription}");
-                            foreach (var keyform in formkeys[kyd])
+                            var keywords = weapon.Keywords?.Select(x => x.Resolve(state.LinkCache))
+                                .Where(x => !x.EditorID.StartsWith("WeapType"))
+                                .Where(x => !DB.DB[kyd].excludeSource.Contains(x.FormKey.ModKey))
+                                .Concat(formkeys[kyd])!;
+                            if (!weapon.Keywords?.Equals(keywords) ?? false)
                             {
-                                if (DB.DB[kyd].excludeSource.Contains(keyform.FormKey.ModKey)) continue;
-                                if (!weapon.Keywords?.Select(x => x.FormKey.ModKey).Contains(keyform.FormKey.ModKey) ?? false)
-                                {
-                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    nw.Keywords?.Add(keyform);
-                                    Console.WriteLine($"\t\tAdded keyword {keyform.EditorID} from {keyform.FormKey.ModKey}");
-                                }
+                                nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                                nw.Keywords = keywords.Select(x => x.ToLinkGetter()).ToExtendedList();
+                                Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.EditorID} from {x.FormKey.ModKey}"))}");
                             }
                         }
                     }
