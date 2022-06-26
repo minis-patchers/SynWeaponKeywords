@@ -150,7 +150,7 @@ namespace WeaponKeywords
                     .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
                     .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
-                    .Where(kv => !DB.excludes.phrases.Any(ph => (weapon.Name?.String?.Contains(ph) ?? false)))
+                    .Where(kv => !DB.excludes.phrases.Any(ph => (weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false)))
                     .Where(kv => !DB.excludes.weapons.Contains(edid ?? ""))
                     .Concat(DB.DB.Where(x => x.Value.include.Contains(edid ?? "")))
                     .Select(kv => kv.Key)
