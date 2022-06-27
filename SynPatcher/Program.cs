@@ -165,7 +165,7 @@ namespace WeaponKeywords
 
                     var keywords = weapon.Keywords?
                         .Select(x => x.Resolve(state.LinkCache))
-                        .Where(x => !x.EditorID.StartsWith("WeapType"))
+                        //.Where(x => !x.EditorID.StartsWith("WeapType")) // Don't exclude the original weapon type keyword, causes more issues at the moment... (one day, but not today)
                         .Concat(
                             matchingKeywords.SelectMany(
                                 x => formkeys[x].Where(y => !DB.DB[x].excludeSource.Contains(y.FormKey.ModKey))
