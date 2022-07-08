@@ -21,9 +21,6 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
-using Noggog.Utility;
 
 namespace WeaponKeywords
 {
@@ -173,7 +170,7 @@ namespace WeaponKeywords
                             matchingKeywords.SelectMany(
                                 x => formkeys[x].Where(y => !DB.DB[x].excludeSource.Contains(y.FormKey.ModKey))
                             )
-                        ).DistinctBy(x => x!.FormKey)
+                        ).DistinctBy(x => x.FormKey)
                         .ToList() ?? new();
 
                     if (keywords.Any(x => !(weapon.Keywords?.Contains(x) ?? false)))
