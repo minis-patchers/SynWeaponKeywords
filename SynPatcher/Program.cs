@@ -21,7 +21,6 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
-using System.Net.Http.Headers;
 
 namespace WeaponKeywords
 {
@@ -164,7 +163,8 @@ namespace WeaponKeywords
                     Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {string.Join(" & ", DB.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
 
                     var keywords = weapon.Keywords?
-                        .Select(x => x.Resolve(state.LinkCache))
+                        .Select(x => { if (x.TryResolve<IKeyword>(state.LinkCache, out var kyd)) { return kyd!; } else { return null!; } })
+                        .Where(x => x != null)
                         //.Where(x => !x.EditorID.StartsWith("WeapType")) // Don't exclude the original weapon type keyword, causes more issues at the moment... (one day, but not today)
                         .Concat(
                             matchingKeywords.SelectMany(
