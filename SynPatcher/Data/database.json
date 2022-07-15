@@ -1,5 +1,5 @@
 {
-  "DBPatchVer": 4,
+  "DBPatchVer": 5,
   "DB": {
     "Rapier": {
       "keyword": [
@@ -393,6 +393,7 @@
       "spike"
     ],
     "weapons": [
+      "StaffIcySpear",
       "StaffIceSpike",
       "DLC1StaffFalmerIceSpike",
       "PIKeeperLongMace",
