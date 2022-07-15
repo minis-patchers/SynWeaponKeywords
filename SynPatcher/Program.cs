@@ -61,9 +61,10 @@ namespace WeaponKeywords
             {
                 DBConv = JObject.Parse(File.ReadAllText(Path.Combine(path, "database.json")));
             }
-            if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) == 0)
+            if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) <= 0)
             {
                 DBConv = new JObject();
+                DBConv["DBPatchVer"] = 0;
             }
             //New Age JSON Patcher // Shiny
             using (var HttpClient = new HttpClient())
@@ -73,6 +74,7 @@ namespace WeaponKeywords
                 try
                 {
                     resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                    Console.WriteLine(resp);
                 }
                 catch (Exception)
                 {
