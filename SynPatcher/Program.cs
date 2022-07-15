@@ -74,7 +74,6 @@ namespace WeaponKeywords
                 try
                 {
                     resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
-                    Console.WriteLine(resp);
                 }
                 catch (Exception)
                 {
@@ -82,7 +81,7 @@ namespace WeaponKeywords
                     return;
                 }
                 var pi = JArray.Parse(resp).ToObject<List<string>>()!;
-                for (int i = DBConv["DBPatchVer"]?.Value<int>() ?? 0; i < pi.Count; i++)
+                for (int i = DBConv["DBPatchVer"]!.Value<int>(); i < pi.Count; i++)
                 {
                     try
                     {
