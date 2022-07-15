@@ -164,14 +164,16 @@ namespace WeaponKeywords
                     Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {string.Join(" & ", DB.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
 
                     var keywords = weapon.Keywords?
-                        .Select(x => { if (x.TryResolve<IKeyword>(state.LinkCache, out var kyd)) { return kyd!; } else { return null!; } })
+                        .Select(x => x.TryResolve<IKeywordGetter>(state.LinkCache, out var kyd) ? kyd : null)
                         .Where(x => x != null)
                         //.Where(x => !x.EditorID.StartsWith("WeapType")) // Don't exclude the original weapon type keyword, causes more issues at the moment... (one day, but not today)
                         .Concat(
                             matchingKeywords.SelectMany(
                                 x => formkeys[x].Where(y => !DB.DB[x].excludeSource.Contains(y.FormKey.ModKey))
                             )
-                        ).DistinctBy(x => x.FormKey)
+                        )
+                        .Select(x => x!)
+                        .DistinctBy(x => x.FormKey)
                         .ToList() ?? new();
 
                     if (keywords.Any(x => !(weapon.Keywords?.Contains(x) ?? false)))
