@@ -143,6 +143,7 @@ namespace WeaponKeywords
             }
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
+                if (!weapon.Template.IsNull) continue; 
                 var edid = weapon.EditorID;
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
