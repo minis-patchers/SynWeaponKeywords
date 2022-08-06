@@ -51,6 +51,9 @@ namespace WeaponKeywords.Types
         public Dictionary<string, WeaponDB> DB = new();
         public ExcludesDB excludes = new();
         public List<ModKey> sources = new();
+        [SynthesisDescription("Generates keywords for use in the patcher")]
+        [SynthesisSettingName("Generate Keywords")]
+        public bool Gen = true;
         [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
         public int DBPatchVer = -1;

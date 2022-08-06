@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
+using System.Configuration;
 
 namespace WeaponKeywords
 {
@@ -128,7 +129,6 @@ namespace WeaponKeywords
                     var keywords = mod.Mod.Keywords
                         .Where(x => Keywords.Contains(x.EditorID ?? ""))
                         .ToList() ?? new List<IKeywordGetter>();
-
                     foreach (var keyword in keywords)
                     {
                         if (keyword == null) continue;
@@ -141,9 +141,20 @@ namespace WeaponKeywords
                     }
                 }
             }
+            if (DB.Gen)
+            {
+                foreach (var kyd in DB.DB.Select(x => x.Key))
+                {
+                    if (formkeys[kyd].Count() == 0)
+                    {
+                        var key = state.PatchMod.Keywords.AddNew(kyd);
+                        formkeys[kyd].Add(key);
+                    }
+                }
+            }
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
-                if (!weapon.Template.IsNull) continue; 
+                if (!weapon.Template.IsNull) continue;
                 var edid = weapon.EditorID;
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))

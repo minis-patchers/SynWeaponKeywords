@@ -1,5 +1,6 @@
 {
-  "DBPatchVer": 5,
+  "DBPatchVer": 6,
+  "Gen": true,
   "DB": {
     "Rapier": {
       "keyword": [
