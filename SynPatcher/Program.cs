@@ -143,12 +143,14 @@ namespace WeaponKeywords
             }
             if (DB.Gen)
             {
-                foreach (var kyd in DB.DB.Select(x => x.Key))
+                foreach (var keyword in DB.DB.SelectMany(x => x.Value.keyword).ToHashSet())
                 {
-                    if (formkeys[kyd].Count() == 0)
+                    var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword ?? "")).Select(x => x.Key);
+                    var key = state.PatchMod.Keywords.AddNew(keyword);
+                    Console.WriteLine($"Keyword : {key.FormKey.ModKey} : {key.EditorID} : {key.FormKey.IDString()}");
+                    foreach (var tp in type)
                     {
-                        var key = state.PatchMod.Keywords.AddNew(kyd);
-                        formkeys[kyd].Add(key);
+                        formkeys[tp].Add(key);
                     }
                 }
             }
