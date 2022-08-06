@@ -15,6 +15,8 @@ namespace WeaponKeywords.Types
     {
         //Keywords to assgin
         public List<string> keyword;
+        //Keywords to exlcude from generation
+        public List<string> excludeGen;
         //Common names of item (partial match)
         public List<string> commonNames;
         //descriptor when patched

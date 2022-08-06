@@ -145,7 +145,7 @@ namespace WeaponKeywords
             {
                 foreach (var keyword in DB.DB.SelectMany(x => x.Value.keyword).ToHashSet())
                 {
-                    var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword ?? "")).Select(x => x.Key);
+                    var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword ?? "")).Where(x=>!x.Value.excludeGen.Contains(keyword)).Select(x => x.Key);
                     var key = state.PatchMod.Keywords.AddNew(keyword);
                     Console.WriteLine($"Keyword : {key.FormKey.ModKey} : {key.EditorID} : {key.FormKey.IDString()}");
                     foreach (var tp in type)

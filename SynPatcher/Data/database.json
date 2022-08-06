@@ -1,10 +1,13 @@
 {
-  "DBPatchVer": 6,
+  "DBPatchVer": 7,
   "Gen": true,
   "DB": {
     "Rapier": {
       "keyword": [
         "WeapTypeRapier",
+        "NAR_Sig"
+      ],
+      "excludeGen": [
         "NAR_Sig"
       ],
       "commonNames": [
@@ -44,6 +47,9 @@
         "WeapTypePike",
         "NAR_Sig"
       ],
+      "excludeGen": [
+        "NAR_Sig"
+      ],
       "commonNames": [
         "pike",
         "trident",
@@ -67,6 +73,9 @@
     "Spear": {
       "keyword": [
         "WeapTypeSpear",
+        "NAR_Sig"
+      ],
+      "excludeGen": [
         "NAR_Sig"
       ],
       "commonNames": [
@@ -96,6 +105,7 @@
         "WeapTypeSpear",
         "NAR_Sig"
       ],
+      "excludeGen": [],
       "commonNames": [
         "shortspear",
         "short spear",
@@ -115,6 +125,9 @@
     "Halberd": {
       "keyword": [
         "WeapTypeHalberd",
+        "NAR_Sig"
+      ],
+      "excludeGen": [
         "NAR_Sig"
       ],
       "commonNames": [
@@ -143,6 +156,9 @@
       "keyword": [
         "WeapTypeQtrStaff",
         "WeapTypeQuarterstaff",
+        "NAR_Sig"
+      ],
+      "excludeGen": [
         "NAR_Sig"
       ],
       "commonNames": [
@@ -223,6 +239,7 @@
       "keyword": [
         "WeapTypeCurvedSword"
       ],
+      "excludeGen": [],
       "commonNames": [
         "scimitar",
         "dadao",
@@ -262,6 +279,9 @@
         "NA_CantParry",
         "NAR_Sig"
       ],
+      "excludeGen": [
+        "NAR_Sig"
+      ],
       "commonNames": [
         "claw"
       ],
@@ -280,6 +300,7 @@
       "keyword": [
         "WeapTypeGun"
       ],
+      "excludeGen": [],
       "commonNames": [
         "gun",
         "musket",
@@ -308,6 +329,7 @@
       "keyword": [
         "WeapTypeScythe"
       ],
+      "excludeGen": [],
       "commonNames": [
         "scythe"
       ],
@@ -329,6 +351,7 @@
         "WeapTypeWhip",
         "NAR_Sig"
       ],
+      "excludeGen": [],
       "commonNames": [
         "whip"
       ],
@@ -347,6 +370,7 @@
       "keyword": [
         "WeapTypeJavelin"
       ],
+      "excludeGen": [],
       "commonNames": [
         "javelin"
       ],
@@ -365,6 +389,7 @@
       "keyword": [
         "WeapTypeUnarmed"
       ],
+      "excludeGen": [],
       "commonNames": [
         "quarterstaff",
         "battle staff",
