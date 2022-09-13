@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using System.Configuration;
+using System.Diagnostics.Tracing;
+using System.Drawing;
 
 namespace WeaponKeywords
 {
@@ -143,16 +145,21 @@ namespace WeaponKeywords
             }
             if (DB.Gen)
             {
-                foreach (var keyword in DB.DB.SelectMany(x => x.Value.keyword).ToHashSet())
+                foreach (var kywd in DB.InjectedKeywords)
                 {
-                    var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword ?? "")).Where(x=>!x.Value.excludeGen.Contains(keyword)).Select(x => x.Key);
-                    var key = state.PatchMod.Keywords.AddNew(keyword);
-                    Console.WriteLine($"Keyword : {key.FormKey.ModKey} : {key.EditorID} : {key.FormKey.IDString()}");
+                    var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
+                    var fk = new FormKey(new ModKey("Update", ModType.Master), uint.Parse(kywd.Value, System.Globalization.NumberStyles.HexNumber));
+                    var key = new Keyword(fk, SkyrimRelease.SkyrimSE);
+                    key.EditorID = kywd.Key;
+                    key.Color = Color.Black;
+                    state.PatchMod.Keywords.Add(key);
+                    Console.WriteLine($"Added Keyword : {key.FormKey.ModKey} : {key.EditorID} : {key.FormKey.IDString()}");
                     foreach (var tp in type)
                     {
                         formkeys[tp].Add(key);
                     }
                 }
+
             }
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {

@@ -15,8 +15,6 @@ namespace WeaponKeywords.Types
     {
         //Keywords to assgin
         public List<string> keyword;
-        //Keywords to exlcude from generation
-        public List<string> excludeGen;
         //Common names of item (partial match)
         public List<string> commonNames;
         //descriptor when patched
@@ -56,6 +54,7 @@ namespace WeaponKeywords.Types
         [SynthesisDescription("Generates keywords for use in the patcher")]
         [SynthesisSettingName("Generate Keywords")]
         public bool Gen = true;
+        public Dictionary<string, string> InjectedKeywords = new();
         [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
         public int DBPatchVer = -1;

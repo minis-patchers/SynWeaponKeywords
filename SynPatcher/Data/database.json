@@ -1,13 +1,8 @@
 {
-  "DBPatchVer": 7,
-  "Gen": true,
   "DB": {
     "Rapier": {
       "keyword": [
         "WeapTypeRapier",
-        "NAR_Sig"
-      ],
-      "excludeGen": [
         "NAR_Sig"
       ],
       "commonNames": [
@@ -19,8 +14,6 @@
         "foil"
       ],
       "outputDescription": "a rapier",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
       "include": [
         "IWBlackStingSword",
@@ -47,17 +40,12 @@
         "WeapTypePike",
         "NAR_Sig"
       ],
-      "excludeGen": [
-        "NAR_Sig"
-      ],
       "commonNames": [
         "pike",
         "trident",
         "lance"
       ],
       "outputDescription": "a pike",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
       "include": [
         "LothricWarBanner",
@@ -75,15 +63,10 @@
         "WeapTypeSpear",
         "NAR_Sig"
       ],
-      "excludeGen": [
-        "NAR_Sig"
-      ],
       "commonNames": [
         "spear"
       ],
       "outputDescription": "a spear",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "OneHandSword",
       "WATModOverride": [],
       "include": [],
       "exclude": [
@@ -102,18 +85,15 @@
     },
     "Shortspear": {
       "keyword": [
-        "WeapTypeSpear",
+        "WeapTypeShortSpear",
         "NAR_Sig"
       ],
-      "excludeGen": [],
       "commonNames": [
         "shortspear",
         "short spear",
         "short-spear"
       ],
       "outputDescription": "a shortspear",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "OneHandSword",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -127,9 +107,6 @@
         "WeapTypeHalberd",
         "NAR_Sig"
       ],
-      "excludeGen": [
-        "NAR_Sig"
-      ],
       "commonNames": [
         "halberd",
         "glaive",
@@ -137,8 +114,6 @@
         "poleaxe"
       ],
       "outputDescription": "a halberd",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
       "include": [
         "lilithsobliteratorhal",
@@ -158,9 +133,6 @@
         "WeapTypeQuarterstaff",
         "NAR_Sig"
       ],
-      "excludeGen": [
-        "NAR_Sig"
-      ],
       "commonNames": [
         "quarterstaff",
         "battle staff",
@@ -169,8 +141,6 @@
         "short staff"
       ],
       "outputDescription": "a quarterstaff",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
       "include": [
         "MurkyLongStaff",
@@ -200,8 +170,6 @@
         "changdao"
       ],
       "outputDescription": "a katana",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
       "include": [
         "ccBGSSSE005_Goldbrand",
@@ -239,7 +207,6 @@
       "keyword": [
         "WeapTypeCurvedSword"
       ],
-      "excludeGen": [],
       "commonNames": [
         "scimitar",
         "dadao",
@@ -256,8 +223,6 @@
         "kilij"
       ],
       "outputDescription": "a curved sword",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
       "include": [
         "PIKematuSword",
@@ -279,15 +244,10 @@
         "NA_CantParry",
         "NAR_Sig"
       ],
-      "excludeGen": [
-        "NAR_Sig"
-      ],
       "commonNames": [
         "claw"
       ],
       "outputDescription": "a claw",
-      "OneHandedAnimation": "OneHandDagger",
-      "TwoHandedAnimation": "OneHandDagger",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -300,7 +260,6 @@
       "keyword": [
         "WeapTypeGun"
       ],
-      "excludeGen": [],
       "commonNames": [
         "gun",
         "musket",
@@ -313,8 +272,6 @@
         "matchlock"
       ],
       "outputDescription": "a gun",
-      "OneHandedAnimation": "Bow",
-      "TwoHandedAnimation": "Bow",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -329,13 +286,10 @@
       "keyword": [
         "WeapTypeScythe"
       ],
-      "excludeGen": [],
       "commonNames": [
         "scythe"
       ],
       "outputDescription": "a scythe",
-      "OneHandedAnimation": "OneHandAxe",
-      "TwoHandedAnimation": "TwoHandAxe",
       "WATModOverride": [],
       "include": [],
       "exclude": [
@@ -351,13 +305,10 @@
         "WeapTypeWhip",
         "NAR_Sig"
       ],
-      "excludeGen": [],
       "commonNames": [
         "whip"
       ],
       "outputDescription": "a whip",
-      "OneHandedAnimation": "OneHandMace",
-      "TwoHandedAnimation": "OneHandMace",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -370,13 +321,10 @@
       "keyword": [
         "WeapTypeJavelin"
       ],
-      "excludeGen": [],
       "commonNames": [
         "javelin"
       ],
       "outputDescription": "a javelin",
-      "OneHandedAnimation": "OneHandSword",
-      "TwoHandedAnimation": "TwoHandSword",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -389,7 +337,6 @@
       "keyword": [
         "WeapTypeUnarmed"
       ],
-      "excludeGen": [],
       "commonNames": [
         "quarterstaff",
         "battle staff",
@@ -399,8 +346,6 @@
         "cetsus"
       ],
       "outputDescription": "a monk weapon",
-      "OneHandedAnimation": "HandToHand",
-      "TwoHandedAnimation": "HandToHand",
       "WATModOverride": [],
       "include": [],
       "exclude": [],
@@ -433,8 +378,23 @@
     "NWTA.esp",
     "SkyrimSpearMechanic.esp",
     "Spears.esp",
-    "WayOfTheMonk.esp",
-    "SkyUIWeaponIcons.esp",
-    "SkyUI Weapons Pack Keywords.esl"
-  ]
+    "WayOfTheMonk.esp"
+  ],
+  "Gen": true,
+  "InjectedKeywords": {
+    "WeapTypeSpear": "77770",
+    "WeapTypeJavelin": "77771",
+    "WeapTypePike": "77772",
+    "WeapTypeHalberd": "77773",
+    "WeapTypeRapier": "77774",
+    "WeapTypeQuarterstaff": "77775",
+    "WeapTypeClaw": "77776",
+    "WeapTypeScythe": "77777",
+    "WeapTypeWhip": "77778",
+    "WeapTypeKatana": "77779",
+    "WeapTypeGun": "7777A",
+    "WeapTypeShortSpear": "7777B",
+    "WeapTypeUnarmed": "7777C"
+  },
+  "DBPatchVer": 8
 }
