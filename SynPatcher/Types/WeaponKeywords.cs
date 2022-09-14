@@ -16,10 +16,11 @@ namespace WeaponKeywords.Types
         public List<string> keyword;
         //Common names of item (partial match)
         public List<string> commonNames;
-        //excludeNames
+        //Exclude a specific phrase or name
         public List<string> excludeNames;
         //descriptor when patched
         public string outputDescription;
+        //Animation type to use
         public WeaponAnimationType Animation;
         //Specific WAT-Type Overrides
         public List<WATModOverrides> WATModOverride;
@@ -38,7 +39,7 @@ namespace WeaponKeywords.Types
     {
         //These are phrases to globally exclude
         public List<string> phrases;
-        //These are editor ids to globally exclude
+        //These are formkeys to globally exclude
         public List<FormKey> weapons;
         //exclude mods from patch
         public List<ModKey> excludeMod;
