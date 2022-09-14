@@ -52,7 +52,7 @@ namespace WeaponKeywords.Types
         [SynthesisDescription("Generates keywords for use in the patcher")]
         [SynthesisSettingName("Generate Keywords")]
         public bool Gen = true;
-        public Dictionary<string, string> InjectedKeywords = new();
+        public Dictionary<string, FormKey> InjectedKeywords = new();
         [SynthesisSettingName("Do not Touch - Internal Use Only")]
         [SynthesisTooltip("Internal use only, do not touch")]
         public int DBPatchVer = -1;

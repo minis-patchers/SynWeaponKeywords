@@ -146,8 +146,7 @@ namespace WeaponKeywords
                 foreach (var kywd in DB.InjectedKeywords)
                 {
                     var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
-                    var fk = new FormKey(new ModKey("Update", ModType.Master), uint.Parse(kywd.Value, System.Globalization.NumberStyles.HexNumber));
-                    var key = new Keyword(fk, SkyrimRelease.SkyrimSE);
+                    var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE);
                     key.EditorID = kywd.Key;
                     key.Color = Color.Black;
                     state.PatchMod.Keywords.Add(key);

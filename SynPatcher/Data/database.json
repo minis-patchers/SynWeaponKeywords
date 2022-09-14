@@ -255,7 +255,7 @@
       "excludeSource": [],
       "excludeMod": []
     },
-    "Scimitar": {
+    "OneHandedCurvedSword": {
       "keyword": [
         "WeapTypeSword",
         "WeapTypeCurvedSword"
@@ -273,11 +273,33 @@
         "shotel",
         "shamshir",
         "khopesh",
-        "kilij"
+        "kilij",
+        "curved sword"
       ],
       "excludeNames": [],
       "outputDescription": "a curved sword",
       "Animation": "OneHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [
+        "00084D:ccBGSSSE001-Fish.esm",
+        "02E93B:ccBGSSSE001-Fish.esm"
+      ],
+      "excludeSource": [],
+      "excludeMod": []
+    },
+    "TwoHandedCurvedSword": {
+      "keyword": [
+        "WeapTypeSword",
+        "WeapTypeCurvedSword"
+      ],
+      "commonNames": [
+        "curved greatsword"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a curved great-sword",
+      "Animation": "TwoHandSword",
       "WATModOverride": [],
       "IgnoreWATOverrides": [],
       "include": [],
@@ -507,29 +529,29 @@
   ],
   "Gen": true,
   "InjectedKeywords": {
-    "WeapTypeSpear": "77770",
-    "WeapTypeJavelin": "77771",
-    "WeapTypePike": "77772",
-    "WeapTypeHalberd": "77773",
-    "WeapTypeRapier": "77774",
-    "WeapTypeQuarterstaff": "77775",
-    "WeapTypeClaw": "77776",
-    "WeapTypeScythe": "77777",
-    "WeapTypeWhip": "77778",
-    "WeapTypeKatana": "77779",
-    "WeapTypeGun": "7777A",
-    "WeapTypeShortSpear": "7777B",
-    "WeapTypeUnarmed": "7777C",
-    "WeapTypePoleaxe": "7777D",
-    "WeapTypeClub": "7777E",
-    "WeapTypeHalfPike": "7777F",
-    "WeapTypeMaul": "77780",
-    "WeapTypeHatchet": "77781",
-    "WeapTypeShortsword": "77782",
-    "WeapTypeGlaive": "77783",
-    "WeapTypeLongMace": "77784",
-    "WeapTypeQtrStaff": "77785",
-    "WeapTypeCurvedSword": "77786"
+    "WeapTypeSpear": "077770:Update.esm",
+    "WeapTypeJavelin": "077771:Update.esm",
+    "WeapTypePike": "077772:Update.esm",
+    "WeapTypeHalberd": "077773:Update.esm",
+    "WeapTypeRapier": "077774:Update.esm",
+    "WeapTypeQuarterstaff": "077775:Update.esm",
+    "WeapTypeClaw": "077776:Update.esm",
+    "WeapTypeScythe": "077777:Update.esm",
+    "WeapTypeWhip": "077778:Update.esm",
+    "WeapTypeKatana": "077779:Update.esm",
+    "WeapTypeGun": "07777A:Update.esm",
+    "WeapTypeShortSpear": "07777B:Update.esm",
+    "WeapTypeUnarmed": "07777C:Update.esm",
+    "WeapTypePoleaxe": "07777D:Update.esm",
+    "WeapTypeClub": "07777E:Update.esm",
+    "WeapTypeHalfPike": "07777F:Update.esm",
+    "WeapTypeMaul": "077780:Update.esm",
+    "WeapTypeHatchet": "077781:Update.esm",
+    "WeapTypeShortsword": "077782:Update.esm",
+    "WeapTypeGlaive": "077783:Update.esm",
+    "WeapTypeLongMace": "077784:Update.esm",
+    "WeapTypeQtrStaff": "077785:Update.esm",
+    "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 10
+  "DBPatchVer": 11
 }
