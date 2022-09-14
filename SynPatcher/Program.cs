@@ -151,7 +151,7 @@ namespace WeaponKeywords
                     key.EditorID = kywd.Key;
                     key.Color = Color.Black;
                     state.PatchMod.Keywords.Add(key);
-                    Console.WriteLine($"Added Keyword : {key.FormKey.ModKey} : {key.EditorID} : {key.FormKey.IDString()}");
+                    Console.WriteLine($"Added Keyword : {key.FormKey.IDString()}:{key.FormKey.ModKey} : {key.EditorID}");
                     foreach (var tp in type)
                     {
                         formkeys[tp].Add(key);
