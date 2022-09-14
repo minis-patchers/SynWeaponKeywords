@@ -38,7 +38,12 @@
       "IgnoreWATOverrides": [],
       "include": [
         "000816:Immersive Weapons.esp",
-        "000964:Immersive Weapons.esp"
+        "000964:Immersive Weapons.esp",
+        "0246B1:DS3 Weapon Pack.esp",
+        "91A:Dark Souls Item Pack by Team TAL.esp",
+        "87D:BB Pack by Team TAL.esp",
+        "881:BB Pack by Team TAL.esp",
+        "008863:Immersive Weapons.esp"
       ],
       "exclude": [],
       "excludeSource": [],
@@ -159,7 +164,10 @@
       "Animation": "TwoHandAxe",
       "WATModOverride": [],
       "IgnoreWATOverrides": [],
-      "include": [],
+      "include": [
+        "00B090:DS3 Weapon Pack.esp",
+        "935:Dark Souls Item Pack by Team TAL.esp"
+      ],
       "exclude": [],
       "excludeSource": [],
       "excludeMod": []
@@ -205,7 +213,8 @@
       "include": [
         "04A38F:Skyrim.esm",
         "0EA29C:Skyrim.esm",
-        "000D71:Immersive Weapons.esp"
+        "000D71:Immersive Weapons.esp",
+        "86D:BB Pack by Team TAL.esp"
       ],
       "exclude": [],
       "excludeSource": [],
@@ -244,7 +253,14 @@
         "0F71CD:Skyrim.esm",
         "0F71CE:Skyrim.esm",
         "0F71CF:Skyrim.esm",
-        "0F71D0:Skyrim.esm"
+        "0F71D0:Skyrim.esm",
+        "00B091:DS3 Weapon Pack.esp",
+        "000D9B:DS3 Weapon Pack.esp",
+        "00B012:DS3 Weapon Pack.esp",
+        "92B::Dark Souls Item Pack by Team TAL.esp",
+        "86C:BB Pack by Team TAL.esp",
+        "880:BB Pack by Team TAL.esp",
+        "010E6C:Immersive Weapons.esp"
       ],
       "exclude": [
         "122D9C:LegacyoftheDragonborn.esm",
@@ -281,7 +297,20 @@
       "Animation": "OneHandSword",
       "WATModOverride": [],
       "IgnoreWATOverrides": [],
-      "include": [],
+      "include": [
+        "00AFF5:DS3 Weapon Pack.esp",
+        "00AAF8:DS3 Weapon Pack.esp",
+        "00AFFB:DS3 Weapon Pack.esp",
+        "00AFFC:DS3 Weapon Pack.esp",
+        "00AFF3:DS3 Weapon Pack.esp",
+        "00AFF4:DS3 Weapon Pack.esp",
+        "0101DD:DS3 Weapon Pack.esp",
+        "000D72:DS3 Weapon Pack.esp",
+        "000D89:DS3 Weapon Pack.esp",
+        "8F4:Dark Souls Item Pack by Team TAL.esp",
+        "8F5:Dark Souls Item Pack by Team TAL.esp",
+        "8F6:Dark Souls Item Pack by Team TAL.esp"
+      ],
       "exclude": [
         "00084D:ccBGSSSE001-Fish.esm",
         "02E93B:ccBGSSSE001-Fish.esm"
@@ -302,7 +331,12 @@
       "Animation": "TwoHandSword",
       "WATModOverride": [],
       "IgnoreWATOverrides": [],
-      "include": [],
+      "include": [
+        "0101DE:DS3 Weapon Pack.esp",
+        "000F70:DS3 Weapon Pack.esp",
+        "00B078:DS3 Weapon Pack.esp",
+        "D6F:Dark Souls Item Pack by Team TAL.esp"
+      ],
       "exclude": [
         "00084D:ccBGSSSE001-Fish.esm",
         "02E93B:ccBGSSSE001-Fish.esm"
@@ -325,7 +359,10 @@
       "Animation": "OneHandDagger",
       "WATModOverride": [],
       "IgnoreWATOverrides": [],
-      "include": [],
+      "include": [
+        "00B031:DS3 Weapon Pack.esp",
+        "00B032:DS3 Weapon Pack.esp"
+      ],
       "exclude": [],
       "excludeSource": [],
       "excludeMod": []
@@ -372,7 +409,8 @@
       "exclude": [
         "77FFD5:LegacyoftheDragonborn.esm",
         "018DDD:Dragonborn.esm",
-        "037FF2:Dragonborn.esm"
+        "037FF2:Dragonborn.esm",
+        "096D63:Immersive Weapons.esp"
       ],
       "excludeSource": [],
       "excludeMod": []
@@ -553,5 +591,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 11
+  "DBPatchVer": 12
 }
