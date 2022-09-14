@@ -28,8 +28,6 @@ public class Program
 {
     static Lazy<Database> LazyDB = new();
     static Database DB => LazyDB.Value;
-    static List<FormKey> OneHandedType = new() { Skyrim.EquipType.EitherHand.FormKey, Skyrim.EquipType.LeftHand.FormKey, Skyrim.EquipType.RightHand.FormKey };
-    static List<FormKey> TwoHandedType = new() { Skyrim.EquipType.BothHands.FormKey };
     static Dictionary<EQEnum, IFormLink<IEquipTypeGetter>> EQT = new() {
         {EQEnum.BothHands, Skyrim.EquipType.BothHands},
         {EQEnum.EitherHand, Skyrim.EquipType.EitherHand},
@@ -166,7 +164,7 @@ public class Program
                 .Concat(DB.DB.Where(x => x.Value.include.Contains(weapon.FormKey)).Select(x => x.Key))
                 .Distinct()
                 .ToArray();
-            var isOneHanded = OneHandedType.Any(x => x.Equals(weapon.EquipmentType.FormKey));
+            
             IWeapon? nw = null;
             if (matchingKeywords.Length > 0)
             {
