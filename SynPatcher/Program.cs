@@ -187,6 +187,15 @@ public class Program
                     nw.Keywords = keywords.Select(x => x.ToLinkGetter()).ToExtendedList();
                     Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.EditorID} from {x.FormKey.ModKey}"))}");
                 }
+                var fKeyword = matchingKeywords.First();
+                if (weapon!.Data!.AnimationType != DB.DB[fKeyword].Animation)
+                {
+                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                    if (nw.Data != null)
+                    {
+                        nw.Data.AnimationType = DB.DB[fKeyword].Animation;
+                    }
+                }
                 if (nw != null)
                 {
                     foreach (var kyd in matchingKeywords)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis.Settings;
 
 namespace WeaponKeywords.Types;
@@ -19,6 +20,8 @@ public struct Weapons
     public List<string> excludeNames;
     //descriptor when patched
     public string outputDescription;
+    //Weapon Animation Type
+    public WeaponAnimationType Animation;
     //Include editorID
     public List<FormKey> include;
     //Exclude specific phrases
