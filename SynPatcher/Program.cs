@@ -63,7 +63,7 @@ public class Program
             DBConv = new JObject();
             DBConv["DBVer"] = 0;
         }
-        //New Age JSON Patcher // Shiny
+        //JSON Patch based DB-Updates
         using (var HttpClient = new HttpClient())
         {
             HttpClient.Timeout = TimeSpan.FromSeconds(5);
@@ -109,7 +109,7 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        Console.WriteLine($"Running with Database Patch: {DB.DBVer}");
+        Console.WriteLine($"Running with Database Patch: V{DB.DBVer}");
         Dictionary<string, List<IKeywordGetter>> formkeys = new();
         var Keywords = DB.DB.SelectMany(x => x.Value.keyword).Distinct();
         foreach (var kyd in DB.DB.Select(x => x.Key))
