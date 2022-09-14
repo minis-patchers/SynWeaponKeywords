@@ -118,6 +118,7 @@
         "spear"
       ],
       "EQType": "RightHand",
+      "NameOverrides": [],
       "excludeNames": [],
       "outputDescription": "a spear",
       "Animation": "OneHandSword",
@@ -180,6 +181,7 @@
         "poleaxe"
       ],
       "EQType": "BothHands",
+      "NameOverrides": [],
       "excludeNames": [],
       "outputDescription": "a poleaxe",
       "Animation": "TwoHandAxe",
@@ -700,5 +702,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 18
+  "DBPatchVer": 19
 }
