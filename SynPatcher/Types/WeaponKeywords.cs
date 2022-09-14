@@ -1,27 +1,8 @@
 using System.Collections.Generic;
 using Mutagen.Bethesda.Plugins;
-using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis.Settings;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
 
 namespace WeaponKeywords.Types;
-public enum EQEnum
-{
-    EitherHand, LeftHand, RightHand, BothHands
-}
-public class ModOverride
-{
-    public ModKey Mod;
-    public WeaponAnimationType Animation;
-}
-
-public class SpecialOverrides
-{
-    public string Contains = string.Empty;
-    public EQEnum EQType;
-}
-
 public struct Scripts {
     public ModKey Requires;
     public string ScriptName;
@@ -38,14 +19,6 @@ public struct Weapons
     public List<string> excludeNames;
     //descriptor when patched
     public string outputDescription;
-    //Animation type to use
-    public WeaponAnimationType Animation;
-    //Specific WAT-Type Overrides
-    public List<ModOverride> ModOverrides;
-    public List<SpecialOverrides> NameOverrides;
-    //Equip Type for this item
-    [JsonConverter(typeof(StringEnumConverter))]
-    public EQEnum EQType;
     //Include editorID
     public List<FormKey> include;
     //Exclude specific phrases

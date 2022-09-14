@@ -28,12 +28,6 @@ public class Program
 {
     static Lazy<Database> LazyDB = new();
     static Database DB => LazyDB.Value;
-    static Dictionary<EQEnum, IFormLink<IEquipTypeGetter>> EQT = new() {
-        {EQEnum.BothHands, Skyrim.EquipType.BothHands},
-        {EQEnum.EitherHand, Skyrim.EquipType.EitherHand},
-        {EQEnum.LeftHand, Skyrim.EquipType.LeftHand},
-        {EQEnum.RightHand, Skyrim.EquipType.RightHand}
-    };
     public static async Task<int> Main(string[] args)
     {
         return await SynthesisPipeline.Instance
@@ -192,33 +186,6 @@ public class Program
                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                     nw.Keywords = keywords.Select(x => x.ToLinkGetter()).ToExtendedList();
                     Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.EditorID} from {x.FormKey.ModKey}"))}");
-                }
-                var fKeyword = matchingKeywords.First();
-                IFormLink<IEquipTypeGetter> equipType = EQT[DB.DB[fKeyword].EQType];
-                if (DB.DB[fKeyword].NameOverrides.Any(x => weapon?.Name?.String?.Contains(x.Contains, StringComparison.OrdinalIgnoreCase) ?? false))
-                {
-                    equipType = EQT[DB.DB[fKeyword].NameOverrides.Where(x => weapon?.Name?.String?.Contains(x.Contains, StringComparison.OrdinalIgnoreCase) ?? false).First().EQType];
-                }
-                if (!equipType.FormKey.Equals(weapon.EquipmentType.FormKey))
-                {
-                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                    nw.EquipmentType.SetTo(equipType);
-                    Console.WriteLine($"\t\tChanged Equipment Type");
-                }
-                if (weapon.Data != null)
-                {
-                    WeaponAnimationType Animation = DB.DB[fKeyword].Animation;
-                    if (DB.DB[fKeyword].ModOverrides.Any(x => x.Mod.Equals(weapon.FormKey.ModKey)))
-                    {
-                        ModOverride ovride = DB.DB[fKeyword].ModOverrides.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First();
-                        Animation = ovride.Animation;
-                    }
-                    if (Animation != weapon.Data.AnimationType)
-                    {
-                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                        nw.Data!.AnimationType = Animation;
-                        Console.WriteLine($"\t\tChanged Animation Type to {Animation}");
-                    }
                 }
                 if (nw != null)
                 {
