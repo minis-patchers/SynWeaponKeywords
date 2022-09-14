@@ -199,7 +199,7 @@ public class Program
                 {
                     equipType = EQT[DB.DB[fKeyword].NameOverrides.Where(x => weapon?.Name?.String?.Contains(x.Contains, StringComparison.OrdinalIgnoreCase) ?? false).First().EQType];
                 }
-                if (equipType != weapon.EquipmentType)
+                if (!equipType.FormKey.Equals(weapon.EquipmentType.FormKey))
                 {
                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                     nw.EquipmentType.SetTo(equipType);
