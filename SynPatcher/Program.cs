@@ -30,8 +30,6 @@ public class Program
     static Database DB => LazyDB.Value;
     static List<FormKey> OneHandedType = new() { Skyrim.EquipType.EitherHand.FormKey, Skyrim.EquipType.LeftHand.FormKey, Skyrim.EquipType.RightHand.FormKey };
     static List<FormKey> TwoHandedType = new() { Skyrim.EquipType.BothHands.FormKey };
-    static List<WeaponAnimationType> OneHandedAnims = new() { WeaponAnimationType.OneHandAxe, WeaponAnimationType.OneHandSword, WeaponAnimationType.OneHandDagger, WeaponAnimationType.OneHandMace, WeaponAnimationType.Staff };
-    static List<WeaponAnimationType> TwoHandedAnims = new() { WeaponAnimationType.Bow, WeaponAnimationType.Crossbow, WeaponAnimationType.TwoHandSword, WeaponAnimationType.TwoHandAxe };
     static Dictionary<EQEnum, IFormLink<IEquipTypeGetter>> EQT = new() {
         {EQEnum.BothHands, Skyrim.EquipType.BothHands},
         {EQEnum.EitherHand, Skyrim.EquipType.EitherHand},
