@@ -21,10 +21,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
-using System.Configuration;
-using System.Diagnostics.Tracing;
 using System.Drawing;
-using System.Security.Cryptography;
 
 namespace WeaponKeywords
 {
