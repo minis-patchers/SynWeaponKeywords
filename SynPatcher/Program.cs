@@ -43,7 +43,7 @@ public class Program
             .SetTypicalOpen(GameRelease.SkyrimSE, "SynWeaponKeywords.esp")
             .Run(args);
     }
-    public static async void ConvertJson(IRunnabilityState state)
+    public static void ConvertJson(IRunnabilityState state)
     {
         JObject? DBConv = null;
         if (!Directory.Exists(state.ExtraSettingsDataPath))
@@ -66,7 +66,9 @@ public class Program
             string resp = string.Empty;
             try
             {
-                resp = await HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                var http = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                http.Wait();
+                resp = http.Result;
             }
             catch (Exception)
             {
@@ -79,7 +81,9 @@ public class Program
                 try
                 {
                     Console.WriteLine($"Downloading patch {pi[i]}");
-                    resp = await HttpClient.GetStringAsync(pi[i]);
+                    var http = HttpClient.GetStringAsync(pi[i]);
+                    http.Wait();
+                    resp = http.Result;
                 }
                 catch (Exception)
                 {
@@ -164,7 +168,7 @@ public class Program
                 .Concat(DB.DB.Where(x => x.Value.include.Contains(weapon.FormKey)).Select(x => x.Key))
                 .Distinct()
                 .ToHashSet();
-            
+
             IWeapon? nw = null;
             if (matchingKeywords.Count > 0)
             {
