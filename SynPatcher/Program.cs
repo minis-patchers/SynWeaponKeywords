@@ -194,6 +194,7 @@ public class Program
                     if (nw.Data != null)
                     {
                         nw.Data.AnimationType = DB.DB[fKeyword].Animation;
+                        Console.WriteLine($"\tSetting animation type to {DB.DB[fKeyword].Animation}");
                     }
                 }
                 if (nw != null)
