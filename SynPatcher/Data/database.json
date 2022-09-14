@@ -258,7 +258,7 @@
         "00B091:DS3 Weapon Pack.esp",
         "000D9B:DS3 Weapon Pack.esp",
         "00B012:DS3 Weapon Pack.esp",
-        "00092B::Dark Souls Item Pack by Team TAL.esp",
+        "00092B:Dark Souls Item Pack by Team TAL.esp",
         "00086C:BB Pack by Team TAL.esp",
         "000880:BB Pack by Team TAL.esp",
         "010E6C:Immersive Weapons.esp",
@@ -608,5 +608,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 14
+  "DBPatchVer": 15
 }
