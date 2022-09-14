@@ -28,7 +28,7 @@ public struct Scripts {
     public Dictionary<string, FormKey> Objects;
 }
 
-public struct WeaponDB
+public struct Weapons
 {
     //Keywords to assgin
     public List<string> keyword;
@@ -56,7 +56,7 @@ public struct WeaponDB
     public List<ModKey> excludeMod;
     public List<Scripts> Script;
 }
-public struct ExcludesDB
+public struct Excludes
 {
     //These are phrases to globally exclude
     public List<string> phrases;
@@ -67,8 +67,8 @@ public struct ExcludesDB
 }
 public class Database
 {
-    public Dictionary<string, WeaponDB> DB = new();
-    public ExcludesDB excludes = new();
+    public Dictionary<string, Weapons> DB = new();
+    public Excludes excludes = new();
     public List<ModKey> sources = new();
     [SynthesisDescription("Generates keywords for use in the patcher")]
     [SynthesisSettingName("Generate Keywords")]
