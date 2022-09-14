@@ -105,7 +105,8 @@
       "exclude": [
         "77AE26:LegacyoftheDragonborn.esm",
         "11CBFB:LegacyoftheDragonborn.esm",
-        "000810:ccbgssse040-advobgobs.esl"
+        "000810:ccbgssse040-advobgobs.esl",
+        "0246A8:DS3 Weapon Pack.esp"
       ],
       "excludeSource": [],
       "excludeMod": []
@@ -167,7 +168,8 @@
       "IgnoreWATOverrides": [],
       "include": [
         "00B090:DS3 Weapon Pack.esp",
-        "000935:Dark Souls Item Pack by Team TAL.esp"
+        "000935:Dark Souls Item Pack by Team TAL.esp",
+        "0000D99:DS3 Weapon Pack.esp"
       ],
       "exclude": [],
       "excludeSource": [],
@@ -608,5 +610,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 15
+  "DBPatchVer": 16
 }
