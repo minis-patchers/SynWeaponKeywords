@@ -40,10 +40,11 @@
         "000816:Immersive Weapons.esp",
         "000964:Immersive Weapons.esp",
         "0246B1:DS3 Weapon Pack.esp",
-        "91A:Dark Souls Item Pack by Team TAL.esp",
-        "87D:BB Pack by Team TAL.esp",
-        "881:BB Pack by Team TAL.esp",
-        "008863:Immersive Weapons.esp"
+        "00091A:Dark Souls Item Pack by Team TAL.esp",
+        "00087D:BB Pack by Team TAL.esp",
+        "000881:BB Pack by Team TAL.esp",
+        "008863:Immersive Weapons.esp",
+        "001E93:BladeOfIntrigue_SE_Eng.esp"
       ],
       "exclude": [],
       "excludeSource": [],
@@ -166,7 +167,7 @@
       "IgnoreWATOverrides": [],
       "include": [
         "00B090:DS3 Weapon Pack.esp",
-        "935:Dark Souls Item Pack by Team TAL.esp"
+        "000935:Dark Souls Item Pack by Team TAL.esp"
       ],
       "exclude": [],
       "excludeSource": [],
@@ -257,10 +258,11 @@
         "00B091:DS3 Weapon Pack.esp",
         "000D9B:DS3 Weapon Pack.esp",
         "00B012:DS3 Weapon Pack.esp",
-        "92B::Dark Souls Item Pack by Team TAL.esp",
-        "86C:BB Pack by Team TAL.esp",
-        "880:BB Pack by Team TAL.esp",
-        "010E6C:Immersive Weapons.esp"
+        "00092B::Dark Souls Item Pack by Team TAL.esp",
+        "00086C:BB Pack by Team TAL.esp",
+        "000880:BB Pack by Team TAL.esp",
+        "010E6C:Immersive Weapons.esp",
+        "000817:PrvtIRoyalArmory.esp"
       ],
       "exclude": [
         "122D9C:LegacyoftheDragonborn.esm",
@@ -307,9 +309,24 @@
         "0101DD:DS3 Weapon Pack.esp",
         "000D72:DS3 Weapon Pack.esp",
         "000D89:DS3 Weapon Pack.esp",
-        "8F4:Dark Souls Item Pack by Team TAL.esp",
-        "8F5:Dark Souls Item Pack by Team TAL.esp",
-        "8F6:Dark Souls Item Pack by Team TAL.esp"
+        "0008F4:Dark Souls Item Pack by Team TAL.esp",
+        "0008F5:Dark Souls Item Pack by Team TAL.esp",
+        "0008F6:Dark Souls Item Pack by Team TAL.esp",
+        "000811:PrvtIRoyalArmory.esp",
+        "000830:Hammerfell Armory SE.esp",
+        "000831:Hammerfell Armory SE.esp",
+        "000832:Hammerfell Armory SE.esp",
+        "018DDD:Dragonborn.esm",
+        "037FF2:Dragonborn.esm",
+        "036689:Dragonborn.esm",
+        "037FF3:Dragonborn.esm",
+        "193654:ArteFake.esp",
+        "6AB85D:Skyrim.esm",
+        "0058D5:ArteFake.esp",
+        "008954:ArteFake.esp",
+        "06EA8B:Skyrim.esm",
+        "0F9648:Skyrim.esm",
+        "24EC9E:ArteFake.esp"
       ],
       "exclude": [
         "00084D:ccBGSSSE001-Fish.esm",
@@ -335,7 +352,7 @@
         "0101DE:DS3 Weapon Pack.esp",
         "000F70:DS3 Weapon Pack.esp",
         "00B078:DS3 Weapon Pack.esp",
-        "D6F:Dark Souls Item Pack by Team TAL.esp"
+        "000D6F:Dark Souls Item Pack by Team TAL.esp"
       ],
       "exclude": [
         "00084D:ccBGSSSE001-Fish.esm",
@@ -591,5 +608,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 12
+  "DBPatchVer": 13
 }
