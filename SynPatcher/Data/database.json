@@ -1,9 +1,27 @@
 {
   "DB": {
+    "Shortsword": {
+      "keyword": [
+        "WeapTypeSword",
+        "WeapTypeShortsword"
+      ],
+      "commonNames": [
+        "shortsword"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a rapier",
+      "Animation": "OneHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
+    },
     "Rapier": {
       "keyword": [
-        "WeapTypeRapier",
-        "NAR_Sig"
+        "WeapTypeSword",
+        "WeapTypeRapier"
       ],
       "commonNames": [
         "rapier",
@@ -13,125 +31,144 @@
         "crosshilt",
         "foil"
       ],
+      "excludeNames": [],
       "outputDescription": "a rapier",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [
-        "IWBlackStingSword",
-        "IWCSpearbladeDagger",
-        "lilithslacerator",
-        "lilithslaceratorglow",
-        "lilithslaceratoralt",
-        "lilithslaceratoraltglow",
-        "lilithsthorn",
-        "lilithsthornglow",
-        "lilithsthornalt",
-        "lilithsthornaltglow"
+        "000816:Immersive Weapons.esp",
+        "000964:Immersive Weapons.esp"
       ],
       "exclude": [],
-      "excludeEditID": [
-        "IWCSpearbladeDagger"
-      ],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Pike": {
       "keyword": [
-        "WeapTypePike",
-        "NAR_Sig"
+        "WeapTypeGreatsword",
+        "WeapTypePike"
       ],
       "commonNames": [
         "pike",
-        "trident",
         "lance"
       ],
+      "excludeNames": [],
       "outputDescription": "a pike",
+      "Animation": "TwoHandSword",
       "WATModOverride": [],
-      "include": [
-        "LothricWarBanner",
-        "FourProngedPlow",
-        "FollowerJavelin"
-      ],
+      "IgnoreWATOverrides": [],
+      "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
+    },
+    "HalfPike": {
+      "keyword": [
+        "WeapTypeGreatsword",
+        "WeapTypePike",
+        "WeapTypeHalfPike"
+      ],
+      "commonNames": [
+        "half pike"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a half pike",
+      "Animation": "TwoHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
     },
     "Spear": {
       "keyword": [
-        "WeapTypeSpear",
-        "NAR_Sig"
+        "WeapTypeSword",
+        "WeapTypeSpear"
       ],
       "commonNames": [
         "spear"
       ],
+      "excludeNames": [],
       "outputDescription": "a spear",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [
-        "shortspear",
-        "short spear",
-        "short-spear"
-      ],
-      "excludeEditID": [
-        "IWCSpearbladeDagger",
-        "DBM_SpearofthSnowPrinceREPLICA",
-        "DragonslayerSwordSpear"
+        "77AE26:LegacyoftheDragonborn.esm",
+        "11CBFB:LegacyoftheDragonborn.esm",
+        "000810:ccbgssse040-advobgobs.esl"
       ],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Shortspear": {
       "keyword": [
-        "WeapTypeShortSpear",
-        "NAR_Sig"
+        "WeapTypeSword",
+        "WeapTypeSpear",
+        "WeapTypeShortSpear"
       ],
       "commonNames": [
         "shortspear",
         "short spear",
         "short-spear"
       ],
+      "excludeNames": [],
       "outputDescription": "a shortspear",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
+    },
+    "Poleaxe": {
+      "keyword": [
+        "WeapTypeBattleaxe",
+        "WeapTypeHalberd",
+        "WeapTypePoleaxe"
+      ],
+      "commonNames": [
+        "poleaxe"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a poleaxe",
+      "Animation": "TwoHandAxe",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
     },
     "Halberd": {
       "keyword": [
-        "WeapTypeHalberd",
-        "NAR_Sig"
+        "WeapTypeBattleaxe",
+        "WeapTypeHalberd"
       ],
       "commonNames": [
         "halberd",
         "glaive",
-        "polearm",
-        "poleaxe"
+        "polearm"
       ],
+      "excludeNames": [],
       "outputDescription": "a halberd",
+      "Animation": "TwoHandAxe",
       "WATModOverride": [],
-      "include": [
-        "lilithsobliteratorhal",
-        "DragonslayerSwordSpear",
-        "CrucifixOfTheMadKing",
-        "ImmolationTinder"
-      ],
+      "IgnoreWATOverrides": [],
+      "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Quarterstaff": {
       "keyword": [
+        "WeapTypeWarhammer",
         "WeapTypeQtrStaff",
-        "WeapTypeQuarterstaff",
-        "NAR_Sig"
+        "WeapTypeQuarterstaff"
       ],
       "commonNames": [
         "quarterstaff",
@@ -140,71 +177,87 @@
         "shortstaff",
         "short staff"
       ],
+      "excludeNames": [],
       "outputDescription": "a quarterstaff",
+      "Animation": "TwoHandAxe",
       "WATModOverride": [],
-      "include": [
-        "MurkyLongStaff",
-        "StorytellersStaff"
-      ],
+      "IgnoreWATOverrides": [],
+      "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
-    "Katana": {
+    "Dai-Katana": {
       "keyword": [
+        "WeapTypeGreatsword",
         "WeapTypeKatana"
       ],
       "commonNames": [
-        "katana",
         "daikatana",
         "dai-katana",
+        "nodachi"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a dai-katana",
+      "Animation": "TwoHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [
+        "04A38F:Skyrim.esm",
+        "0EA29C:Skyrim.esm",
+        "000D71:Immersive Weapons.esp"
+      ],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
+    },
+    "Katana": {
+      "keyword": [
+        "WeapTypeSword",
+        "WeapTypeKatana"
+      ],
+      "commonNames": [
         "daito",
         "ninjato",
-        "nodachi",
         "zatoichi",
-        "akaviri",
         "ka po' tun",
         "wakizashi",
-        "changdao"
+        "changdao",
+        "akaviri"
+      ],
+      "excludeNames": [
+        "dai-katana",
+        "daikatana",
+        "claw"
       ],
       "outputDescription": "a katana",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [
-        "ccBGSSSE005_Goldbrand",
-        "DLC1HarkonsSword",
-        "DLC1AkaviriSword",
-        "AkaviriKatana",
-        "DA08EbonyBlade",
-        "DA08RealEbonyBlade",
-        "dunBloatedMansKatana",
-        "MQ203AkaviriKatana1",
-        "MQ203AkaviriKatana2",
-        "MQ203AkaviriKatana3",
-        "MQ203AkaviriKatana4",
-        "MQ203AkaviriKatana5",
-        "A0Kusanagi",
-        "A0Kusanagi2H",
-        "aaaSusasnoSasukeWeapon",
-        "ZEB_EbonyBladeOneHanded"
+        "000D61:ccbgssse005-goldbrand.esl",
+        "0C1989:Skyrim.esm",
+        "0067CF:Dawnguard.esm",
+        "014555:Dawnguard.esm",
+        "03AEB9:Skyrim.esm",
+        "0F1AC1:Skyrim.esm",
+        "0F71CD:Skyrim.esm",
+        "0F71CE:Skyrim.esm",
+        "0F71CF:Skyrim.esm",
+        "0F71D0:Skyrim.esm"
       ],
       "exclude": [
-        "short",
-        "tanto",
-        "bow"
-      ],
-      "excludeEditID": [
-        "DBM_RH_DrakensangUID",
-        "AkaviriClaws",
-        "AkaviriClawsLeft"
+        "122D9C:LegacyoftheDragonborn.esm",
+        "166840:LegacyoftheDragonborn.esm",
+        "166841:LegacyoftheDragonborn.esm",
+        "166842:LegacyoftheDragonborn.esm"
       ],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Scimitar": {
       "keyword": [
+        "WeapTypeSword",
         "WeapTypeCurvedSword"
       ],
       "commonNames": [
@@ -222,39 +275,38 @@
         "khopesh",
         "kilij"
       ],
+      "excludeNames": [],
       "outputDescription": "a curved sword",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
-      "include": [
-        "PIKematuSword",
-        "PIKematuSwordNoEnch"
-      ],
-      "exclude": [],
-      "excludeEditID": [
-        "ccBGSSSE001_FishingRodAlikriWeap",
-        "ccBGSSSE001_FishingRodAlikriWeapUnplayable"
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [
+        "00084D:ccBGSSSE001-Fish.esm",
+        "02E93B:ccBGSSSE001-Fish.esm"
       ],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Claw": {
       "keyword": [
+        "WeapTypeDagger",
         "WeapTypeClaw",
         "NA_InflictBleed",
-        "NA_CantParry",
-        "NAR_Sig"
+        "NA_CantParry"
       ],
       "commonNames": [
         "claw"
       ],
+      "excludeNames": [],
       "outputDescription": "a claw",
+      "Animation": "OneHandDagger",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Gun": {
       "keyword": [
@@ -271,88 +323,164 @@
         "blunderbuss",
         "matchlock"
       ],
+      "excludeNames": [],
       "outputDescription": "a gun",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [
-        "GundyrsHalberd"
-      ],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Scythe": {
       "keyword": [
+        "WeapTypeBattleaxe",
         "WeapTypeScythe"
       ],
       "commonNames": [
         "scythe"
       ],
+      "excludeNames": [],
       "outputDescription": "a scythe",
+      "Animation": "TwoHandAxe",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [
-        "bloodscythe"
+        "77FFD5:LegacyoftheDragonborn.esm",
+        "018DDD:Dragonborn.esm",
+        "037FF2:Dragonborn.esm"
       ],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Whip": {
       "keyword": [
-        "WeapTypeWhip",
-        "NAR_Sig"
+        "WeapTypeMace",
+        "WeapTypeWhip"
       ],
       "commonNames": [
         "whip"
       ],
+      "excludeNames": [],
       "outputDescription": "a whip",
+      "Animation": "OneHandMace",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
     "Javelin": {
       "keyword": [
+        "WeapTypeSword",
         "WeapTypeJavelin"
       ],
       "commonNames": [
         "javelin"
       ],
+      "excludeNames": [],
       "outputDescription": "a javelin",
+      "Animation": "OneHandSword",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
     },
-    "Unarmed": {
+    "Maul": {
       "keyword": [
-        "WeapTypeUnarmed"
+        "WeapTypeMace",
+        "WeapTypeMaul"
       ],
       "commonNames": [
-        "quarterstaff",
-        "battle staff",
-        "battlestaff",
-        "shortstaff",
-        "short staff",
-        "cetsus"
+        "poleaxe"
       ],
-      "outputDescription": "a monk weapon",
+      "excludeNames": [],
+      "outputDescription": "a club",
+      "Animation": "OneHandMace",
       "WATModOverride": [],
+      "IgnoreWATOverrides": [],
       "include": [],
       "exclude": [],
-      "excludeEditID": [],
       "excludeSource": [],
-      "excludeMod": [],
-      "IgnoreWATOverrides": []
+      "excludeMod": []
+    },
+    "Club": {
+      "keyword": [
+        "WeapTypeHalberd",
+        "WeapTypeClub"
+      ],
+      "commonNames": [
+        "poleaxe"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a club",
+      "Animation": "OneHandMace",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
+    },
+    "Hatchet": {
+      "keyword": [
+        "WeapTypeWaraxe",
+        "WeapTypeHatchet"
+      ],
+      "commonNames": [
+        "hatchet"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a hatchet",
+      "Animation": "OneHandAxe",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
+    },
+    "Glaive": {
+      "keyword": [
+        "WeapTypePike",
+        "WeapTypeGlaive"
+      ],
+      "commonNames": [
+        "glaive"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a glaive",
+      "Animation": "TwoHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
+    },
+    "Trident": {
+      "keyword": [
+        "WeapTypeGreatsword",
+        "WeapTypePike",
+        "WeapTypeGlaive"
+      ],
+      "commonNames": [
+        "trident"
+      ],
+      "excludeNames": [],
+      "outputDescription": "a club",
+      "Animation": "TwoHandSword",
+      "WATModOverride": [],
+      "IgnoreWATOverrides": [],
+      "include": [],
+      "exclude": [],
+      "excludeSource": [],
+      "excludeMod": []
     }
   },
   "excludes": {
@@ -364,21 +492,18 @@
       "spike"
     ],
     "weapons": [
-      "StaffIcySpear",
-      "StaffIceSpike",
-      "DLC1StaffFalmerIceSpike",
-      "PIKeeperLongMace",
-      "PIKeeperLongMaceNoEnch",
-      "N78DezicrahWeaponBow"
+      "10FCF7:Skyrim.esm",
+      "04DED8:Skyrim.esm",
+      "011D5E:Dawnguard.esm"
     ],
     "excludeMod": []
   },
   "sources": [
+    "Skyrim.esm",
     "NewArmoury.esp",
-    "NWTA.esp",
     "SkyrimSpearMechanic.esp",
     "Spears.esp",
-    "WayOfTheMonk.esp"
+    "PrvtI_HeavyArmory.esp"
   ],
   "Gen": true,
   "InjectedKeywords": {
@@ -394,7 +519,17 @@
     "WeapTypeKatana": "77779",
     "WeapTypeGun": "7777A",
     "WeapTypeShortSpear": "7777B",
-    "WeapTypeUnarmed": "7777C"
+    "WeapTypeUnarmed": "7777C",
+    "WeapTypePoleaxe": "7777D",
+    "WeapTypeClub": "7777E",
+    "WeapTypeHalfPike": "7777F",
+    "WeapTypeMaul": "77780",
+    "WeapTypeHatchet": "77781",
+    "WeapTypeShortsword": "77782",
+    "WeapTypeGlaive": "77783",
+    "WeapTypeLongMace": "77784",
+    "WeapTypeQtrStaff": "77785",
+    "WeapTypeCurvedSword": "77786"
   },
-  "DBPatchVer": 8
+  "DBPatchVer": 9
 }

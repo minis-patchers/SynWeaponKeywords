@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using System.Configuration;
 using System.Diagnostics.Tracing;
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace WeaponKeywords
 {
@@ -159,7 +160,6 @@ namespace WeaponKeywords
                         formkeys[tp].Add(key);
                     }
                 }
-
             }
             foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
@@ -167,27 +167,25 @@ namespace WeaponKeywords
                 var edid = weapon.EditorID;
                 var matchingKeywords = DB.DB
                     .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
-                    .Where(kv => !kv.Value.exclude.Any(v => weapon.Name?.String?.Contains(v, StringComparison.OrdinalIgnoreCase) ?? false))
-                    .Where(kv => !kv.Value.excludeEditID.Contains(edid ?? ""))
-                    .Where(kv => !kv.Value.excludeMod.Contains(weapon.FormKey.ModKey))
+                    .Where(kv => !kv.Value.excludeNames.Any(en => weapon.Name?.String?.Contains(en, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .Where(kv => !kv.Value.exclude.Contains(weapon.FormKey))
                     .Where(kv => !DB.excludes.excludeMod.Contains(weapon.FormKey.ModKey))
                     .Where(kv => !DB.excludes.phrases.Any(ph => (weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false)))
-                    .Where(kv => !DB.excludes.weapons.Contains(edid ?? ""))
-                    .Concat(DB.DB.Where(x => x.Value.include.Contains(edid ?? "")))
+                    .Where(kv => !DB.excludes.weapons.Contains(weapon.FormKey))
                     .Select(kv => kv.Key)
+                    .Concat(DB.DB.Where(x => x.Value.include.Contains(weapon.FormKey)).Select(x => x.Key))
                     .Distinct()
                     .ToArray();
                 var isOneHanded = OneHandedType.Any(x => x.Equals(weapon.EquipmentType.FormKey));
                 IWeapon? nw = null;
                 if (matchingKeywords.Length > 0)
                 {
-                    Console.WriteLine($"{edid} - {weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}");
+                    Console.WriteLine($"{edid} - {weapon.FormKey.IDString()}:{weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}");
                     Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} from {weapon.FormKey.ModKey} is {string.Join(" & ", DB.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
-
                     var keywords = weapon.Keywords?
                         .Select(x => x.TryResolve<IKeywordGetter>(state.LinkCache, out var kyd) ? kyd : null)
                         .Where(x => x != null)
-                        //.Where(x => !x.EditorID.StartsWith("WeapType")) // Don't exclude the original weapon type keyword, causes more issues at the moment... (one day, but not today)
+                        .Where(x => !x!.EditorID.StartsWith("WeapType"))
                         .Concat(
                             matchingKeywords.SelectMany(
                                 x => formkeys[x].Where(y => !DB.DB[x].excludeSource.Contains(y.FormKey.ModKey))
@@ -209,50 +207,26 @@ namespace WeaponKeywords
                         var fKeyword = matchingKeywords.First();
                         if (!DB.DB[fKeyword].IgnoreWATOverrides.Contains(weapon.FormKey.ModKey))
                         {
-                            WeaponAnimationType OneHanded = DB.DB[fKeyword].OneHandedAnimation;
-                            WeaponAnimationType TwoHanded = DB.DB[fKeyword].TwoHandedAnimation;
+                            WeaponAnimationType Animation = DB.DB[fKeyword].Animation;
                             if (DB.DB[fKeyword].WATModOverride.Any(x => x.Mod.Equals(weapon.FormKey.ModKey)))
                             {
-                                OneHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().OneHandedAnimation;
-                                TwoHanded = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().TwoHandedAnimation;
+                                Animation = DB.DB[fKeyword].WATModOverride.Where(x => x.Mod.Equals(weapon.FormKey.ModKey)).First().Animation;
                             }
-                            if (isOneHanded)
+                            if (Animation != weapon.Data.AnimationType)
                             {
-                                if (OneHanded != weapon.Data.AnimationType)
+                                nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                                if (TwoHandedAnims.Contains(Animation) && !TwoHandedType.Contains(weapon.EquipmentType.FormKey))
                                 {
-                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    if (OneHandedAnims.Contains(OneHanded) && !OneHandedType.Contains(nw.EquipmentType.FormKey))
-                                    {
-                                        nw.EquipmentType.SetTo(Skyrim.EquipType.EitherHand);
-                                        Console.WriteLine($"\t\tChanged Equipment Type to Eitherhand");
-                                    }
-                                    else if (TwoHandedAnims.Contains(OneHanded))
-                                    {
-                                        nw.EquipmentType.SetTo(Skyrim.EquipType.BothHands);
-                                        Console.WriteLine($"\t\tChanged Equipment Type to Eitherhand");
-                                    }
-                                    nw.Data!.AnimationType = OneHanded;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {OneHanded}");
+                                    nw.EquipmentType.SetTo(Skyrim.EquipType.BothHands);
+                                    Console.WriteLine($"\t\tChanged Equipment Type to BothHands");
                                 }
-                            }
-                            else
-                            {
-                                if (TwoHanded != weapon.Data.AnimationType)
+                                else if (OneHandedAnims.Contains(Animation))
                                 {
-                                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                                    if (TwoHandedAnims.Contains(TwoHanded) && !TwoHandedType.Contains(weapon.EquipmentType.FormKey))
-                                    {
-                                        nw.EquipmentType.SetTo(Skyrim.EquipType.BothHands);
-                                        Console.WriteLine($"\t\tChanged Equipment Type to BothHands");
-                                    }
-                                    else if (OneHandedAnims.Contains(TwoHanded))
-                                    {
-                                        nw.EquipmentType.SetTo(Skyrim.EquipType.EitherHand);
-                                        Console.WriteLine($"\t\tChanged Equipment Type to EitherHand");
-                                    }
-                                    nw.Data!.AnimationType = TwoHanded;
-                                    Console.WriteLine($"\t\tChanged Animation Type to {TwoHanded}");
+                                    nw.EquipmentType.SetTo(Skyrim.EquipType.EitherHand);
+                                    Console.WriteLine($"\t\tChanged Equipment Type to EitherHand");
                                 }
+                                nw.Data!.AnimationType = Animation;
+                                Console.WriteLine($"\t\tChanged Animation Type to {Animation}");
                             }
                         }
                     }

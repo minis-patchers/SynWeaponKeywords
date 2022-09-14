@@ -8,8 +8,7 @@ namespace WeaponKeywords.Types
     public struct WATModOverrides
     {
         public ModKey Mod;
-        public WeaponAnimationType OneHandedAnimation;
-        public WeaponAnimationType TwoHandedAnimation;
+        public WeaponAnimationType Animation;
     }
     public struct WeaponDB
     {
@@ -17,32 +16,30 @@ namespace WeaponKeywords.Types
         public List<string> keyword;
         //Common names of item (partial match)
         public List<string> commonNames;
+        //excludeNames
+        public List<string> excludeNames;
         //descriptor when patched
         public string outputDescription;
-        //Default Weapon's Animation Type(s)
-        public WeaponAnimationType OneHandedAnimation;
-        public WeaponAnimationType TwoHandedAnimation;
+        public WeaponAnimationType Animation;
         //Specific WAT-Type Overrides
         public List<WATModOverrides> WATModOverride;
+        //Ignore Weapon Animation Type Overrides for a mod
+        public List<ModKey> IgnoreWATOverrides;
         //Include editorID
-        public List<string> include;
+        public List<FormKey> include;
         //Exclude specific phrases
-        public List<string> exclude;
-        //Exclude editor id's
-        public List<string> excludeEditID;
+        public List<FormKey> exclude;
         //Exlcude specific sources
         public List<ModKey> excludeSource;
         //Exclude a mod from being patched
         public List<ModKey> excludeMod;
-        //Ignore Weapon Animation Type Overrides for a mod
-        public List<ModKey> IgnoreWATOverrides;
     }
     public struct ExcludesDB
     {
         //These are phrases to globally exclude
         public List<string> phrases;
         //These are editor ids to globally exclude
-        public List<string> weapons;
+        public List<FormKey> weapons;
         //exclude mods from patch
         public List<ModKey> excludeMod;
     }
