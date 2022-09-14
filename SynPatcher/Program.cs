@@ -203,7 +203,7 @@ public class Program
                 {
                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                     nw.EquipmentType.SetTo(equipType);
-                    Console.WriteLine($"\t\tChanged Equipment Type to {equipType}");
+                    Console.WriteLine($"\t\tChanged Equipment Type");
                 }
                 if (weapon.Data != null)
                 {
@@ -224,7 +224,7 @@ public class Program
                 {
                     foreach (var kyd in matchingKeywords)
                     {
-                        var scripts = DB.DB[kyd].Script.Where(x => state.LoadOrder.ModExists(x.Requires));
+                        var scripts = DB.DB[kyd].Script.Where(x => state.LoadOrder.ModExists(x.Requires, true));
                         foreach (var scr in scripts)
                         {
                             nw.VirtualMachineAdapter = nw.VirtualMachineAdapter == null ? new() : nw.VirtualMachineAdapter;

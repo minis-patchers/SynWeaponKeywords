@@ -142,8 +142,8 @@
         {
           "Requires": "SkyrimSpearMechanic.esp",
           "ScriptName": "SSM_WeaponScript",
-          "Properties": {
-            "SSM_Quest": "0012CA:SkyrimSpearMechanic.esp"
+          "Objects": {
+            "SSM_Quest": "000800:SkyrimSpearMechanic.esp"
           }
         }
       ]
@@ -307,6 +307,7 @@
         "0F71D0:Skyrim.esm",
         "00B091:DS3 Weapon Pack.esp",
         "000D9B:DS3 Weapon Pack.esp",
+        "00B012:DS3 Weapon Pack.esp",
         "00092A:Dark Souls Item Pack by Team TAL.esp",
         "00086C:BB Pack by Team TAL.esp",
         "000880:BB Pack by Team TAL.esp",
@@ -702,5 +703,5 @@
     "WeapTypeQtrStaff": "077785:Update.esm",
     "WeapTypeCurvedSword": "077786:Update.esm"
   },
-  "DBPatchVer": 19
+  "DBPatchVer": 21
 }
