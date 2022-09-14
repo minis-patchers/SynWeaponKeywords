@@ -45,22 +45,13 @@ namespace WeaponKeywords
         public static async void ConvertJson(IRunnabilityState state)
         {
             JObject? DBConv = null;
-            string path;
-            if (state.ExtraSettingsDataPath == null)
+            if (!Directory.Exists(state.ExtraSettingsDataPath))
             {
-                path = Path.Combine("Data", "Skyrim Special Edition", "SynWeaponKeywords");
+                Directory.CreateDirectory(state.ExtraSettingsDataPath!);
             }
-            else
+            if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
             {
-                path = state.ExtraSettingsDataPath!;
-            }
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            if (File.Exists(Path.Combine(path, "database.json")))
-            {
-                DBConv = JObject.Parse(File.ReadAllText(Path.Combine(path, "database.json")));
+                DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
             }
             if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) <= 0)
             {
@@ -107,7 +98,7 @@ namespace WeaponKeywords
                         Console.WriteLine("Database patching terminated");
                         return;
                     }
-                    File.WriteAllText(Path.Combine(path, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
+                    File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
                 }
             }
         }
