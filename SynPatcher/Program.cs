@@ -217,7 +217,7 @@ namespace WeaponKeywords
                                     nw.EquipmentType.SetTo(Skyrim.EquipType.BothHands);
                                     Console.WriteLine($"\t\tChanged Equipment Type to BothHands");
                                 }
-                                else if (OneHandedAnims.Contains(Animation))
+                                else if (OneHandedAnims.Contains(Animation) && !OneHandedType.Contains(weapon.EquipmentType.FormKey))
                                 {
                                     nw.EquipmentType.SetTo(Skyrim.EquipType.EitherHand);
                                     Console.WriteLine($"\t\tChanged Equipment Type to EitherHand");
