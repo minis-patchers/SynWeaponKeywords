@@ -58,10 +58,10 @@ public class Program
         {
             DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
         }
-        if (DBConv == null || (DBConv["DBPatchVer"]?.Value<int>() ?? 0) <= 0)
+        if (DBConv == null || (DBConv["DBVer"]?.Value<int>() ?? 0) <= 0)
         {
             DBConv = new JObject();
-            DBConv["DBPatchVer"] = 0;
+            DBConv["DBVer"] = 0;
         }
         //New Age JSON Patcher // Shiny
         using (var HttpClient = new HttpClient())
@@ -78,7 +78,7 @@ public class Program
                 return;
             }
             var pi = JArray.Parse(resp).ToObject<List<string>>()!;
-            for (int i = DBConv["DBPatchVer"]!.Value<int>(); i < pi.Count; i++)
+            for (int i = DBConv["DBVer"]!.Value<int>(); i < pi.Count; i++)
             {
                 try
                 {
@@ -109,7 +109,7 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        Console.WriteLine($"Running with Database Patch: {DB.DBPatchVer}");
+        Console.WriteLine($"Running with Database Patch: {DB.DBVer}");
         Dictionary<string, List<IKeywordGetter>> formkeys = new();
         var Keywords = DB.DB.SelectMany(x => x.Value.keyword).Distinct();
         foreach (var kyd in DB.DB.Select(x => x.Key))

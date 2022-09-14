@@ -76,5 +76,5 @@ public class Database
     public Dictionary<string, FormKey> InjectedKeywords = new();
     [SynthesisSettingName("Do not Touch - Internal Use Only")]
     [SynthesisTooltip("Internal use only, do not touch")]
-    public int DBPatchVer = -1;
+    public int DBVer = -1;
 }
