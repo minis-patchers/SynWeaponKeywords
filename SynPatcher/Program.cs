@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
-using Mutagen.Bethesda.Plugins;
-using Mutagen.Bethesda.FormKeys.SkyrimSE;
 
 using Noggog;
 
@@ -22,6 +20,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using System.Drawing;
+using System.Data;
 
 namespace WeaponKeywords;
 public class Program
@@ -104,6 +103,10 @@ public class Program
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
         Console.WriteLine($"Running with Database Patch: V{DB.DBVer}");
+        if ((int)DB.exp > 1)
+        {
+            Console.WriteLine("WARNING: RUNNING WITH FULL EXPERIMENTAL MODE; THIS MODE REQUIRES A SCRIPT TO BE INSTALLED");
+        }
         Dictionary<string, List<IKeywordGetter>> formkeys = new();
         var Keywords = DB.DB.SelectMany(x => x.Value.keyword).Distinct();
         foreach (var kyd in DB.DB.Select(x => x.Key))
@@ -172,11 +175,7 @@ public class Program
                     .Select(x => x.TryResolve<IKeywordGetter>(state.LinkCache, out var kyd) ? kyd : null)
                     .Where(x => x != null)
                     //.Where(x => !x!.EditorID.StartsWith("WeapType"))
-                    .Concat(
-                        matchingKeywords.SelectMany(
-                            x => formkeys[x].Where(y => !DB.DB[x].excludeSource.Contains(y.FormKey.ModKey))
-                        )
-                    )
+                    .Concat(matchingKeywords.SelectMany(x => formkeys[x]))
                     .Select(x => x!)
                     .DistinctBy(x => x.FormKey)
                     .ToHashSet() ?? new();
@@ -187,21 +186,14 @@ public class Program
                     nw.Keywords = keywords.Select(x => x.ToLinkGetter()).ToExtendedList();
                     Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.EditorID} from {x.FormKey.ModKey}"))}");
                 }
-                var fKeyword = matchingKeywords.First();
-                if (weapon!.Data!.AnimationType != DB.DB[fKeyword].Animation)
-                {
-                    nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                    if (nw.Data != null)
-                    {
-                        nw.Data.AnimationType = DB.DB[fKeyword].Animation;
-                        Console.WriteLine($"\tSetting animation type to {DB.DB[fKeyword].Animation}");
-                    }
-                }
                 if (nw != null)
                 {
                     foreach (var kyd in matchingKeywords)
                     {
-                        var scripts = DB.DB[kyd].Script.Where(x => state.LoadOrder.ModExists(x.Requires, true));
+                        var scripts = DB.DB[kyd].Script.Where(x => state.LoadOrder.ModExists(x.Requires, true))
+                            .Where(x => !x.ExcludeMods.Contains(weapon.FormKey.ModKey))
+                            .Where(x => !x.ExcludeItems.Contains(weapon.FormKey))
+                            .ToHashSet();
                         foreach (var scr in scripts)
                         {
                             nw.VirtualMachineAdapter = nw.VirtualMachineAdapter == null ? new() : nw.VirtualMachineAdapter;
@@ -224,7 +216,35 @@ public class Program
                         }
                     }
                 }
+                var fKeyword = matchingKeywords.First();
+                if ((int)DB.exp > 0)
+                {
+                    var NameO = DB.DB[fKeyword].AnimNameOverride.FirstOrDefault(x => weapon!.Name!.String!.Contains(x.Compare));
+                    var ModO = DB.DB[fKeyword].AnimModOverride.FirstOrDefault(x => weapon.FormKey.ModKey == x.Compare);
+                    var ItemO = DB.DB[fKeyword].AnimItemOverride.FirstOrDefault(x => weapon.FormKey == x.Compare);
+                    var Animation = ItemO.Compare.IsNull ? (ModO.Compare.IsNull ? (NameO.Compare.IsNullOrEmpty() ? DB.DB[fKeyword].Animation : NameO.Animation) : ModO.Animation) : ItemO.Animation;
+                    if (
+                        Animation.ContainsKey(DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]) &&
+                        weapon!.Data!.AnimationType != Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]]
+                    )
+                    {
+                        nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
+                        if (nw.Data != null)
+                        {
+                            nw.Data.AnimationType = Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]];
+                            Console.WriteLine($"\tSetting animation type to {Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]]}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Animation type {DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]} for {fKeyword} not defined");
+                    }
+                }
             }
+        }
+        if ((int)DB.exp > 1)
+        {
+            Console.WriteLine("WARNING: RAN WITH FULL EXPERIMENTAL MODE; THIS MODE REQUIRES A SCRIPT TO BE INSTALLED");
         }
     }
 }
