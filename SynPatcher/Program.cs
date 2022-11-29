@@ -139,8 +139,8 @@ public class Program
             foreach (var kywd in DB.InjectedKeywords)
             {
                 //Don't inject record if we have it...
-                if(formkeys.SelectMany(x=>x.Value).Where(x=>x.FormKey.Equals(kywd.Value)).Any()) continue;
                 var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
+                if(formkeys.Where(x=>type.Contains(x.Key)).SelectMany(x=>x.Value).Where(x=>x.FormKey.Equals(kywd.Value)).Any()) continue;
                 var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE);
                 key.EditorID = kywd.Key;
                 key.Color = Color.Black;
