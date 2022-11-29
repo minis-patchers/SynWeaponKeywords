@@ -126,7 +126,7 @@ public class Program
                 {
                     if (keyword == null) continue;
                     var type = DB.DB.Where(x => x.Value.keyword.Contains(keyword.EditorID ?? "")).Select(x => x.Key);
-                    Console.WriteLine($"Keyword : {keyword.FormKey.ModKey} : {keyword.EditorID}");
+                    Console.WriteLine($"Keyword : {keyword.FormKey.IDString()}:{keyword.FormKey.ModKey}:{keyword.EditorID}");
                     foreach (var tp in type)
                     {
                         formkeys[tp].Add(keyword);
@@ -138,12 +138,14 @@ public class Program
         {
             foreach (var kywd in DB.InjectedKeywords)
             {
+                //Don't inject record if we have it...
+                if(formkeys.SelectMany(x=>x.Value).Where(x=>x.FormKey.Equals(kywd.Value)).Any()) continue;
                 var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
                 var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE);
                 key.EditorID = kywd.Key;
                 key.Color = Color.Black;
                 state.PatchMod.Keywords.Add(key);
-                Console.WriteLine($"Added Keyword : {key.FormKey.IDString()}:{key.FormKey.ModKey} : {key.EditorID}");
+                Console.WriteLine($"Added Keyword : {key.FormKey.IDString()}:{key.FormKey.ModKey}:{key.EditorID}");
                 foreach (var tp in type)
                 {
                     formkeys[tp].Add(key);
