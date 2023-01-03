@@ -36,6 +36,12 @@ public static class DBConst
     };
 }
 
+public struct AnimOverrideEnum<T> where T : Enum
+{
+    public T Compare;
+    public Dictionary<EquipType, WeaponAnimationType> Animation;
+}
+
 public struct AnimOverride<T> where T : IEquatable<T>
 {
     public T Compare;
@@ -62,7 +68,7 @@ public struct Weapons
     //descriptor when patched
     public string outputDescription;
     //Weapon Animation Type handling
-    public Dictionary<EquipType, WeaponAnimationType> Animation;
+    public List<AnimOverrideEnum<EquipType>> AnimEQOverride;
     public List<AnimOverride<String>> AnimNameOverride;
     public List<AnimOverride<ModKey>> AnimModOverride;
     public List<AnimOverride<FormKey>> AnimItemOverride;

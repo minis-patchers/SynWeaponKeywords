@@ -140,7 +140,7 @@ public class Program
             {
                 //Don't inject record if we have it...
                 var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
-                if(formkeys.Where(x=>type.Contains(x.Key)).SelectMany(x=>x.Value).Where(x=>x.FormKey.Equals(kywd.Value)).Any()) continue;
+                if (formkeys.Where(x => type.Contains(x.Key)).SelectMany(x => x.Value).Where(x => x.FormKey.Equals(kywd.Value)).Any()) continue;
                 var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE);
                 key.EditorID = kywd.Key;
                 key.Color = Color.Black;
@@ -224,7 +224,7 @@ public class Program
                     var NameO = DB.DB[fKeyword].AnimNameOverride.FirstOrDefault(x => weapon!.Name!.String!.Contains(x.Compare));
                     var ModO = DB.DB[fKeyword].AnimModOverride.FirstOrDefault(x => weapon.FormKey.ModKey == x.Compare);
                     var ItemO = DB.DB[fKeyword].AnimItemOverride.FirstOrDefault(x => weapon.FormKey == x.Compare);
-                    var Animation = ItemO.Compare.IsNull ? (ModO.Compare.IsNull ? (NameO.Compare.IsNullOrEmpty() ? DB.DB[fKeyword].Animation : NameO.Animation) : ModO.Animation) : ItemO.Animation;
+                    var Animation = ItemO.Compare.IsNull ? (ModO.Compare.IsNull ? (NameO.Compare.IsNullOrEmpty() ? DB.DB[fKeyword].AnimEQOverride.First(x => x.Compare == DBConst.EquipTypeTableR[weapon!.EquipmentType.FormKey]).Animation : NameO.Animation) : ModO.Animation) : ItemO.Animation;
                     if (
                         Animation.ContainsKey(DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]) &&
                         weapon!.Data!.AnimationType != Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]]

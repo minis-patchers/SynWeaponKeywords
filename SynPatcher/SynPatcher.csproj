@@ -7,8 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.5" />
-    <PackageReference Include="Mutagen.Bethesda" Version="0.39.6" />
-    <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.24.1" />
+    <PackageReference Include="Mutagen.Bethesda" Version="0.40.0" />
+    <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.25.0" />
     <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSe" Version="3.0" />
   </ItemGroup>
 </Project>
