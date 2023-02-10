@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Synthesis.Bethesda.DTO;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis.Settings;
@@ -54,7 +55,10 @@ public struct Scripts
     public string ScriptName;
     public List<ModKey> ExcludeMods;
     public List<FormKey> ExcludeItems;
-    public Dictionary<string, FormKey> Objects;
+    public Dictionary<string, FormKey> ObjectParam;
+    public Dictionary<string, List<FormKey>> ObjectListParam;
+    public Dictionary<string, float> FloatParam;
+    public Dictionary<string, List<float>> FloatListParam;
 }
 
 public struct Weapons
@@ -69,12 +73,12 @@ public struct Weapons
     public string outputDescription;
     //Weapon Animation Type handling
     public List<AnimOverrideEnum<EquipType>> AnimEQOverride;
-    public List<AnimOverride<String>> AnimNameOverride;
+    public List<AnimOverride<string>> AnimNameOverride;
     public List<AnimOverride<ModKey>> AnimModOverride;
     public List<AnimOverride<FormKey>> AnimItemOverride;
     //Include editorID
     public List<FormKey> include;
-    //Exclude specific phrases
+    //exclude specific item
     public List<FormKey> exclude;
     //Exclude a mod from being patched
     public List<ModKey> excludeMod;
