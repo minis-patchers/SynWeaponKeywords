@@ -98,6 +98,7 @@ public class Program
         var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x=>x.NameWithoutExtension.EndsWith("_SWK"));
         var db = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
         foreach(var patch in SWK_PATCHES) {
+            Console.WriteLine($"Applying data-patch {patch.NameWithoutExtension}");
             var data = File.ReadAllText(patch.Path);
             var pch = JsonConvert.DeserializeObject<List<JsonOperation>>(data);
             pch!.ApplyTo(db);
