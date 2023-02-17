@@ -85,7 +85,8 @@ public class Program
                     return;
                 }
                 var pch = JsonConvert.DeserializeObject<List<JsonOperation>>(resp);
-                if(pch!.ApplyTo(DBConv)) {
+                if (pch!.ApplyTo(DBConv))
+                {
                     Console.WriteLine($"JsonPatch+ Successfully applied: {i}");
                 }
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), JsonConvert.SerializeObject(DBConv, Formatting.Indented));
@@ -95,9 +96,10 @@ public class Program
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
         Console.WriteLine($"Running with Database Base-Patch: V{Settings.DBVer}");
-        var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x=>x.NameWithoutExtension.EndsWith("_SWK"));
+        var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x => x.NameWithoutExtension.EndsWith("_SWK"));
         var db = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
-        foreach(var patch in SWK_PATCHES) {
+        foreach (var patch in SWK_PATCHES)
+        {
             Console.WriteLine($"Applying data-patch {patch.NameWithoutExtension}");
             var data = File.ReadAllText(patch.Path);
             var pch = JsonConvert.DeserializeObject<List<JsonOperation>>(data);
