@@ -179,7 +179,7 @@ public class Program
                 var keywords = weapon.Keywords?
                     .Select(x => x.TryResolve<IKeywordGetter>(state.LinkCache, out var kyd) ? kyd : null)
                     .Where(x => x != null)
-                    .Where(x => !(x!.EditorID.StartsWith("WeapType") && (int)DB.exp >= 1))
+                    .Where(x => !(x!.EditorID!.StartsWith("WeapType") && (int)DB.exp >= 1))
                     .Concat(matchingKeywords.SelectMany(x => formkeys[x]))
                     .Select(x => x!)
                     .DistinctBy(x => x.FormKey)

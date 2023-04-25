@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynWeaponKeywords", "SynPatcher\SynPatcher.csproj", "{897DC10F-C6E3-4CE6-97C1-CB24F4B6BA13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynPatcher", "SynPatcher\SynPatcher.csproj", "{897DC10F-C6E3-4CE6-97C1-CB24F4B6BA13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

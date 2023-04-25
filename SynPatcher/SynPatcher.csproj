@@ -9,6 +9,6 @@
     <PackageReference Include="Mutagen.Bethesda" Version="0.41.0" />
     <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.25.4" />
     <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSE" Version="3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>
