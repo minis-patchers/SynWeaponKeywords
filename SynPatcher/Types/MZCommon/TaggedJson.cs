@@ -3,15 +3,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MZCommonClass.Attributes;
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace MZCommonClass.TaggedJson;
 
 public class UnionJson : JsonConverter
 {
-    static HashSet<(string Tag, string Name, string? altName, Type type)> UnionTypes;
+    static readonly HashSet<(string Tag, string Name, string? altName, Type type)> UnionTypes;
     static UnionJson()
     {
         UnionTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes().Where(x => x.GetCustomAttribute<UnionAttribute>(true) != null)
@@ -19,7 +15,7 @@ public class UnionJson : JsonConverter
     }
     public override bool CanConvert(Type typ)
     {
-        return UnionTypes.Any(x => x.Item4 == typ);
+        return UnionTypes.Any(x => x.type == typ);
     }
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
@@ -75,7 +71,7 @@ public class UnionJson : JsonConverter
                     continue;
                 }
                 var tmp = new JTokenWriter();
-                serializer.Serialize(tmp, field.GetValue(value), field.FieldType);
+                serializer.Serialize(tmp, field.GetValue(value));
                 jObj.Add(new JProperty(field.Name, tmp.Token));
             }
             string name = typ.Name;

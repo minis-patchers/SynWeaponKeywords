@@ -1,10 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 using MZCommonClass.Attributes;
 using MZCommonClass.TaggedJson;
 
@@ -15,11 +11,11 @@ public static class Extensions
 {
     public static JToken Pointer(this JToken token, IEnumerable<string> path)
     {
-        if (token.Type == JTokenType.Object && path.Count() > 0)
+        if (token.Type == JTokenType.Object && path.Any())
         {
             return Pointer(((JObject)token)[path.First()]!, path.TakeLast(path.Count() - 1));
         }
-        else if (token.Type == JTokenType.Array && path.Count() > 0)
+        else if (token.Type == JTokenType.Array && path.Any())
         {
             return Pointer(((JArray)token)[int.Parse(path.First())]!, path.TakeLast(path.Count() - 1));
         }
@@ -36,7 +32,7 @@ public static class Extensions
             var ss = op.ApplyTo(obj);
             if (ss == false)
             {
-                Console.WriteLine($"Failed to apply: {JsonConvert.SerializeObject(op)}");
+                Console.WriteLine($"Failed to apply: {op}");
             }
             success &= ss;
         }
