@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
-using Synthesis.Bethesda.DTO;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis.Settings;
@@ -22,6 +19,7 @@ public enum EXP
 
 public static class DBConst
 {
+    public const string DEFAULT_UPDATE_LOCATION = "https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json";
     public static Dictionary<FormKey, EquipType> EquipTypeTableR = new()
     {
         {Skyrim.EquipType.EitherHand.FormKey, EquipType.EitherHand},
@@ -102,6 +100,13 @@ public class Database
     [SynthesisDescription("Generates keywords for use in the patcher")]
     [SynthesisSettingName("Generate Keywords")]
     public bool Gen = true;
+    [SynthesisSettingName("Use remote updates")]
+    [SynthesisTooltip("This patcher by default uses a mechanism to grab remote updates for it's database, this setting can disabled if you use your own database.json from online... these updates only work for it's original database")]
+    public bool DoUpdates = true;
+    [SynthesisSettingName("Remote update location")]
+    [SynthesisTooltip("Location to grab this patcher's remote updates, generally only useful if you have your own modpack / modlist, and know the format")]
+    //Default location is the mini's patcher's github
+    public string UpdateLocation = DBConst.DEFAULT_UPDATE_LOCATION;
     //Experimental mode, while structures are included with the main mod and DB updates, the features that use them are disabled by this switch
     [SynthesisSettingName("Experimental mode")]
     [SynthesisDescription("Sets the level of experimental mode (Recommended OFF, unless you know what you're doing or are told to change this)")]

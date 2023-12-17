@@ -1,10 +1,3 @@
-using System;
-using System.Net.Http;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
@@ -50,17 +43,22 @@ public class Program
         }
         if (DBConv == null || (DBConv["DBVer"]?.Value<int>() ?? 0) <= 0)
         {
-            DBConv = new JObject();
-            DBConv["DBVer"] = 0;
+            DBConv = new JObject
+            {
+                ["DBVer"] = 0,
+                ["DoUpdates"] = true,
+                ["UpdateLocation"] = DBConv?["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
+            };
         }
-        //JSON Patch based DB-Updates
-        using (var HttpClient = new HttpClient())
+        if (DBConv["DoUpdates"]?.Value<bool>() ?? true)
         {
+            //JSON (Micro)Patch based DB-Updates
+            using var HttpClient = new HttpClient();
             HttpClient.Timeout = TimeSpan.FromSeconds(5);
             string resp = string.Empty;
             try
             {
-                var http = HttpClient.GetStringAsync("https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json");
+                var http = HttpClient.GetStringAsync(DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION);
                 http.Wait();
                 resp = http.Result;
             }
@@ -95,7 +93,7 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        Console.WriteLine($"Running with Database Base-Patch: V{Settings.DBVer}");
+        Console.WriteLine($"Running with Database Version: V{Settings.DBVer}");
         var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x => x.NameWithoutExtension.EndsWith("_SWK"));
         var db = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
         foreach (var patch in SWK_PATCHES)
@@ -144,9 +142,11 @@ public class Program
                 //Don't inject record if we have it...
                 var type = DB.DB.Where(x => x.Value.keyword.Contains(kywd.Key ?? "")).Select(x => x.Key).ToHashSet();
                 if (formkeys.Where(x => type.Contains(x.Key)).SelectMany(x => x.Value).Where(x => x.FormKey.Equals(kywd.Value)).Any()) continue;
-                var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE);
-                key.EditorID = kywd.Key;
-                key.Color = Color.Black;
+                var key = new Keyword(kywd.Value, SkyrimRelease.SkyrimSE)
+                {
+                    EditorID = kywd.Key,
+                    Color = Color.Black
+                };
                 state.PatchMod.Keywords.Add(key);
                 Console.WriteLine($"Added Keyword : {key.FormKey.IDString()}:{key.FormKey.ModKey}:{key.EditorID}");
                 foreach (var tp in type)
@@ -177,7 +177,7 @@ public class Program
                 Console.WriteLine($"{edid} - {weapon.FormKey.IDString()}:{weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}");
                 Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} is {string.Join(" & ", DB.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
                 var keywords = weapon.Keywords?
-                    .Select(x => x.TryResolve<IKeywordGetter>(state.LinkCache, out var kyd) ? kyd : null)
+                    .Select(x => x.TryResolve(state.LinkCache, out var kyd) ? kyd : null)
                     .Where(x => x != null)
                     .Where(x => !(x!.EditorID!.StartsWith("WeapType") && (int)DB.exp >= 1))
                     .Concat(matchingKeywords.SelectMany(x => formkeys[x]))
@@ -201,7 +201,7 @@ public class Program
                             .ToHashSet();
                         foreach (var scr in scripts)
                         {
-                            nw.VirtualMachineAdapter = nw.VirtualMachineAdapter == null ? new() : nw.VirtualMachineAdapter;
+                            nw.VirtualMachineAdapter ??= new();
                             if (nw.VirtualMachineAdapter.Scripts.Any(x => x.Name == scr.ScriptName)) continue;
                             Console.WriteLine($"\t\tAttaching Script {scr.ScriptName}");
                             var script = new ScriptEntry()
@@ -259,15 +259,14 @@ public class Program
                     var ItemO = DB.DB[fKeyword].AnimItemOverride.FirstOrDefault(x => weapon.FormKey == x.Compare);
                     var Animation = ItemO.Compare.IsNull ? (ModO.Compare.IsNull ? (NameO.Compare.IsNullOrEmpty() ? DB.DB[fKeyword].AnimEQOverride.First(x => x.Compare == DBConst.EquipTypeTableR[weapon!.EquipmentType.FormKey]).Animation : NameO.Animation) : ModO.Animation) : ItemO.Animation;
                     if (
-                        Animation.ContainsKey(DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]) &&
-                        weapon!.Data!.AnimationType != Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]]
-                    )
+                        Animation.TryGetValue(DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey], out WeaponAnimationType value) &&
+                        weapon!.Data!.AnimationType != value)
                     {
                         nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
                         if (nw.Data != null)
                         {
-                            nw.Data.AnimationType = Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]];
-                            Console.WriteLine($"\tSetting animation type to {Animation[DBConst.EquipTypeTableR[weapon.EquipmentType.FormKey]]}");
+                            nw.Data.AnimationType = value;
+                            Console.WriteLine($"\tSetting animation type to {value}");
                         }
                     }
                     else
