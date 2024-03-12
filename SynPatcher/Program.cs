@@ -77,6 +77,7 @@ public class Program
                 }
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"), resp);
                 Process.Start(inf)?.WaitForExit();
+                File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
             }
         }
         File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"));
@@ -86,8 +87,9 @@ public class Program
             Console.WriteLine($"Applying data-patch {patch.NameWithoutExtension}");
             File.Copy(patch.Path, Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
             Process.Start(inf)?.WaitForExit();
+            File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
         }
-        File.Delete(Path.Join(state.ExtraSettingsDataPath, "patch.json"));
+        
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
