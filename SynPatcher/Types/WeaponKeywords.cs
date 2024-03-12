@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Synthesis.Settings;
+using Newtonsoft.Json.Converters;
 
 namespace WeaponKeywords.Types;
 
@@ -33,6 +35,7 @@ public struct Weapons
     //exclude specific item
     public List<FormKey> exclude;
     //List of valid EquipTypes
+    [JsonConverter(typeof(StringEnumConverter))]
     public EquippedType validEquipType;
 }
 public struct Excludes

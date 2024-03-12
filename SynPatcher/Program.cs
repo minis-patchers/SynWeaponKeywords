@@ -60,6 +60,13 @@ public class Program
                 Console.WriteLine("Failed to download patch index");
                 return;
             }
+            if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe")))
+            {
+                Console.Out.WriteLine("Downloading the latest release of JD for DB patching");
+                var task = HttpClient.GetByteArrayAsync("https://github.com/josephburnett/jd/releases/latest/download/jd-amd64-windows.exe");
+                task.Wait();
+                File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe"), task.Result);
+            }
             var pi = JArray.Parse(resp).ToObject<List<string>>()!;
             for (int i = DBConv["DBVer"]!.Value<int>(); i < pi.Count; i++)
             {
@@ -89,7 +96,7 @@ public class Program
             Process.Start(inf)?.WaitForExit();
             File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
         }
-        
+
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
