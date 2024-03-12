@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Noggog;
 using WeaponKeywords.Types;
@@ -43,6 +44,14 @@ public class Program
         if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
         {
             DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
+        }
+        if ((DBConv["DBVer"]?.Value<int>() ?? -1) < 0)
+        {
+            DBConv = new()
+            {
+                ["DBVer"] = 0
+            };
+            File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
         }
         if (DBConv["DoUpdates"]?.Value<bool>() ?? true)
         {
