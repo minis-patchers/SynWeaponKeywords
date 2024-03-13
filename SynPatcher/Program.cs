@@ -1,9 +1,8 @@
 using System.Data;
 using System.Diagnostics;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
+using Mutagen.Bethesda.Plugins.Binary.Headers;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Newtonsoft.Json;
@@ -38,11 +37,13 @@ public class Program
     }
     public static void ConvertJson(IRunnabilityState state)
     {
+        var DB_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.json");
+        var DB_BAK_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json");
         PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
         JObject? DBConv = new();
         if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
         {
-            DBConv = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")));
+            DBConv = JObject.Parse(File.ReadAllText(DB_PATH));
         }
         if ((DBConv["DBVer"]?.Value<int>() ?? -1) <= 0)
         {
@@ -93,12 +94,12 @@ public class Program
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
             }
             var cver = DBConv["DBVer"]?.Value<int>() ?? 0;
-            if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))
+            if (File.Exists(DB_BAK_PATH))
             {
-                var bver = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))["DBVer"]?.Value<int>() ?? -1;
+                var bver = JObject.Parse(File.ReadAllText(DB_BAK_PATH))["DBVer"]?.Value<int>() ?? -1;
                 if (bver == cver)
                 {
-                    File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.json"), true);
+                    File.Copy(DB_BAK_PATH, DB_PATH, File.Exists(DB_PATH));
                 }
             }
             for (var i = cver; i < pi.index.Count; i++)
@@ -118,14 +119,13 @@ public class Program
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"), resp);
                 Process.Start(PatchProc)?.WaitForExit();
                 File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
-                File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), true);
+                File.Copy(DB_PATH, DB_BAK_PATH, File.Exists(DB_BAK_PATH));
             }
         }
-        File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.json"), true);
+        File.Copy(DB_BAK_PATH, DB_PATH, File.Exists(DB_PATH));
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.json"), true);
         PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
         var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x => x.NameWithoutExtension.EndsWith("_SWK"));
         var Customizations = new List<string>();
