@@ -23,7 +23,7 @@ public class Program
         RedirectStandardInput = true,
         RedirectStandardError = true,
         RedirectStandardOutput = true,
-        FileName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "jd" : "jd.exe",
+        FileName = "jd.exe",
         Arguments = "-o database.json -p patch.json database.json"
     };
     public static async Task<int> Main(string[] args)
@@ -60,6 +60,13 @@ public class Program
             using var HttpClient = new HttpClient();
             HttpClient.Timeout = TimeSpan.FromSeconds(20);
             string resp = string.Empty;
+            if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe")))
+            {
+                Console.Out.WriteLine("Downloading the latest release of JD for DB patching");
+                var task = HttpClient.GetByteArrayAsync("https://github.com/josephburnett/jd/releases/latest/download/jd-amd64-windows.exe");
+                task.Wait();
+                File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe"), task.Result);
+            }
             try
             {
                 var http = HttpClient.GetStringAsync(DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION);
@@ -85,16 +92,8 @@ public class Program
                 };
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
             }
-
-            if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe")))
-            {
-                Console.Out.WriteLine("Downloading the latest release of JD for DB patching");
-                var task = HttpClient.GetByteArrayAsync("https://github.com/josephburnett/jd/releases/latest/download/jd-amd64-windows.exe");
-                task.Wait();
-                File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe"), task.Result);
-            }
             var cver = DBConv["DBVer"]?.Value<int>() ?? 0;
-            var bver = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))["DBVer"]?.Value<int>();
+            var bver = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))["DBVer"]?.Value<int>() ?? -1;
             if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")) && bver == cver)
             {
                 File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.json"), true);
