@@ -2,7 +2,6 @@ using System.Data;
 using System.Diagnostics;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
-using Mutagen.Bethesda.Plugins.Binary.Headers;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Newtonsoft.Json;
@@ -39,6 +38,7 @@ public class Program
     {
         var DB_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.json");
         var DB_BAK_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json");
+        PatchProc.FileName = Path.Combine(state.ExtraSettingsDataPath!, "jd.exe");
         PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
         JObject? DBConv = new();
         if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
@@ -126,7 +126,10 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
+        var DB_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.json");
+        var DB_BAK_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json");
         PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
+        PatchProc.FileName = Path.Combine(state.ExtraSettingsDataPath!, "jd.exe");
         var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x => x.NameWithoutExtension.EndsWith("_SWK"));
         var Customizations = new List<string>();
         foreach (var patch in SWK_PATCHES)
