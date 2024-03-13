@@ -6,8 +6,9 @@ using Newtonsoft.Json.Converters;
 
 namespace WeaponKeywords.Types;
 
-public enum EquippedType {
-    OneHand,TwoHand
+public enum EquippedType
+{
+    OneHand, TwoHand
 }
 
 public static class DBConst
@@ -60,4 +61,10 @@ public class Database
     [SynthesisSettingName("Do not Touch - Internal Use Only")]
     [SynthesisTooltip("Internal use only, do not touch")]
     public int DBVer = -1;
+    public string marker = string.Empty;
+}
+public struct UpdateServer
+{
+    public List<string> index;
+    public string marker;
 }
