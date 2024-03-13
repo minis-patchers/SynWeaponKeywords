@@ -1,3 +1,6 @@
 {
+    "UpdateLocation": "https://raw.githubusercontent.com/minis-patchers/SynDelta/main/SynWeaponKeywords/index.json",
+    "Marker": "main-jd-v1",
+    "DoUpdates": true,
     "DBVer": 0
 }

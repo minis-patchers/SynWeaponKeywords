@@ -58,10 +58,12 @@ public class Database
     [SynthesisTooltip("Location to grab this patcher's remote updates, generally only useful if you have your own modpack / modlist, and know the format")]
     //Default location is the mini's patcher's github
     public string UpdateLocation = DBConst.DEFAULT_UPDATE_LOCATION;
-    [SynthesisSettingName("Do not Touch - Internal Use Only")]
+    [SynthesisSettingName("Database ver - Internal Use Only")]
     [SynthesisTooltip("Internal use only, do not touch")]
     public int DBVer = -1;
-    public string marker = string.Empty;
+    [SynthesisSettingName("DB-patcher Marker - Internal Use Only")]
+    [SynthesisTooltip("Internal use only, do not touch")]
+    public string Marker = string.Empty;
 }
 public struct UpdateServer
 {

@@ -51,6 +51,7 @@ public class Program
                 ["DBVer"] = 0,
                 ["DoUpdates"] = true,
                 ["UpdateLocation"] = DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
+                ["Marker"] = DBConv["Marker"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
             };
             File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
         }
@@ -72,7 +73,7 @@ public class Program
             }
 
             var pi = JObject.Parse(resp).ToObject<UpdateServer>()!;
-            if ((DBConv["marker"]?.Value<string>() ?? "none") != pi.marker)
+            if ((DBConv["Marker"]?.Value<string>() ?? "none") != pi.marker)
             {
                 Console.WriteLine("MARKER CHANGE - Clearing DB");
                 DBConv = new()
@@ -80,10 +81,11 @@ public class Program
                     ["DBVer"] = 0,
                     ["DoUpdates"] = true,
                     ["UpdateLocation"] = DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
-                    ["marker"] = pi.marker
+                    ["Marker"] = pi.marker
                 };
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
             }
+
             if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe")))
             {
                 Console.Out.WriteLine("Downloading the latest release of JD for DB patching");
