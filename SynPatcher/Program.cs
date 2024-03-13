@@ -49,7 +49,9 @@ public class Program
         {
             DBConv = new()
             {
-                ["DBVer"] = 0
+                ["DBVer"] = 0,
+                ["DoUpdates"] = true,
+                ["UpdateLocation"] = DBConst.DEFAULT_UPDATE_LOCATION,
             };
             File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
         }
