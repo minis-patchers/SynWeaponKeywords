@@ -93,10 +93,12 @@ public class Program
                 File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
             }
             var cver = DBConv["DBVer"]?.Value<int>() ?? 0;
-            var bver = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))["DBVer"]?.Value<int>() ?? -1;
-            if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")) && bver == cver)
+            if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))
             {
+                var bver = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json")))["DBVer"]?.Value<int>() ?? -1;
+                if(bver == cver) {
                 File.Copy(Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json"), Path.Combine(state.ExtraSettingsDataPath!, "database.json"), true);
+                }
             }
             for (var i = cver; i < pi.index.Count; i++)
             {
