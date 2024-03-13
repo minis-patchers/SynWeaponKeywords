@@ -58,7 +58,7 @@ public class Program
         if (DBConv["DoUpdates"]?.Value<bool>() ?? true)
         {
             using var HttpClient = new HttpClient();
-            HttpClient.Timeout = TimeSpan.FromSeconds(5);
+            HttpClient.Timeout = TimeSpan.FromSeconds(20);
             string resp = string.Empty;
             try
             {
