@@ -14,16 +14,8 @@ namespace WeaponKeywords;
 public class Program
 {
     static Lazy<Database> LazyDB = new();
+    static Database Data => LazyDB.Value;
     static readonly JsonSerializerSettings Serializer = new();
-    static readonly ProcessStartInfo PatchProc = new()
-    {
-        CreateNoWindow = true,
-        RedirectStandardInput = true,
-        RedirectStandardError = true,
-        RedirectStandardOutput = true,
-        FileName = "jd.exe",
-        Arguments = "-o database.json -p patch.json database.json"
-    };
     public static async Task<int> Main(string[] args)
     {
         Serializer.AddMutagenConverters();
@@ -36,119 +28,37 @@ public class Program
     }
     public static void ConvertJson(IRunnabilityState state)
     {
-        var DB_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.json");
-        var DB_BAK_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json");
-        PatchProc.FileName = Path.Combine(state.ExtraSettingsDataPath!, "jd.exe");
-        PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
-        JObject? DBConv = new();
-        if (File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "database.json")))
+        ProcessStartInfo PatchProc = new()
         {
-            DBConv = JObject.Parse(File.ReadAllText(DB_PATH));
-        }
-        if ((DBConv["DBVer"]?.Value<int>() ?? -1) <= 0)
+            CreateNoWindow = true,
+            RedirectStandardInput = true,
+            RedirectStandardError = true,
+            RedirectStandardOutput = true,
+            Arguments = $"{state.DataFolderPath}",
+            FileName = Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"),
+        };
+        using var HttpClient = new HttpClient();
+        HttpClient.Timeout = TimeSpan.FromSeconds(20);
+        string resp = string.Empty;
+        if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe")))
         {
-            DBConv = new()
-            {
-                ["DBVer"] = 0,
-                ["DoUpdates"] = true,
-                ["UpdateLocation"] = DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
-                ["Marker"] = DBConv["Marker"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
-            };
-            File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
+            Console.Out.WriteLine("Downloading the latest release of patchman for database patching");
+            var task = HttpClient.GetByteArrayAsync("https://github.com/Minizbot2012/mzjd-rs/releases/latest/download/patchman.exe");
+            task.Wait();
+            File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"), task.Result);
         }
-        if (DBConv["DoUpdates"]?.Value<bool>() ?? true)
-        {
-            using var HttpClient = new HttpClient();
-            HttpClient.Timeout = TimeSpan.FromSeconds(20);
-            string resp = string.Empty;
-            if (!File.Exists(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe")))
-            {
-                Console.Out.WriteLine("Downloading the latest release of JD for DB patching");
-                var task = HttpClient.GetByteArrayAsync("https://github.com/josephburnett/jd/releases/latest/download/jd-amd64-windows.exe");
-                task.Wait();
-                File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "jd.exe"), task.Result);
-            }
-            try
-            {
-                var http = HttpClient.GetStringAsync(DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION);
-                http.Wait();
-                resp = http.Result;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Failed to download patch index");
-                return;
-            }
-
-            var pi = JObject.Parse(resp).ToObject<UpdateServer>()!;
-            if ((DBConv["Marker"]?.Value<string>() ?? "none") != pi.marker)
-            {
-                Console.WriteLine("MARKER CHANGE - Clearing DB");
-                DBConv = new()
-                {
-                    ["DBVer"] = 0,
-                    ["DoUpdates"] = true,
-                    ["UpdateLocation"] = DBConv["UpdateLocation"]?.Value<string>() ?? DBConst.DEFAULT_UPDATE_LOCATION,
-                    ["Marker"] = pi.marker
-                };
-                File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json"), DBConv.ToString(Formatting.Indented));
-            }
-            var cver = DBConv["DBVer"]?.Value<int>() ?? 0;
-            if (File.Exists(DB_BAK_PATH))
-            {
-                var bver = JObject.Parse(File.ReadAllText(DB_BAK_PATH))["DBVer"]?.Value<int>() ?? -1;
-                if (bver == cver)
-                {
-                    File.Copy(DB_BAK_PATH, DB_PATH, File.Exists(DB_PATH));
-                }
-            }
-            for (var i = cver; i < pi.index.Count; i++)
-            {
-                try
-                {
-                    Console.WriteLine($"Downloading patch {i} from {pi.index[i]}");
-                    var http = HttpClient.GetStringAsync(pi.index[i]);
-                    http.Wait();
-                    resp = http.Result;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine($"Failed to download patch {pi.index[i]}");
-                    return;
-                }
-                File.WriteAllText(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"), resp);
-                Process.Start(PatchProc)?.WaitForExit();
-                File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
-                File.Copy(DB_PATH, DB_BAK_PATH, File.Exists(DB_BAK_PATH));
-            }
-        }
-        File.Copy(DB_BAK_PATH, DB_PATH, File.Exists(DB_PATH));
+        Process.Start(PatchProc)?.WaitForExit();
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        var DB_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.json");
-        var DB_BAK_PATH = Path.Combine(state.ExtraSettingsDataPath!, "database.bak.json");
-        PatchProc.WorkingDirectory = state.ExtraSettingsDataPath;
-        PatchProc.FileName = Path.Combine(state.ExtraSettingsDataPath!, "jd.exe");
-        var SWK_PATCHES = state.DataFolderPath.EnumerateFiles().Where(x => x.NameWithoutExtension.EndsWith("_SWK"));
-        var Customizations = new List<string>();
-        foreach (var patch in SWK_PATCHES)
-        {
-            Customizations.Add(patch.NameWithoutExtension);
-            File.Copy(patch.Path, Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
-            Process.Start(PatchProc)?.WaitForExit();
-            File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
-        }
-        var DBase = JsonConvert.DeserializeObject<Database>(File.ReadAllText(DB_PATH), Serializer)!;
-        Console.WriteLine($"Running with Database Version: V{DBase.DBVer}");
-        Console.WriteLine($"Special Customizations: {string.Join(", ", Customizations)}");
+        Console.WriteLine($"Running with Database Version: V{Data.DBVer}");
         Dictionary<string, List<IKeywordGetter>> formkeys = new();
-        var Keywords = DBase.DB.SelectMany(x => x.Value.keyword).Distinct();
-        foreach (var kyd in DBase.DB.Select(x => x.Key))
+        var Keywords = Data.DB.SelectMany(x => x.Value.keyword).Distinct();
+        foreach (var kyd in Data.DB.Select(x => x.Key))
         {
             formkeys[kyd] = new List<IKeywordGetter>();
         }
-        foreach (var src in DBase.sources)
+        foreach (var src in Data.sources)
         {
             if (!state.LoadOrder.PriorityOrder.Select(x => x.ModKey).Contains(src)) continue;
             state.LoadOrder.TryGetValue(src, out var mod);
@@ -160,7 +70,7 @@ public class Program
                 foreach (var keyword in keywords)
                 {
                     if (keyword == null) continue;
-                    var type = DBase.DB.Where(x => x.Value.keyword.Contains(keyword.EditorID ?? "")).Select(x => x.Key);
+                    var type = Data.DB.Where(x => x.Value.keyword.Contains(keyword.EditorID ?? "")).Select(x => x.Key);
                     Console.WriteLine($"Keyword : {keyword.FormKey.IDString()}:{keyword.FormKey.ModKey}:{keyword.EditorID}");
                     foreach (var tp in type)
                     {
@@ -173,15 +83,15 @@ public class Program
         {
             if (!weapon.Template.IsNull) continue;
             var edid = weapon.EditorID;
-            var matchingKeywords = DBase.DB
+            var matchingKeywords = Data.DB
                 .Where(kv => kv.Value.commonNames.Any(cn => weapon.Name?.String?.Contains(cn, StringComparison.OrdinalIgnoreCase) ?? false))
                 .Where(kv => kv.Value.validEquipType == DBConst.equipTable[weapon.EquipmentType.FormKey])
                 .Where(kv => !kv.Value.excludeNames.Any(en => weapon.Name?.String?.Contains(en, StringComparison.OrdinalIgnoreCase) ?? false))
                 .Where(kv => !kv.Value.exclude.Contains(weapon.FormKey))
-                .Where(kv => !DBase.excludes.phrases.Any(ph => weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false))
-                .Where(kv => !DBase.excludes.weapons.Contains(weapon.FormKey))
+                .Where(kv => !Data.excludes.phrases.Any(ph => weapon.Name?.String?.Contains(ph, StringComparison.OrdinalIgnoreCase) ?? false))
+                .Where(kv => !Data.excludes.weapons.Contains(weapon.FormKey))
                 .Select(kv => kv.Key)
-                .Concat(DBase.DB.Where(x => x.Value.include.Contains(weapon.FormKey)).Select(x => x.Key))
+                .Concat(Data.DB.Where(x => x.Value.include.Contains(weapon.FormKey)).Select(x => x.Key))
                 .Distinct()
                 .ToHashSet();
 
@@ -189,7 +99,7 @@ public class Program
             if (matchingKeywords.Count > 0)
             {
                 Console.WriteLine($"{edid} - {weapon.FormKey.IDString()}:{weapon.FormKey.ModKey} matches: {string.Join(",", matchingKeywords)}");
-                Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} is {string.Join(" & ", DBase.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
+                Console.WriteLine($"\t{weapon.Name}: {weapon.EditorID} is {string.Join(" & ", Data.DB.Where(x => matchingKeywords.Contains(x.Key)).Select(x => x.Value.outputDescription))}");
                 var keywords = weapon.Keywords?
                     .Select(x => x.TryResolve(state.LinkCache, out var kyd) ? kyd : null)
                     .Where(x => x != null)
