@@ -31,9 +31,6 @@ public class Program
         ProcessStartInfo PatchProc = new()
         {
             CreateNoWindow = true,
-            RedirectStandardInput = true,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true,
             Arguments = $"\"{state.DataFolderPath}\"",
             FileName = Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"),
         };
