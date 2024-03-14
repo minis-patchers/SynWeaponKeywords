@@ -106,7 +106,7 @@ public class Program
             {
                 try
                 {
-                    Console.WriteLine($"Downloading patch {pi.index[i]} from {pi.index[i]}");
+                    Console.WriteLine($"Downloading patch {i} from {pi.index[i]}");
                     var http = HttpClient.GetStringAsync(pi.index[i]);
                     http.Wait();
                     resp = http.Result;
@@ -139,7 +139,7 @@ public class Program
             Process.Start(PatchProc)?.WaitForExit();
             File.Delete(Path.Combine(state.ExtraSettingsDataPath!, "patch.json"));
         }
-        var DBase = JsonConvert.DeserializeObject<Database>(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath!, "database.json")), Serializer)!;
+        var DBase = JsonConvert.DeserializeObject<Database>(File.ReadAllText(DB_PATH), Serializer)!;
         Console.WriteLine($"Running with Database Version: V{DBase.DBVer}");
         Console.WriteLine($"Special Customizations: {string.Join(", ", Customizations)}");
         Dictionary<string, List<IKeywordGetter>> formkeys = new();
