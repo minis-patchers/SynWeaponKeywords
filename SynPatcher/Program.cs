@@ -1,5 +1,6 @@
 using System.Data;
 using System.Diagnostics;
+using System.Security.Policy;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
 using Mutagen.Bethesda.Skyrim;
@@ -33,6 +34,11 @@ public class Program
             CreateNoWindow = true,
             Arguments = $"\"{state.DataFolderPath}\"",
             FileName = Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"),
+            WorkingDirectory = state.ExtraSettingsDataPath!,
+            RedirectStandardError = true,
+            RedirectStandardInput = true,
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
         };
         using var HttpClient = new HttpClient();
         HttpClient.Timeout = TimeSpan.FromSeconds(20);
@@ -44,7 +50,7 @@ public class Program
             task.Wait();
             File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"), task.Result);
         }
-        Process.Start(PatchProc)?.WaitForExit();
+        var proc = Process.Start(PatchProc);
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
