@@ -34,7 +34,7 @@ public class Program
             RedirectStandardInput = true,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
-            Arguments = $"{state.DataFolderPath}",
+            Arguments = $"\"{state.DataFolderPath}\"",
             FileName = Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"),
         };
         using var HttpClient = new HttpClient();
