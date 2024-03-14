@@ -35,9 +35,6 @@ public class Program
             Arguments = $"\"{state.DataFolderPath}\"",
             FileName = Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"),
             WorkingDirectory = state.ExtraSettingsDataPath!,
-            RedirectStandardError = true,
-            RedirectStandardInput = true,
-            RedirectStandardOutput = true,
             UseShellExecute = false,
         };
         using var HttpClient = new HttpClient();
@@ -52,7 +49,6 @@ public class Program
         }
         var proc = Process.Start(PatchProc);
         proc?.Start();
-        Console.Out.WriteLine(proc?.StandardOutput.ReadToEnd());
         proc?.WaitForExit();
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
