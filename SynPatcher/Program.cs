@@ -52,8 +52,8 @@ public class Program
         }
         var proc = Process.Start(PatchProc);
         proc?.Start();
+        Console.Out.WriteLine(proc?.StandardOutput.ReadToEnd());
         proc?.WaitForExit();
-        Console.WriteLine(proc?.StandardOutput.ReadToEnd());
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
