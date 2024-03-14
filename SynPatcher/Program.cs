@@ -51,6 +51,9 @@ public class Program
             File.WriteAllBytes(Path.Combine(state.ExtraSettingsDataPath!, "patchman.exe"), task.Result);
         }
         var proc = Process.Start(PatchProc);
+        proc?.Start();
+        proc?.WaitForExit();
+        Console.WriteLine(proc?.StandardOutput.ReadToEnd());
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
