@@ -46,9 +46,17 @@ public struct ExcludePackage
     public HashSet<FormKey> weapons;
 }
 
-public struct WeaponKeywordPackage {
+public struct WeaponKeywordPackage
+{
     public string Name;
     public string Description;
     public ExcludePackage excludes;
     public HashSet<ModKey> sources;
+}
+
+public class Settings
+{
+    public bool UseRemote = true;
+    public bool UseLocal = true;
+    public HashSet<string> Remotes = ["https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json"];
 }
