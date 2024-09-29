@@ -1,10 +1,10 @@
 {
+    "UseRemote": true,
+    "UseLocal": true,
     "Remotes": [
         {
             "URL": "https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json",
             "Use": true
         }
-    ],
-    "UseLocal": true,
-    "UseRemote": true
+    ]
 }
