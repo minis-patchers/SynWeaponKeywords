@@ -26,12 +26,12 @@ public class Program
         foreach (var package in packages)
         {
             List<WeaponKeywordInfo> weaponDB = new();
-            if(!File.Exists($"{package}/index.json")) continue;
+            if (!File.Exists($"{package}/index.json")) continue;
             var pck = File.ReadAllText($"{package}/index.json");
             var Settings = JsonConvert.DeserializeObject<WeaponKeywordPackage>(pck, settings);
             foreach (var kyd in Directory.EnumerateFiles(package))
             {
-                if (kyd == "index.json") continue;
+                if (kyd.EndsWith("index.json") || !kyd.EndsWith(".json")) continue;
                 var data = File.ReadAllText(kyd);
                 var weap = JsonConvert.DeserializeObject<WeaponKeywordInfo>(data, settings)!;
                 weaponDB.Add(weap);
