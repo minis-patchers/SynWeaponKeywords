@@ -1,4 +1,6 @@
 {
-    "Remotes": ["https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json"],
+    "Remotes": [
+        "https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json"
+    ],
     "UseRemote": true
 }

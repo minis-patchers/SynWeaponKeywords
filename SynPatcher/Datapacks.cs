@@ -5,6 +5,7 @@ namespace MZCommon.Datapack;
 public static class DatapackStatics {
     public static readonly HttpClient Cli = new();
     public static PKGInfo GetPKG(string URI) {
+        Console.WriteLine($"Getting package from {URI}");
         var tsk = Cli.GetStringAsync(URI);
         tsk.Wait();
         return JsonConvert.DeserializeObject<PKGInfo>(tsk.Result);
