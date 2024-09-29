@@ -16,6 +16,7 @@ public struct PKGInfo {
     public HashSet<string> Files;
     public readonly string GetFile(string file) {
         if(!Files.Contains(file)) return string.Empty;
+        Console.WriteLine($"Getting File: {Root}/{file}");
         var tsk = DatapackStatics.Cli.GetStringAsync($"{Root}/{file}");
         tsk.Wait();
         return tsk.Result;
