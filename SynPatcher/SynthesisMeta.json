@@ -1,8 +1,8 @@
 {
   "Nickname": "SynWeaponKeywords",
   "Visibility": "Visible",
-  "OneLineDescription": "Weapon type keyword patcher (similar to zEdit patcher)",
-  "LongDescription": "Supports a wide variety of mods",
+  "OneLineDescription": "Weapon type keyword patcher - with package",
+  "LongDescription": "Fully customizable Weapon Keyword Patcher, the default keyword package is available at ",
   "PreferredAutoVersioning": "Default",
   "RequiredMods": [],
   "TargetedReleases": [
