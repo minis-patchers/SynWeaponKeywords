@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Plugins;
-using Mutagen.Bethesda.Skyrim;
 using Newtonsoft.Json.Converters;
 
 namespace WeaponKeywords.Types;
