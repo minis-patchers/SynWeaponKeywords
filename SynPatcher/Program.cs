@@ -46,18 +46,19 @@ public class Program
         }
         if (lazySettings.Value.UseRemote)
         {
-            foreach (var pkg in lazySettings.Value.Remotes)
+            foreach (var datapack in lazySettings.Value.Remotes)
             {
+                if(!datapack.Use) continue;
                 weaponDB.Clear();
-                var package = DatapackStatics.GetPKG(pkg);
-                var pack = JsonConvert.DeserializeObject<WeaponKeywordPackage>(package.GetFile("index.json"), settings);
-                foreach (var kyd in package.Files)
+                var package = DatapackStatics.GetPKG(datapack.URL);
+                var pkg = JsonConvert.DeserializeObject<WeaponKeywordPackage>(package.GetFile("index.json"), settings);
+                foreach (var file in package.Files)
                 {
-                    if (kyd == "index.json") continue;
-                    var weap = JsonConvert.DeserializeObject<WeaponKeywordInfo>(package.GetFile(kyd), settings);
+                    if (file == "index.json") continue;
+                    var weap = JsonConvert.DeserializeObject<WeaponKeywordInfo>(package.GetFile(file), settings);
                     weaponDB.Add(weap);
                 }
-                RunPackage(state, weaponDB, pack);
+                RunPackage(state, weaponDB, pkg);
             }
         }
     }

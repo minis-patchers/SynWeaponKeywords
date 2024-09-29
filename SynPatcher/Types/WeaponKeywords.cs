@@ -54,9 +54,20 @@ public struct WeaponKeywordPackage
     public HashSet<ModKey> sources;
 }
 
+public struct Datapack
+{
+    public string URL;
+    public bool Use;
+}
+
 public class Settings
 {
     public bool UseRemote = true;
     public bool UseLocal = true;
-    public HashSet<string> Remotes = ["https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json"];
+    public List<Datapack> Remotes = [
+        new Datapack() {
+            Use = true,
+            URL = "https://raw.githubusercontent.com/minis-patchers/DataPacks/refs/heads/main/WeaponKeywords/MZWeapPKG.json"
+        }
+    ];
 }
