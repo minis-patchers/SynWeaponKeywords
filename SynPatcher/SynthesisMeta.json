@@ -2,7 +2,7 @@
   "Nickname": "SynWeaponKeywords",
   "Visibility": "Visible",
   "OneLineDescription": "Weapon type keyword patcher - with package",
-  "LongDescription": "Fully customizable Weapon Keyword Patcher, the default keyword package is available at ",
+  "LongDescription": "Fully customizable Weapon Keyword patcher, the default keyword datapack is available at ",
   "PreferredAutoVersioning": "Default",
   "RequiredMods": [],
   "TargetedReleases": [
