@@ -22,8 +22,7 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        var packages = Directory.EnumerateDirectories($"{state.DataFolderPath}/SynWeaponKeywords");
-        foreach (var package in packages)
+        foreach (var package in Directory.EnumerateDirectories($"{state.DataFolderPath}/SynPkgs/WeaponKeywords"))
         {
             List<WeaponKeywordInfo> weaponDB = [];
             if (!File.Exists($"{package}/index.json")) continue;
