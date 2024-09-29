@@ -25,7 +25,7 @@ public class Program
         var packages = Directory.EnumerateDirectories($"{state.DataFolderPath}/SynWeaponKeywords");
         foreach (var package in packages)
         {
-            List<WeaponKeywordInfo> weaponDB = new();
+            List<WeaponKeywordInfo> weaponDB = [];
             if (!File.Exists($"{package}/index.json")) continue;
             var pck = File.ReadAllText($"{package}/index.json");
             var Settings = JsonConvert.DeserializeObject<WeaponKeywordPackage>(pck, settings);
@@ -37,11 +37,11 @@ public class Program
                 weaponDB.Add(weap);
             }
             Console.WriteLine($"Running weapon keyword package {Settings.Name} ({Settings.Description})");
-            Dictionary<string, List<IKeywordGetter>> formkeys = new();
+            Dictionary<string, List<IKeywordGetter>> formkeys = [];
             var Keywords = weaponDB.SelectMany(x => x.keyword).Distinct();
             foreach (var kyd in weaponDB.Select(x => x.name))
             {
-                formkeys[kyd] = new List<IKeywordGetter>();
+                formkeys[kyd] = [];
             }
             foreach (var src in Settings.sources)
             {
@@ -51,7 +51,7 @@ public class Program
                 {
                     var keywords = mod.Mod.Keywords
                         .Where(x => Keywords.Contains(x.EditorID ?? ""))
-                        .ToList() ?? new List<IKeywordGetter>();
+                        .ToList() ?? [];
                     foreach (var keyword in keywords)
                     {
                         if (keyword == null) continue;
@@ -91,7 +91,7 @@ public class Program
                         .Concat(matchingKeywords.SelectMany(x => formkeys[x]))
                         .Select(x => x!)
                         .DistinctBy(x => x.FormKey)
-                        .ToHashSet() ?? new();
+                        .ToHashSet() ?? [];
 
                     if (keywords.Any(x => !(weapon.Keywords?.Contains(x) ?? false)))
                     {
