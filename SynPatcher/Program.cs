@@ -1,6 +1,7 @@
 using System.Data;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
+using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using MZCommon.Datapack;
@@ -48,7 +49,7 @@ public class Program
         {
             foreach (var datapack in lazySettings.Value.Remotes)
             {
-                if(!datapack.Use) continue;
+                if (!datapack.Use) continue;
                 weaponDB.Clear();
                 var package = DatapackStatics.GetPKG(datapack.URL);
                 var pkg = JsonConvert.DeserializeObject<WeaponKeywordPackage>(package.GetFile("index.json"), settings);
@@ -71,6 +72,9 @@ public class Program
         {
             formkeys[kyd] = [];
         }
+        if(!pkg.sources.Contains(state.PatchMod.ModKey)) {
+            pkg.sources.Add(state.PatchMod.ModKey);
+        }
         foreach (var src in pkg.sources)
         {
             if (!state.LoadOrder.PriorityOrder.Select(x => x.ModKey).Contains(src)) continue;
@@ -91,6 +95,14 @@ public class Program
                     }
                 }
             }
+        }
+        if (pkg.GenMissingKeywords)
+        {
+            formkeys.Where(x => x.Value.Count == 0).ForEach(x =>
+            {
+                var kyd = state.PatchMod.Keywords.AddNew();
+                kyd.EditorID = x.Key;
+            });
         }
         foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
         {

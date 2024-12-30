@@ -52,6 +52,7 @@ public struct WeaponKeywordPackage
     public string Description;
     public ExcludePackage excludes;
     public HashSet<ModKey> sources;
+    public bool GenMissingKeywords;
 }
 
 public struct Datapack
