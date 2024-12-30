@@ -102,6 +102,7 @@ public class Program
             {
                 var kyd = state.PatchMod.Keywords.AddNew();
                 kyd.EditorID = x.Key;
+                Console.WriteLine($"Generated missing Keyword ${x.Key}");
             });
         }
         foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
