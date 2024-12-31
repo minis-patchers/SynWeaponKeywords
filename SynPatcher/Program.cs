@@ -1,4 +1,8 @@
 using System.Data;
+using System.Diagnostics.Tracing;
+using System.Reflection;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Extensions.DependencyInjection;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
 using Mutagen.Bethesda.Plugins;
@@ -26,7 +30,7 @@ public class Program
     }
     public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
     {
-        List<WeaponKeywordInfo> weaponDB = [];
+        HashSet<WeaponKeywordInfo> weaponDB = [];
         if (lazySettings.Value.UseLocal && Directory.Exists($"{state.DataFolderPath}/SynPkgs/WeaponKeywords"))
         {
             foreach (var package in Directory.EnumerateDirectories($"{state.DataFolderPath}/SynPkgs/WeaponKeywords"))
@@ -63,16 +67,16 @@ public class Program
             }
         }
     }
-    public static void RunPackage(IPatcherState<ISkyrimMod, ISkyrimModGetter> state, List<WeaponKeywordInfo> weaponDB, WeaponKeywordPackage pkg)
+    public static void RunPackage(IPatcherState<ISkyrimMod, ISkyrimModGetter> state, HashSet<WeaponKeywordInfo> weaponDB, WeaponKeywordPackage pkg)
     {
         Console.WriteLine($"Running weapon keyword package {pkg.Name} ({pkg.Description})");
-        Dictionary<string, List<IKeywordGetter>> formkeys = [];
+        Dictionary<string, HashSet<IKeywordGetter>> formkeys = [];
         var Keywords = weaponDB.SelectMany(x => x.keyword).Distinct();
         foreach (var kyd in weaponDB.Select(x => x.name))
         {
             formkeys[kyd] = [];
         }
-        if(!pkg.sources.Contains(state.PatchMod.ModKey)) {
+        if(pkg.GenMissingKeywords) {
             pkg.sources.Add(state.PatchMod.ModKey);
         }
         foreach (var src in pkg.sources)
@@ -98,12 +102,20 @@ public class Program
         }
         if (pkg.GenMissingKeywords)
         {
-            formkeys.Where(x => x.Value.Count == 0).ForEach(x =>
+            var keys = weaponDB.SelectMany(x=>x.keyword).Distinct().ToHashSet();
+            foreach(var key in keys) 
             {
-                var kyd = state.PatchMod.Keywords.AddNew();
-                kyd.EditorID = x.Key;
-                Console.WriteLine($"Generated missing Keyword ${x.Key}");
-            });
+                if(!formkeys.Any(x=>x.Value.Any(x=>x.EditorID == key))) {
+                    var kyd = state.PatchMod.Keywords.AddNew();
+                    kyd.EditorID = key;
+                    Console.WriteLine($"Generating Keyword {kyd.EditorID}");
+                    var types = weaponDB.Where(x => x.keyword.Contains(key)).Select(x => x.name);
+                    var ky = state.PatchMod.Keywords.Where(x=>x.EditorID == key).First();
+                    foreach(var tp in types) {
+                        formkeys[tp].Add(ky);
+                    }
+                }
+            }
         }
         foreach (var weapon in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
         {
