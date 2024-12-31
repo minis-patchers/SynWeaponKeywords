@@ -71,12 +71,15 @@ public class Program
     {
         Console.WriteLine($"Running weapon keyword package {pkg.Name} ({pkg.Description})");
         Dictionary<string, HashSet<IKeywordGetter>> formkeys = [];
-        var Keywords = weaponDB.SelectMany(x => x.keyword).Distinct();
+        var keys = weaponDB.SelectMany(x => x.keyword).Distinct();
+        var Keywords = keys.ToHashSet();
+        var ReminaingKeywords = keys.ToHashSet();
         foreach (var kyd in weaponDB.Select(x => x.name))
         {
             formkeys[kyd] = [];
         }
-        if(pkg.GenMissingKeywords) {
+        if (pkg.GenMissingKeywords)
+        {
             pkg.sources.Add(state.PatchMod.ModKey);
         }
         foreach (var src in pkg.sources)
@@ -93,25 +96,27 @@ public class Program
                     if (keyword == null) continue;
                     var type = weaponDB.Where(x => x.keyword.Contains(keyword.EditorID ?? "")).Select(x => x.name);
                     Console.WriteLine($"Keyword : {keyword.FormKey.IDString()}:{keyword.FormKey.ModKey}:{keyword.EditorID}");
+                    if (ReminaingKeywords.Contains(keyword?.EditorID ?? "")) ReminaingKeywords.Remove(keyword?.EditorID ?? "");
                     foreach (var tp in type)
                     {
-                        formkeys[tp].Add(keyword);
+                        formkeys[tp].Add(keyword!);
                     }
                 }
             }
         }
         if (pkg.GenMissingKeywords)
         {
-            var keys = weaponDB.SelectMany(x=>x.keyword).Distinct().ToHashSet();
-            foreach(var key in keys) 
+            foreach (var key in ReminaingKeywords)
             {
-                if(!formkeys.Any(x=>x.Value.Any(x=>x.EditorID == key))) {
+                if (!formkeys.Any(x => x.Value.Any(x => x.EditorID == key)))
+                {
                     var kyd = state.PatchMod.Keywords.AddNew();
                     kyd.EditorID = key;
                     Console.WriteLine($"Generating Keyword {kyd.EditorID}");
                     var types = weaponDB.Where(x => x.keyword.Contains(key)).Select(x => x.name);
-                    var ky = state.PatchMod.Keywords.Where(x=>x.EditorID == key).First();
-                    foreach(var tp in types) {
+                    var ky = state.PatchMod.Keywords.Where(x => x.EditorID == key).First();
+                    foreach (var tp in types)
+                    {
                         formkeys[tp].Add(ky);
                     }
                 }
