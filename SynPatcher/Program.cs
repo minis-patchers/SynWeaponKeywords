@@ -114,10 +114,9 @@ public class Program
                     kyd.EditorID = key;
                     Console.WriteLine($"Generating Keyword {kyd.EditorID}");
                     var types = weaponDB.Where(x => x.keyword.Contains(key)).Select(x => x.name);
-                    var ky = state.PatchMod.Keywords.Where(x => x.EditorID == key).First();
                     foreach (var tp in types)
                     {
-                        formkeys[tp].Add(ky);
+                        formkeys[tp].Add(kyd);
                     }
                 }
             }
