@@ -3,7 +3,7 @@ using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Plugins;
 using Newtonsoft.Json.Converters;
 
-namespace WeaponKeywords.Types;
+namespace SynPatcher.Types;
 
 public enum EquippedType
 {

@@ -1,19 +1,13 @@
 using System.Data;
-using System.Diagnostics.Tracing;
-using System.Reflection;
-using ICSharpCode.SharpZipLib.Zip;
-using Microsoft.Extensions.DependencyInjection;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Json;
-using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
-using MZCommon.Datapack;
 using Newtonsoft.Json;
 using Noggog;
-using WeaponKeywords.Types;
+using SynPatcher.Types;
 
-namespace WeaponKeywords;
+namespace SynPatcher;
 
 public class Program
 {
