@@ -104,9 +104,8 @@ public class Program
             {
                 if (!formkeys.Any(x => x.Value.Any(x => x.EditorID == key)))
                 {
-                    var kyd = state.PatchMod.Keywords.AddNew();
-                    kyd.EditorID = key;
-                    Console.WriteLine($"Generating Keyword {kyd.EditorID}");
+                    var kyd = state.PatchMod.Keywords.AddNew(key);
+                    Console.WriteLine($"Generating Keyword {kyd.EditorID}:{kyd.FormKey.IDString()}");
                     var types = weaponDB.Where(x => x.keyword.Contains(key)).Select(x => x.name);
                     foreach (var tp in types)
                     {
@@ -146,8 +145,8 @@ public class Program
                 if (keywords.Any(x => !(weapon.Keywords?.Contains(x) ?? false)))
                 {
                     nw = nw == null ? state.PatchMod.Weapons.GetOrAddAsOverride(weapon)! : nw!;
-                    nw.Keywords = keywords.Select(x => x.ToLinkGetter()).ToExtendedList();
-                    Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.EditorID} from {x.FormKey.ModKey}"))}");
+                    nw.Keywords!.SetTo(keywords.Select(x => x.ToLinkGetter()));
+                    Console.WriteLine($"\tSetting keywords to:\n\t\t{string.Join("\n\t\t", keywords.Select(x => $"{x.FormKey.IDString()}:{x.FormKey.ModKey}"))}");
                 }
             }
         }
